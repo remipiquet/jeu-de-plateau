@@ -1,0 +1,16 @@
+table
+{
+    border-collapse: collapse; /* les bordures sont collées */
+    margin: auto;
+    width: 80%;
+}
+
+td, th
+{
+    border: 2px solid black;
+    width: 5%;
+    height: 10%;
+    padding: 10px;
+    margin: 10px;
+        
+}
