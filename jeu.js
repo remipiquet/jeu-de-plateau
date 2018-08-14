@@ -1,5 +1,7 @@
 //Test de maj Git
 
+// allo allo ?
+
 function Game(mapSize, statRocks) {
     /*
 		mapSize -> la taille d'un des coté de la carte
