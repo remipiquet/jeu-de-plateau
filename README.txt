@@ -1,70 +1,71 @@
-Ceci est la mise en ligne sur GitHub de mon Projet 6, formation Développeur d'Application Front-end.
+Projet 6 formation DÃ©veloppeur d'Application Front-end - OpenClassrooms
+2018
 
 ----------------------------------------------------------------------------------------------------------
 
 
-Ennoncé :
+EnnoncÃ© :
 
-Vous avez jusqu'ici développé des petites applications JavaScript. 
-Il faut maintenant vous lancer dans la création d'un projet plus complet, plus solide... bref plus costaud. ;)
+Vous avez jusqu'ici dÃ©veloppÃ© des petites applications JavaScript. 
+Il faut maintenant vous lancer dans la crÃ©ation d'un projet plus complet, plus solide... bref plus costaud. ;)
 
-Ce projet consistera à créer un jeu en ligne en JavaScript dans lequel 2 joueurs évoluent chacun leur tour pour s'affronter.  
+Ce projet consistera Ã  crÃ©er un jeu en ligne en JavaScript dans lequel 2 joueurs Ã©voluent chacun leur tour pour s'affronter.  
 Comme dans Highlander, il ne peut en rester qu'un !
 
-Etape 1 : génération de la carte
+Etape 1 : gÃ©nÃ©ration de la carte
 
-Commencez par générer aléatoirement la carte du jeu. Chaque case peut être soit :
+Commencez par gÃ©nÃ©rer alÃ©atoirement la carte du jeu. Chaque case peut Ãªtre soit :
 
     Vide
 
-    Inaccessible (grisée)
+    Inaccessible (grisÃ©e)
 
-Sur la carte, un nombre limité d’armes (4 maximum) sera placé aléatoirement et pourra être récolté par les joueurs qui passeraient dessus.
+Sur la carte, un nombre limitÃ© dâ€™armes (4 maximum) sera placÃ© alÃ©atoirement et pourra Ãªtre rÃ©coltÃ© par les joueurs qui passeraient dessus.
 
-Vous inventerez au moins 4 types d’arme dans le jeu, avec des dégâts différents. L’arme par défaut qui équipe les joueurs doit infliger 10 points de dégâts. 
-Chaque arme a un nom et un visuel associé.
+Vous inventerez au moins 4 types dâ€™arme dans le jeu, avec des dÃ©gÃ¢ts diffÃ©rents. Lâ€™arme par dÃ©faut qui Ã©quipe les joueurs doit infliger 10 points de dÃ©gÃ¢ts. 
+Chaque arme a un nom et un visuel associÃ©.
 
-Le placement des deux joueurs est lui aussi aléatoire sur la carte au chargement de la partie. 
-Ils ne doivent pas se toucher (ils ne peuvent pas être côte à côte).
+Le placement des deux joueurs est lui aussi alÃ©atoire sur la carte au chargement de la partie. 
+Ils ne doivent pas se toucher (ils ne peuvent pas Ãªtre cÃ´te Ã  cÃ´te).
 
-Fichiers à fournir :
+Fichiers Ã  fournir :
 
     Code HTML/CSS/JS du projet
 
 Etape 2 : les mouvements
 
-A chaque tour, un joueur peut se déplacer d’une à trois cases (horizontalement ou verticalement) avant de terminer son tour. 
-Il ne peut évidemment pas passer à travers un obstacle.
+A chaque tour, un joueur peut se dÃ©placer dâ€™une Ã  trois cases (horizontalement ou verticalement) avant de terminer son tour. 
+Il ne peut Ã©videmment pas passer Ã  travers un obstacle.
 
 Si un joueur passe sur une case contenant une arme, il laisse son arme actuelle sur place et la remplace par la nouvelle.
 
-Fichiers à fournir :
+Fichiers Ã  fournir :
 
     Code HTML/CSS/JS du projet
 
 Etape 3 : le combat !
 
-Si les joueurs se croisent sur des cases adjacentes (horizontalement ou verticalement), un combat à mort s’engage.
+Si les joueurs se croisent sur des cases adjacentes (horizontalement ou verticalement), un combat Ã  mort sâ€™engage.
 
 Lors d'un combat, le fonctionnement du jeu est le suivant :
 
-    Chacun attaque à son tour
+    Chacun attaque Ã  son tour
 
-    Les dégâts infligés dépendent de l’arme possédée par le joueur
+    Les dÃ©gÃ¢ts infligÃ©s dÃ©pendent de lâ€™arme possÃ©dÃ©e par le joueur
 
-    Le joueur peut choisir d’attaquer ou de se défendre contre le prochain coup
+    Le joueur peut choisir dâ€™attaquer ou de se dÃ©fendre contre le prochain coup
 
-    Lorsque le joueur se défend, il encaisse 50% de dégâts en moins qu’en temps normal
+    Lorsque le joueur se dÃ©fend, il encaisse 50% de dÃ©gÃ¢ts en moins quâ€™en temps normal
 
-    Dès que les points de vie d’un joueur (initialement à 100) tombent à 0 , celui-ci a perdu. Un message s’affiche et la partie est terminée.
+    DÃ¨s que les points de vie dâ€™un joueur (initialement Ã  100) tombent Ã  0 , celui-ci a perdu. Un message sâ€™affiche et la partie est terminÃ©e.
 
-Fichiers à fournir :
+Fichiers Ã  fournir :
 
     Code HTML/CSS/JS du projet
 
  
-Compétences à valider
+CompÃ©tences Ã  valider
 
-    Mettre en oeuvre la bibliothèque jQuery dans une application web
-    Concevoir une architecture d'application JavaScript réutilisable
-    Développer une application JavaScript orientée objet
+    Mettre en oeuvre la bibliothÃ¨que jQuery dans une application web
+    Concevoir une architecture d'application JavaScript rÃ©utilisable
+    DÃ©velopper une application JavaScript orientÃ©e objet
