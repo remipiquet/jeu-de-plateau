@@ -21,7 +21,7 @@ function players (name, health, force, weapon, position){
 }*/
 
 var player = {
-  name: "",
+  playerName: "",
   health: 100,
   force: 10,
   weapon: "fist",
