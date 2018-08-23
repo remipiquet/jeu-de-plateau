@@ -1,14 +1,14 @@
-    // Fichier JS des joueurs 
+    // Fichier JS des joueurs
 
 // /!\IL RESTE TOUT A FAIRE/!\
-    this.initPlayers = function () {
-        for(var x=0; x<this.mapSize; x++) {
-           this.plateau[x] = new Array(); 
+/*    this.initPlayers = function () {
+        for(var i=0; i<this.mapSize; i++) {
+           this.plateau[i] = new Array();
         }
-    }
-    
+    };
 
-    
+
+
 
 
 function players (name, health, force, weapon, position){
@@ -18,4 +18,16 @@ function players (name, health, force, weapon, position){
     this.weapon = weapon;
     this.position = position;
 
-}
+}*/
+
+var player = {
+  name: "",
+  health: 100,
+  force: 10,
+  weapon: "fist",
+
+};
+
+var player1 = Object.create(player);
+
+var player2 = Object.create(player);
