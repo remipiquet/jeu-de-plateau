@@ -66,7 +66,7 @@ Board.prototype.getEmptyCells = function() {
 	for(var x=0; x<this.mapSize; x++){ // on parcours l'axe X
 		for(var y=0; y<this.mapSize; y++){ // on parcours l'axe Y
             if (this.plateau[x][y] == 0){ // si les cellules parcourues du tableau sont vides...
-                	emptyCells.push({emptyX:x,emptyY:y}); // ...stockage en JSON des cellules vides
+                	emptyCells.push({emptyX : x, emptyY : y}); // ...stockage en JSON des cellules vides
             }
         }
     }

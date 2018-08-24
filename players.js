@@ -6,7 +6,7 @@
            this.plateau[i] = new Array();
         }
     };
-
+*/
 
 
 
@@ -18,16 +18,12 @@ function players (name, health, force, weapon, position){
     this.weapon = weapon;
     this.position = position;
 
-}*/
+}
 
-var player = {
+/*var player = {
   playerName: "",
   health: 100,
   force: 10,
   weapon: "fist",
 
-};
-
-var player1 = Object.create(player);
-
-var player2 = Object.create(player);
+};*/

@@ -2,5 +2,4 @@
 var weapon = {
   weaponName: "",
   damage: 0,
-
 };
