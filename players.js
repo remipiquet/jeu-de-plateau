@@ -20,6 +20,12 @@ function players (name, health, force, weapon, position){
 
 }
 
+var player1 = Object.create(players);
+var player2 = Object.create(players);
+
+player1.name = "Joueur 1";
+player2.name = "Joueur 2";
+
 /*var player = {
   playerName: "",
   health: 100,
