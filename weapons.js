@@ -1,5 +1,6 @@
 // Fichier JS des armes
-var weapon = {
-  weaponName: "",
-  damage: 0,
-};
+
+function weapon (name, damage) {
+  this.name = name;
+  this.damage = damage;
+}
