@@ -52,7 +52,7 @@ Board.prototype.getEmptyCells = function() {
             }
         }
     }
-		console.log(emptyCells);
+
 		return emptyCells;
 };
 
