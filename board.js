@@ -22,7 +22,7 @@ function Board(mapSize, statRocks) {
             for(var y=0; y<this.mapSize; y++){
                 //pour chaque colonne de chaque ligne on mets ou non un rocher
                 if(Math.floor((Math.random() * this.statRocks)) == 0){ // on genere un nombre entre 0 et statRocks compris et si on a 0 on met un rocher (1/10 de rochers quoi)
-				this.board[x][y] = 4;
+				this.board[x][y] = "Rock";
                 }else{    // dans ce cas la case est vide
 				this.board[x][y] = 0; // TODO: vérifier que l'initialisation a 0 est utile dans bien des langages de prog les tableaux sont par défaut a 0
                 // j'ai mis 4 quand y'a un rocher et 3 quand c'est vide comme ça on réserve 1 et 2 pour les joueurs

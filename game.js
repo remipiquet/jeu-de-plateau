@@ -17,7 +17,7 @@ var player1Position = Math.floor(Math.random()*(boardEmptyCells.length)); // On 
 
 var player1Json = boardEmptyCells[player1Position]; // On stocke le placement du joueur 1 en JSON dans ces cases vides
 //console.log(player1Json);
-myGame.board[player1Json.emptyX][player1Json.emptyY] = 1; // On donne à la case le résultat 1 (pour signifier le joueur 1 sur le plateau)
+myGame.board[player1Json.emptyX][player1Json.emptyY] = "Joueur 1"; // On donne à la case le résultat 1 (pour signifier le joueur 1 sur le plateau)
 
 
 var found = false; // condition de la boucle while
@@ -29,13 +29,13 @@ while (!found){
     if (player1Position != player2Position) { // On vérifie que les joueurs soient éloignés d'au moins 1 case
       if (player1Json.emptyX == player2Json.emptyX) {
         if (player2Json.emptyY != player1Json.emptyY + 1 && player2Json.emptyY != player1Json.emptyY - 1); {
-          myGame.board[player2Json.emptyX][player2Json.emptyY] = 2;
+          myGame.board[player2Json.emptyX][player2Json.emptyY] = "Joueur 2";
             found = true;
           }
       }
       if (player1Json.emptyY == player2Json.emptyY) {
         if (player2Json.emptyX != player1Json.emptyX + 1 && player2Json.emptyX != player1Json.emptyX - 1); {
-          myGame.board[player2Json.emptyX][player2Json.emptyY] = 2;
+          myGame.board[player2Json.emptyX][player2Json.emptyY] = "Joueur 2";
             found = true;
         }
       }
@@ -43,13 +43,19 @@ while (!found){
 }
 
 
-var boardEmptyCells = myGame.getEmptyCells();
-/*var weaponFound = false;
+var boardEmptyCells = myGame.getEmptyCells(); // On reprend les cases vides cette fois sans celles occupées par les joueurs
 
-while (!weaponFound){
-  var
 
-}*/
+
+
+  var weapon1Position = Math.floor(Math.random()*(boardEmptyCells.length)); // On prend une position au hasard dans les cases vides
+
+  var weapon1Json = boardEmptyCells[player2Position]; // On stocke le placement de l'arme 1 en JSON dans ces cases vides
+
+
+  myGame.board[weapon1Json.emptyX][weapon1Json.emptyY] = "Flingue"; // On donne à la case le résultat 5 (pour signifier l'arme n°1 sur le plateau)
+
+
 
 
 myGame.afficheTout();
