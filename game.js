@@ -21,16 +21,12 @@ while (!found){ // tant que found n'est pas égal à "true"...
   var player2Position = Math.floor(Math.random()*(boardEmptyCells.length)); // On prend une position au hasard dans les cases vides
   var player2Json = boardEmptyCells[player2Position]; // On stocke le placement du joueur 2 en JSON dans ces cases vides
 
-    if (player1Position != player2Position) { // On vérifie que les joueurs soient éloignés d'au moins 1 case
-      if (player1Json.emptyX != player2Json.emptyX && player1Json.emptyY != player2Json.emptyY) {
-
+    if (player1Position != player2Position) { // On vérifie que J1 et J2 ne soient pas sur la même case
+      if (player1Json.emptyX != player2Json.emptyX && player1Json.emptyY != player2Json.emptyY) { // On vérifie qu'ils ne soient pas sur le même axe pour éviter qu'ils soient côte à côte
           myGame.board[player2Json.emptyX][player2Json.emptyY] = "Joueur 2";
             found = true;
           }
-
-
     }
-
 }
 
 // ****** Placement des armes sur le plateau ******
