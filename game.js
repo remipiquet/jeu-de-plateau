@@ -74,3 +74,8 @@ var weapon4Json = boardEmptyCells[weapon4Position]; // On stocke le placement de
 
 // Commande pour voir le plateau en textuel
 myGame.afficheTout();
+
+// Déplacement des joueurs
+// On récupère la position du joueur1
+// On vérifie les cases acccessibles autour de lui (de x-3 à x+3 et de y-3 à y+3)
+// On le fait bouger sur l'axe x ou y
