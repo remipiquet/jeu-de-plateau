@@ -32,6 +32,7 @@ while (!found){ // tant que found n'est pas égal à "true"...
 // ****** Placement des armes sur le plateau ******
 
 // Placement de l'arme 1 (Couteau)
+// boucle for à mettre en place pour ne pas répéter à chaque arme
 var boardEmptyCells = myGame.getEmptyCells(); // On reprend les cases vides cette fois sans celles occupées par les joueurs
 
 var weapon1Position = Math.floor(Math.random()*(boardEmptyCells.length)); // On prend une position au hasard dans les cases vides
@@ -42,7 +43,7 @@ var weapon1Json = boardEmptyCells[weapon1Position]; // On stocke le placement de
 
 
 // Placement de l'arme 2 (Fourche)
-var boardEmptyCells = myGame.getEmptyCells();
+var boardEmptyCells = myGame.getEmptyCells(); // On reprend les cases vides
 
 var weapon2Position = Math.floor(Math.random()*(boardEmptyCells.length)); // On prend une position au hasard dans les cases vides
 
@@ -52,7 +53,7 @@ var weapon2Json = boardEmptyCells[weapon2Position]; // On stocke le placement de
 
 
 // Placement de l'arme 3 (Flingue)
-var boardEmptyCells = myGame.getEmptyCells();
+var boardEmptyCells = myGame.getEmptyCells(); // On reprend les cases vides
 
 var weapon3Position = Math.floor(Math.random()*(boardEmptyCells.length)); // On prend une position au hasard dans les cases vides
 
@@ -62,7 +63,7 @@ var weapon3Json = boardEmptyCells[weapon3Position]; // On stocke le placement de
 
 
 // Placement de l'arme 4 (Lance-flame)
-var boardEmptyCells = myGame.getEmptyCells();
+var boardEmptyCells = myGame.getEmptyCells(); // On reprend les cases vides
 
 var weapon4Position = Math.floor(Math.random()*(boardEmptyCells.length)); // On prend une position au hasard dans les cases vides
 
@@ -76,6 +77,7 @@ var weapon4Json = boardEmptyCells[weapon4Position]; // On stocke le placement de
 myGame.afficheTout();
 
 // Déplacement des joueurs
-// On récupère la position du joueur1
+// On récupère la position du joueur en cours
 // On vérifie les cases acccessibles autour de lui (de x-3 à x+3 et de y-3 à y+3)
-// On le fait bouger sur l'axe x ou y
+// On valide la case choisie par l'utilisateur et on modifie la position du joueur
+// On vérifie si les deux joueurs sont côte à côte
