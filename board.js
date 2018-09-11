@@ -52,7 +52,6 @@ Board.prototype.getEmptyCells = function() {
             }
         }
     }
-
 		return emptyCells;
 };
 
@@ -66,12 +65,23 @@ Board.prototype.contenuCase = function(x, y) {
 Board.prototype.afficheTout = function() {
 	for(var x=0; x<this.mapSize; x++){
 		for(var y=0; y<this.mapSize; y++){
-			console.log("La case X: "+x+" Y: "+y+" contient "+this.board[x][y]);
+			console.log("La case X: " + x + " Y: " + y + " contient " + this.board[x][y]);
 		}
 	}
 };
 
+Board.prototype.getMovement = function() {
+	var movement = new Array();
+	for (var x=0; x<3; x++){
+		for(var y=0; y<3; y++){
+			if (this.board[x][y] != "Rock"|"Joueur 1"|"Joueur 2") {
+				console.log("prout") // ça va pas cette fonction, à revoir
+			}
+		}
+	}
+}
+
 
 //myGame.contenuCase(1, 2);
 //myGame.afficheTout();
-//myGame.getCasesVides();
+//myGame.getEmptyCells();

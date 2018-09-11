@@ -77,7 +77,11 @@ var weapon4Json = boardEmptyCells[weapon4Position]; // On stocke le placement de
 myGame.afficheTout();
 
 // Déplacement des joueurs
-// On récupère la position du joueur en cours
+var whereIsPlayer1 = console.log("Le joueur un est en X "+player1Json.emptyX+" Y "+player1Json.emptyY); // On récupère la position du joueur en cours
 // On vérifie les cases acccessibles autour de lui (de x-3 à x+3 et de y-3 à y+3)
 // On valide la case choisie par l'utilisateur et on modifie la position du joueur
 // On vérifie si les deux joueurs sont côte à côte
+
+// test de déplacement
+var moveLeft = player1Json.emptyX ++;
+var whereIsPlayer1 = console.log("Le joueur un est en X "+player1Json.emptyX+" Y "+player1Json.emptyY);
