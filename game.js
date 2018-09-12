@@ -3,7 +3,10 @@
 var myGame = new Board(5, 4);
 
 
-// ****** Placement des joueurs sur le plateau ******
+
+/*********************************************
+*    Placement des joueurs sur le plateau    *
+*********************************************/
 
 var boardEmptyCells = myGame.getEmptyCells(); // On prend les cases vides
 
@@ -29,7 +32,10 @@ while (!found){ // tant que found n'est pas égal à "true"...
     }
 }
 
-// ****** Placement des armes sur le plateau ******
+
+/********************************************
+*     Placement des armes sur le plateau    *
+********************************************/
 
 // Placement de l'arme 1 (Couteau)
 // boucle for à mettre en place pour ne pas répéter à chaque arme
@@ -76,12 +82,34 @@ var weapon4Json = boardEmptyCells[weapon4Position]; // On stocke le placement de
 // Commande pour voir le plateau en textuel
 myGame.afficheTout();
 
-// Déplacement des joueurs
+
+/***************************************
+*        Déplacement des joueurs       *
+***************************************/
+
 var whereIsPlayer1 = console.log("Le joueur un est en X "+player1Json.emptyX+" Y "+player1Json.emptyY); // On récupère la position du joueur en cours
 // On vérifie les cases acccessibles autour de lui (de x-3 à x+3 et de y-3 à y+3)
 // On valide la case choisie par l'utilisateur et on modifie la position du joueur
 // On vérifie si les deux joueurs sont côte à côte
 
-// test de déplacement
-var moveLeft = player1Json.emptyX ++;
-var whereIsPlayer1 = console.log("Le joueur un est en X "+player1Json.emptyX+" Y "+player1Json.emptyY);
+
+// Pour bouger à droite
+function MoveRight() {
+  var right = player1Json.emptyX ++;
+  var whereIsPlayer1 = console.log("Le joueur un est en X "+player1Json.emptyX+" Y "+player1Json.emptyY);
+}
+
+function MoveLeft() {
+  var left = player1Json.emptyX --;
+  var whereIsPlayer1 = console.log("Le joueur un est en X "+player1Json.emptyX+" Y "+player1Json.emptyY);
+}
+
+function MoveUp() {
+  var up = player1Json.emptyY --;
+  var whereIsPlayer1 = console.log("Le joueur un est en X "+player1Json.emptyX+" Y "+player1Json.emptyY);
+}
+
+function MoveDown() {
+  var down = player1Json.emptyY ++;
+  var whereIsPlayer1 = console.log("Le joueur un est en X "+player1Json.emptyX+" Y "+player1Json.emptyY);
+}
