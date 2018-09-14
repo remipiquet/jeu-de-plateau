@@ -70,16 +70,7 @@ Board.prototype.afficheTout = function() {
 	}
 };
 
-Board.prototype.getMovement = function() {
-	var movement = new Array();
-	for (var x=0; x<3; x++){
-		for(var y=0; y<3; y++){
-			if (this.board[x][y] != "Rock"|"Joueur 1"|"Joueur 2") {
-				console.log("prout") // ça va pas cette fonction, à revoir
-			}
-		}
-	}
-}
+
 
 
 //myGame.contenuCase(1, 2);
