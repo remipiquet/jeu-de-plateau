@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Wrap</title>
+    <style type="text/css">
+      div { background: red;}
+    </style>
+  </head>
+
+  <body>
+    <p>Paragraphe 1</p>
+    <p>Paragraphe 2</p>
+    <p>Paragraphe 3</p>
+    un texte isolé
+    <p>Paragraphe 4</p>
+    un autre texte isolé
+
+    <script src="jquery.js"></script>
+    <script>
+      $(function() {
+        $('p').wrapAll('<div></div>');
+
+        });
+    </script>
+  </body>
+</html>

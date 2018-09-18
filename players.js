@@ -21,7 +21,7 @@ var Player = {
     this.health = health;
     this.force = force;
     this.weapon = weapon;
-    //this.position = position;
+    this.position = position;
   }
 };
 

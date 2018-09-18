@@ -83,6 +83,10 @@ var weapon4Json = boardEmptyCells[weapon4Position]; // On stocke le placement de
 // Commande pour voir le plateau en textuel
 myGame.afficheTout();
 
+/***************************************
+*       Gestion du tour par tour       *
+***************************************/
+
 
 /***************************************
 *        Déplacement des joueurs       *
