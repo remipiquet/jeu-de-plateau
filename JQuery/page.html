@@ -1,27 +1,23 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Wrap</title>
-    <style type="text/css">
-      div { background: red;}
-    </style>
-  </head>
+<style>
+  div {
+    background:yellow;
+    font-weight:bold;
+    cursor:pointer;
+    padding:8px;
+  }
+</style>
 
-  <body>
-    <p>Paragraphe 1</p>
-    <p>Paragraphe 2</p>
-    <p>Paragraphe 3</p>
-    un texte isolé
-    <p>Paragraphe 4</p>
-    un autre texte isolé
+<div id="master">
+  <div>Cliquez pour insérer un autre &ltdiv&gt</div>
+</div>
+<button id="suppr">Supprimer la délégation d'événements</button>
+<script src="jquery.js"></script>
+<script>
+$('#master').on('click', 'div', function(){
+  $(this).after('<div>Ce &lt;div&gt; a les mêmes caractéristiques que son parent</div>');
+});
+$('#suppr').on('click', function() {
+  $('#master').off('click','div');
+});
 
-    <script src="jquery.js"></script>
-    <script>
-      $(function() {
-        $('p').wrapAll('<div></div>');
-
-        });
-    </script>
-  </body>
-</html>
+</script>

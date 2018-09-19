@@ -8,30 +8,30 @@ var myGame = new Board(5, 4);
 *    Placement des joueurs sur le plateau    *
 *********************************************/
 
+// array of all players
+var players = [];
 
+for (var i = 0; i<2; i++) {
+  var index = parseInt(i) + 1;
+  var player = new Player('Joueur '  + index, 100, 10, 'fist');
+  players.push(player);
+}
+
+console.log(players); // without position
 
 var boardEmptyCells = myGame.getEmptyCells(); // On prend les cases vides
 
-var player1Position = Math.floor(Math.random()*(boardEmptyCells.length)); // On place au hasard le joueur 1 dans une de ces cases vides
+players[0].position = boardEmptyCells[Math.floor(Math.random()*(boardEmptyCells.length))];
 
-var player1Json = boardEmptyCells[player1Position]; // On stocke le placement du joueur 1 en JSON dans ces cases vides
-
-myGame.board[player1Json.emptyX][player1Json.emptyY] = "Joueur 1"; // On donne à la case le résultat 1 (pour signifier le joueur 1 sur le plateau)
-
-
-var found = false; // condition de la boucle while
-
-while (!found){ // tant que found n'est pas égal à "true"...
-  var player2Position = Math.floor(Math.random()*(boardEmptyCells.length)); // On prend une position au hasard dans les cases vides
-  var player2Json = boardEmptyCells[player2Position]; // On stocke le placement du joueur 2 en JSON dans ces cases vides
-
-    if (player1Position != player2Position) { // On vérifie que J1 et J2 ne soient pas sur la même case
-      if (player1Json.emptyX != player2Json.emptyX && player1Json.emptyY != player2Json.emptyY) { // On vérifie qu'ils ne soient pas sur le même axe pour éviter qu'ils soient côte à côte
-          myGame.board[player2Json.emptyX][player2Json.emptyY] = "Joueur 2";
-            found = true;
-          }
-    }
+var found = false;
+while (!found) {
+  players[1].position = boardEmptyCells[Math.floor(Math.random()*(boardEmptyCells.length))];
+  if (players[1].position.emptyX != players[0].position.emptyX && players[1].position.emptyY != players[0].position.emptyY) {
+    found = true;
+  }
 }
+
+console.log(players); // with position
 
 
 /********************************************
@@ -87,48 +87,65 @@ myGame.afficheTout();
 *       Gestion du tour par tour       *
 ***************************************/
 
+function CurrentPlayer(){
+
+}
+
 
 /***************************************
 *        Déplacement des joueurs       *
 ***************************************/
 
-function GetRocks(x,y){
+/**
+ * Check if the given position is a rock
+ * @param int x
+ * @param int y
+ * @return boolean
+ */
+function isRock(x,y){
   return myGame.board[x][y] == "Rock";
 }
 
-var whereIsPlayer1 = console.log("Le joueur un est en X "+player1Json.emptyX+" Y "+player1Json.emptyY); // On récupère la position du joueur en cours
+function whereIsPlayer(index) {
+  var player = players[index];
+  console.log(player.name + " est en X "+player.position.emptyX+" Y "+player.position.emptyY);
+}
+whereIsPlayer(1);
 // On vérifie les cases acccessibles autour de lui (de x-3 à x+3 et de y-3 à y+3)
 // On valide la case choisie par l'utilisateur et on modifie la position du joueur
 // On vérifie si les deux joueurs sont côte à côte
 
 
 // Pour bouger à droite
-function MoveDown() {
-  if (!GetRocks(player1Json.emptyX+1,player1Json.emptyY)){
-    player1Json.emptyX++;
+function MoveRight(index) {
+  if (!isRock(players[index].position.emptyX+1,players[index].position.emptyY)){
+    players[index].position.emptyX++;
   //  player1Json.emptyX = player1Json.emptyX+3  ---> pour bouger de 3 cases
   }
-    var whereIsPlayer1 = console.log("Le joueur un est en X "+player1Json.emptyX+" Y "+player1Json.emptyY);
+  whereIsPlayer(index);
 }
 
 
 function MoveUp() {
-  if (!GetRocks(player1Json.emptyX-1,player1Json.emptyY)){
+  if (!isRock(player1Json.emptyX-1,player1Json.emptyY)){
     player1Json.emptyX--;
   }
+    whereIsPlayer(1);
   var whereIsPlayer1 = console.log("Le joueur un est en X "+player1Json.emptyX+" Y "+player1Json.emptyY);
 }
 
 function MoveLeft() {
-  if (!GetRocks(player1Json.emptyX,player1Json.emptyY-1)){
+  if (!isRock(player1Json.emptyX,player1Json.emptyY-1)){
     player1Json.emptyY--;
   }
+    whereIsPlayer(1);
   var whereIsPlayer1 = console.log("Le joueur un est en X "+player1Json.emptyX+" Y "+player1Json.emptyY);
 }
 
-function MoveRight() {
-  if (!GetRocks(player1Json.emptyX,player1Json.emptyY+1)){
+function MoveDown() {
+  if (!isRock(player1Json.emptyX,player1Json.emptyY+1)){
     player1Json.emptyY++;
   }
+    whereIsPlayer(1);
   var whereIsPlayer1 = console.log("Le joueur un est en X "+player1Json.emptyX+" Y "+player1Json.emptyY);
 }

@@ -15,20 +15,11 @@
     };
 */
 
-var Player = {
-  init: function (name, health, force, weapon, position){
-    this.name = name;
-    this.health = health;
-    this.force = force;
-    this.weapon = weapon;
-    this.position = position;
-  }
+
+function Player(name, health, force, weapon) {
+  this.name = name;
+  this.health = health;
+  this.force = force;
+  this.weapon = weapon;
+  this.position = null; // ex: {emptyX: 10, emptyY: 10}
 };
-
-
-var player1 = Object.create(Player);
-  player1.init("Joueur 1", 100, 10, "fist");
-
-
-var player2 = Object.create(Player);
-player2.init("Joueur 2", 100, 10, "fist");
