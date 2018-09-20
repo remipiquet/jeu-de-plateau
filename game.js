@@ -99,8 +99,8 @@ function CurrentPlayer(){
  * @param int y
  * @return boolean
  */
-function isRock(x,y){
-  return myGame.board[x][y] == "Rock";
+function noAccess(x,y){
+  return myGame.board[x][y] == 0;
 }
 
 function endBoard(x,y){
@@ -117,46 +117,40 @@ whereIsPlayer(1);
 // On valide la case choisie par l'utilisateur et on modifie la position du joueur
 // On vérifie si les deux joueurs sont côte à côte
 
+var numCells = 0;
 
 // Pour bouger à droite
-function MoveRight(index) {
-  if (!isRock(players[index].position.emptyX+1,players[index].position.emptyY)){
-    players[index].position.emptyX++;
+function MoveRight(index, numCells) {
+  if (noAccess(players[index].position.emptyX+numCells,players[index].position.emptyY)){
+    players[index].position.emptyX = players[index].position.emptyX+numCells;
   //  player1Json.emptyX = player1Json.emptyX+3  ---> pour bouger de 3 cases
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
 }
 
-
-function MoveLeft(index) {
-  if (!isRock(players[index].position.emptyX-1,players[index].position.emptyY)){
-    players[index].position.emptyX--;
+// Pour bouger à gauche
+function MoveLeft(index, numCells) {
+  if (noAccess(players[index].position.emptyX-numCells,players[index].position.emptyY)){
+    players[index].position.emptyX = players[index].position.emptyX-numCells;
   }
     whereIsPlayer(0);
     whereIsPlayer(1);
 }
 
-function MoveLeft2(index) {
-  if ((!isRock(players[index].position.emptyX-1,players[index].position.emptyY))&&(!isRock(players[index].position.emptyX-2,players[index].position.emptyY))){
-    players[index].position.emptyX --;
-    players[index].position.emptyX --;
+// Pour bouger en haut
+function MoveUp(index, numCells) {
+  if (noAccess(players[index].position.emptyX,players[index].position.emptyY-1)){
+    players[index].position.emptyX = players[index].position.emptyY-numCells;
   }
     whereIsPlayer(0);
     whereIsPlayer(1);
 }
 
-function MoveUp(index) {
-  if (!isRock(players[index].position.emptyX,players[index].position.emptyY-1)){
-    players[index].position.emptyY--;
-  }
-    whereIsPlayer(0);
-    whereIsPlayer(1);
-}
-
-function MoveDown(index) {
-  if (!isRock(players[index].position.emptyX,players[index].position.emptyY+1)){
-    players[index].position.emptyY++;
+// Pour bouger en bas
+function MoveDown(index, numCells) {
+  if (noAccess(players[index].position.emptyX,players[index].position.emptyY+1)){
+    players[index].position.emptyX = players[index].position.emptyY+numCells;
   }
     whereIsPlayer(0);
     whereIsPlayer(1);
