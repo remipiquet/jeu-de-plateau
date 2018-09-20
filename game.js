@@ -1,15 +1,14 @@
-// ****** Initialisation du jeu ******
+/*********************************************
+*           Initialisation du jeu            *
+*********************************************/
 
 var myGame = new Board(5, 4);
-
-
 
 /*********************************************
 *    Placement des joueurs sur le plateau    *
 *********************************************/
 
-// array of all players
-var players = [];
+var players = []; // Création d'un tableau pour les joueurs
 
 for (var i = 0; i<2; i++) {
   var index = parseInt(i) + 1;
@@ -17,21 +16,19 @@ for (var i = 0; i<2; i++) {
   players.push(player);
 }
 
-console.log(players); // without position
-
 var boardEmptyCells = myGame.getEmptyCells(); // On prend les cases vides
 
-players[0].position = boardEmptyCells[Math.floor(Math.random()*(boardEmptyCells.length))];
+players[0].position = boardEmptyCells[Math.floor(Math.random()*(boardEmptyCells.length))]; // On place le joueur 1 dans une de ces cases vides (en Json)
 
-var found = false;
-while (!found) {
-  players[1].position = boardEmptyCells[Math.floor(Math.random()*(boardEmptyCells.length))];
-  if (players[1].position.emptyX != players[0].position.emptyX && players[1].position.emptyY != players[0].position.emptyY) {
-    found = true;
+var found = false; // Placement du joueur 2
+while (!found) { // Tant que found vaut false
+  players[1].position = boardEmptyCells[Math.floor(Math.random()*(boardEmptyCells.length))]; // On place le joueur 2 dans une case vide
+  if (players[1].position.emptyX != players[0].position.emptyX && players[1].position.emptyY != players[0].position.emptyY) { // Si J1&J2 ont des X&Y différents
+    found = true; // On valide la condition et J2 est placé
   }
 }
 
-console.log(players); // with position
+console.log(players);
 
 
 /********************************************
@@ -106,10 +103,15 @@ function isRock(x,y){
   return myGame.board[x][y] == "Rock";
 }
 
+function endBoard(x,y){
+  return myGame.board[x][y] == undefined;
+}
+
 function whereIsPlayer(index) {
   var player = players[index];
   console.log(player.name + " est en X "+player.position.emptyX+" Y "+player.position.emptyY);
 }
+whereIsPlayer(0);
 whereIsPlayer(1);
 // On vérifie les cases acccessibles autour de lui (de x-3 à x+3 et de y-3 à y+3)
 // On valide la case choisie par l'utilisateur et on modifie la position du joueur
@@ -122,30 +124,40 @@ function MoveRight(index) {
     players[index].position.emptyX++;
   //  player1Json.emptyX = player1Json.emptyX+3  ---> pour bouger de 3 cases
   }
-  whereIsPlayer(index);
+  whereIsPlayer(0);
+  whereIsPlayer(1);
 }
 
 
-function MoveUp() {
-  if (!isRock(player1Json.emptyX-1,player1Json.emptyY)){
-    player1Json.emptyX--;
+function MoveLeft(index) {
+  if (!isRock(players[index].position.emptyX-1,players[index].position.emptyY)){
+    players[index].position.emptyX--;
   }
+    whereIsPlayer(0);
     whereIsPlayer(1);
-  var whereIsPlayer1 = console.log("Le joueur un est en X "+player1Json.emptyX+" Y "+player1Json.emptyY);
 }
 
-function MoveLeft() {
-  if (!isRock(player1Json.emptyX,player1Json.emptyY-1)){
-    player1Json.emptyY--;
+function MoveLeft2(index) {
+  if ((!isRock(players[index].position.emptyX-1,players[index].position.emptyY))&&(!isRock(players[index].position.emptyX-2,players[index].position.emptyY))){
+    players[index].position.emptyX --;
+    players[index].position.emptyX --;
   }
+    whereIsPlayer(0);
     whereIsPlayer(1);
-  var whereIsPlayer1 = console.log("Le joueur un est en X "+player1Json.emptyX+" Y "+player1Json.emptyY);
 }
 
-function MoveDown() {
-  if (!isRock(player1Json.emptyX,player1Json.emptyY+1)){
-    player1Json.emptyY++;
+function MoveUp(index) {
+  if (!isRock(players[index].position.emptyX,players[index].position.emptyY-1)){
+    players[index].position.emptyY--;
   }
+    whereIsPlayer(0);
     whereIsPlayer(1);
-  var whereIsPlayer1 = console.log("Le joueur un est en X "+player1Json.emptyX+" Y "+player1Json.emptyY);
+}
+
+function MoveDown(index) {
+  if (!isRock(players[index].position.emptyX,players[index].position.emptyY+1)){
+    players[index].position.emptyY++;
+  }
+    whereIsPlayer(0);
+    whereIsPlayer(1);
 }
