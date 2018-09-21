@@ -129,7 +129,7 @@ function MoveLeft(index, numCells) {
 
 // Pour bouger en haut
 function MoveUp(index, numCells) {
-  if (noAccess(players[index].position.emptyX,players[index].position.emptyY-1)){ // pourquoi -1 à la fin ?
+  if (noAccess(players[index].position.emptyX,players[index].position.emptyY)){ // pourquoi -1 à la fin ?
     players[index].position.emptyX = players[index].position.emptyY-numCells;
   }
     whereIsPlayer(0);
@@ -138,25 +138,55 @@ function MoveUp(index, numCells) {
 
 // Pour bouger en bas
 function MoveDown(index, numCells) {
-  if (noAccess(players[index].position.emptyX,players[index].position.emptyY+1)){ // pourquoi -1 à la fin ?
+  if (noAccess(players[index].position.emptyX,players[index].position.emptyY)){ // pourquoi -1 à la fin ?
     players[index].position.emptyX = players[index].position.emptyY+numCells;
   }
     whereIsPlayer(0);
     whereIsPlayer(1);
 }
+ // Prompt de commande de déplacement
+function Round(){
+  var command = prompt("Déplacement"); // Prompt pour lui demander ou il veut se déplacer (on peut même lui indiquer les cases ou il peut aller)
+
+    if (command == "1droite1"){MoveRight(0,1);}
+    if (command == "1gauche1"){MoveLeft(0,1);}
+    if (command == "1haut1"){MoveUp(0,1);}
+    if (command == "1bas1"){MoveDown(0,1);}
+
+    if (command == "1droite2"){MoveRight(0,2);}
+    if (command == "1gauche2"){MoveLeft(0,2);}
+    if (command == "1haut2"){MoveUp(0,2);}
+    if (command == "1bas2"){MoveDown(0,2);}
+
+    if (command == "1droite3"){MoveRight(0,3);}
+    if (command == "1gauche3"){MoveLeft(0,3);}
+    if (command == "1haut3"){MoveUp(0,3);}
+    if (command == "1bas3"){MoveDown(0,3);}
+
+    if (command == "2droite1"){MoveRight(1,1);}
+    if (command == "2gauche1"){MoveLeft(1,1);}
+    if (command == "2haut1"){MoveUp(1,1);}
+    if (command == "2bas1"){MoveDown(1,1);}
+
+    if (command == "2droite2"){MoveRight(1,2);}
+    if (command == "2gauche2"){MoveLeft(1,2);}
+    if (command == "2haut2"){MoveUp(1,2);}
+    if (command == "2bas2"){MoveDown(1,2);}
+
+    if (command == "2droite3"){MoveRight(1,3);}
+    if (command == "2gauche3"){MoveLeft(1,3);}
+    if (command == "2haut3"){MoveUp(1,3);}
+    if (command == "2bas3"){MoveDown(1,3);}
+
+    else (alert("Je n'ai pas compris!"));
+  }
 
 /***************************************
 *       Gestion du tour par tour       *
 ***************************************/
-
-function Round(){
-  var currentPlayer = player[0]; // Quel joueur est en train de jouer
-  var command = prompt("Déplacement");
-    if (command == "droite") {
-      MoveRight(0,1);
-    }// Prompt pour lui demander ou il veut se déplacer (on peut même lui indiquer les cases ou il peut aller)
+  // Quel joueur est en train de jouer
+  // Prompt pour lui demander ou il veut se déplacer (on peut même lui indiquer les cases ou il peut aller)
   // On valide ou pas son Déplacement
   // On réalise le Déplacement
   // On passe la main au joueur suivant
   // Jusqu'a ce que mort s'en suive (au début mettre une fonction stop pour arrêter)
-}
