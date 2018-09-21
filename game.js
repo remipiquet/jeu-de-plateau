@@ -12,13 +12,13 @@ var players = []; // Création d'un tableau pour les joueurs
 
 for (var i = 0; i<2; i++) {
   var index = parseInt(i) + 1;
-  var player = new Player('Joueur '  + index, 100, 10, 'fist');
+  var player = new Player('Joueur ' + index, 100, 10, 'fist');
   players.push(player);
 }
 
 var boardEmptyCells = myGame.getEmptyCells(); // On prend les cases vides
 
-players[0].position = boardEmptyCells[Math.floor(Math.random()*(boardEmptyCells.length))]; // On place le joueur 1 dans une de ces cases vides (en Json)
+players[0].position = boardEmptyCells[Math.floor(Math.random()*(boardEmptyCells.length))]; // On place le joueur 1 dans une de ces cases vides
 
 var found = false; // Placement du joueur 2
 while (!found) { // Tant que found vaut false
@@ -80,30 +80,19 @@ var weapon4Json = boardEmptyCells[weapon4Position]; // On stocke le placement de
 // Commande pour voir le plateau en textuel
 myGame.afficheTout();
 
-/***************************************
-*       Gestion du tour par tour       *
-***************************************/
 
-function CurrentPlayer(){
-
-}
 
 
 /***************************************
 *        Déplacement des joueurs       *
 ***************************************/
 
-/**
- * Check if the given position is a rock
- * @param int x
- * @param int y
- * @return boolean
- */
-function noAccess(x,y){
+
+function noAccess(x,y){ // à changer en Acccess (ou un truc comme ça)
   return myGame.board[x][y] == 0;
 }
 
-function endBoard(x,y){
+function endBoard(x,y){ // a changer avec myGame (est-ce que X est supérieur à la longueur de mon tableau Board ?) et pareil sur le Y
   return myGame.board[x][y] == undefined;
 }
 
@@ -140,7 +129,7 @@ function MoveLeft(index, numCells) {
 
 // Pour bouger en haut
 function MoveUp(index, numCells) {
-  if (noAccess(players[index].position.emptyX,players[index].position.emptyY-1)){
+  if (noAccess(players[index].position.emptyX,players[index].position.emptyY-1)){ // pourquoi -1 à la fin ?
     players[index].position.emptyX = players[index].position.emptyY-numCells;
   }
     whereIsPlayer(0);
@@ -149,9 +138,25 @@ function MoveUp(index, numCells) {
 
 // Pour bouger en bas
 function MoveDown(index, numCells) {
-  if (noAccess(players[index].position.emptyX,players[index].position.emptyY+1)){
+  if (noAccess(players[index].position.emptyX,players[index].position.emptyY+1)){ // pourquoi -1 à la fin ?
     players[index].position.emptyX = players[index].position.emptyY+numCells;
   }
     whereIsPlayer(0);
     whereIsPlayer(1);
+}
+
+/***************************************
+*       Gestion du tour par tour       *
+***************************************/
+
+function Round(){
+  var currentPlayer = player[0]; // Quel joueur est en train de jouer
+  var command = prompt("Déplacement");
+    if (command == "droite") {
+      MoveRight(0,1);
+    }// Prompt pour lui demander ou il veut se déplacer (on peut même lui indiquer les cases ou il peut aller)
+  // On valide ou pas son Déplacement
+  // On réalise le Déplacement
+  // On passe la main au joueur suivant
+  // Jusqu'a ce que mort s'en suive (au début mettre une fonction stop pour arrêter)
 }
