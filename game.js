@@ -145,7 +145,7 @@ function MoveDown(index, numCells) {
     whereIsPlayer(1);
 }
  // Prompt de commande de déplacement
-function Round(){
+function Move(){
   var command = prompt("Déplacement"); // Prompt pour lui demander ou il veut se déplacer (on peut même lui indiquer les cases ou il peut aller)
 
     if (command == "1droite1"){MoveRight(0,1);}
@@ -185,6 +185,12 @@ function Round(){
 *       Gestion du tour par tour       *
 ***************************************/
   // Quel joueur est en train de jouer
+  function NextPlayer(){
+    var currentPlayer = player[0];
+    if (MoveRight(0,1) || MoveLeft(0,1) ||MoveUp(0,1) || MoveDown(0,1) || MoveRight(0,2) || MoveLeft(0,2) ||MoveUp(0,2) || MoveDown(0,2) || MoveRight(0,3) || MoveLeft(0,3) ||MoveUp(0,3) || MoveDown(0,3)){
+      currentPlayer = player[index+1];
+    }
+  }
   // Prompt pour lui demander ou il veut se déplacer (on peut même lui indiquer les cases ou il peut aller)
   // On valide ou pas son Déplacement
   // On réalise le Déplacement
