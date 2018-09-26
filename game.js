@@ -13,7 +13,7 @@ var players = []; // Création d'un tableau pour les joueurs
 for (var i = 0; i<2; i++) { // On incrémente i jusqu'à 1 (2 joueurs)
   var index = parseInt(i) + 1; // On indique que i est un entier et on lui ajoute +1 
   var player = new Player('Joueur ' + index, 100, 10, 'fist'); // Initialisation des joueurs 
-  players.push(player);
+  players.push(player); // ajout de player dans le tableau players
 }
 
 var boardEmptyCells = myGame.getEmptyCells(); // On prend les cases vides
@@ -82,7 +82,6 @@ myGame.afficheTout();
 
 
 
-
 /***************************************
 *        Déplacement des joueurs       *
 ***************************************/
@@ -145,7 +144,7 @@ function MoveDown(index, numCells) {
     whereIsPlayer(1);
 }
  // Prompt de commande de déplacement
-function Move(){
+function Move(index, numCells){
   var command = prompt("Déplacement"); // Prompt pour lui demander ou il veut se déplacer (on peut même lui indiquer les cases ou il peut aller)
 
     if (command == "1droite1"){MoveRight(0,1);}
