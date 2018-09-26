@@ -27,8 +27,6 @@ while (!found) { // Tant que found vaut false
     found = true; // On valide la condition et J2 est placé
   }
 }
-var currentPlayer = player[0];
-
 console.log(players);
 
 
@@ -74,7 +72,7 @@ var weapon4Position = Math.floor(Math.random()*(boardEmptyCells.length)); // On 
 
 var weapon4Json = boardEmptyCells[weapon4Position]; // On stocke le placement de l'arme 2 en JSON dans ces cases vides
 
-  myGame.board[weapon4Json.emptyX][weapon4Json.emptyY] = weapon4.name; // On donne à la case le résultat 8 (pour signifier l'arme n°2 sur le plateau)
+  myGame.board[weapon4Json.emptyX][weapon4Json.emptyY] = weapon4; // On donne à la case le résultat 8 (pour signifier l'arme n°2 sur le plateau)
 
 
 
@@ -93,7 +91,7 @@ function AccessOK(x,y){ // à changer en Acccess (ou un truc comme ça)
 
 /*
 function endBoard(x,y){ // a changer avec myGame (est-ce que X est supérieur à la longueur de mon tableau Board ?) et pareil sur le Y
-  return myGame[x][y] == undefined;
+  return myGame.board[x][y] == undefined;
 }
 */
 
