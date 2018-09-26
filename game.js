@@ -10,8 +10,8 @@ var myGame = new Board(5, 4);
 
 var players = []; // Création d'un tableau pour les joueurs
 
-for (var i = 0; i<2; i++) { // On incrémente i jusqu'à 1 (2 joueurs)
-  var index = parseInt(i) + 1; // On indique que i est un entier et on lui ajoute +1 
+for (var i=0; i<2; i++) { // On incrémente i jusqu'à 1 (2 joueurs)
+  var index = parseInt(i) + 1; // i est un entier et on lui ajoute +1 
   var player = new Player('Joueur ' + index, 100, 10, 'fist'); // Initialisation des joueurs 
   players.push(player); // ajout de player dans le tableau players
 }
@@ -27,6 +27,7 @@ while (!found) { // Tant que found vaut false
     found = true; // On valide la condition et J2 est placé
   }
 }
+var currentPlayer = player[0];
 
 console.log(players);
 
@@ -86,14 +87,15 @@ myGame.afficheTout();
 *        Déplacement des joueurs       *
 ***************************************/
 
-
-function noAccess(x,y){ // à changer en Acccess (ou un truc comme ça)
+function AccessOK(x,y){ // à changer en Acccess (ou un truc comme ça)
   return myGame.board[x][y] == 0;
 }
 
+/*
 function endBoard(x,y){ // a changer avec myGame (est-ce que X est supérieur à la longueur de mon tableau Board ?) et pareil sur le Y
-  return myGame.board[x][y] == undefined;
+  return myGame[x][y] == undefined;
 }
+*/
 
 function whereIsPlayer(index) {
   var player = players[index];
@@ -109,7 +111,7 @@ var numCells = 0;
 
 // Pour bouger à droite
 function MoveRight(index, numCells) {
-  if (noAccess(players[index].position.emptyX+numCells,players[index].position.emptyY)){
+  if (AccessOK(players[index].position.emptyX+numCells,players[index].position.emptyY)){
     players[index].position.emptyX = players[index].position.emptyX+numCells;
   //  player1Json.emptyX = player1Json.emptyX+3  ---> pour bouger de 3 cases
   }
@@ -119,7 +121,7 @@ function MoveRight(index, numCells) {
 
 // Pour bouger à gauche
 function MoveLeft(index, numCells) {
-  if (noAccess(players[index].position.emptyX-numCells,players[index].position.emptyY)){
+  if (AccessOK(players[index].position.emptyX-numCells,players[index].position.emptyY)){
     players[index].position.emptyX = players[index].position.emptyX-numCells;
   }
     whereIsPlayer(0);
@@ -128,7 +130,7 @@ function MoveLeft(index, numCells) {
 
 // Pour bouger en haut
 function MoveUp(index, numCells) {
-  if (noAccess(players[index].position.emptyX,players[index].position.emptyY)){ // pourquoi -1 à la fin ?
+  if (AccessOK(players[index].position.emptyX,players[index].position.emptyY)){ 
     players[index].position.emptyX = players[index].position.emptyY-numCells;
   }
     whereIsPlayer(0);
@@ -137,14 +139,14 @@ function MoveUp(index, numCells) {
 
 // Pour bouger en bas
 function MoveDown(index, numCells) {
-  if (noAccess(players[index].position.emptyX,players[index].position.emptyY)){ // pourquoi -1 à la fin ?
+  if (AccessOK(players[index].position.emptyX,players[index].position.emptyY)){ 
     players[index].position.emptyX = players[index].position.emptyY+numCells;
   }
     whereIsPlayer(0);
     whereIsPlayer(1);
 }
  // Prompt de commande de déplacement
-function Move(index, numCells){
+function Move(){
   var command = prompt("Déplacement"); // Prompt pour lui demander ou il veut se déplacer (on peut même lui indiquer les cases ou il peut aller)
 
     if (command == "1droite1"){MoveRight(0,1);}
@@ -177,23 +179,25 @@ function Move(index, numCells){
     if (command == "2haut3"){MoveUp(1,3);}
     if (command == "2bas3"){MoveDown(1,3);}
 
-    else (alert("Je n'ai pas compris!"));
+    // else (alert("Je n'ai pas compris!"));
   }
 
 /***************************************
 *       Gestion du tour par tour       *
 ***************************************/
   // Quel joueur est en train de jouer
+  
   function NextPlayer(){
     var currentPlayer = player[0];
     if (MoveRight(0,1) || MoveLeft(0,1) ||MoveUp(0,1) || MoveDown(0,1) || MoveRight(0,2) || MoveLeft(0,2) ||MoveUp(0,2) || MoveDown(0,2) || MoveRight(0,3) || MoveLeft(0,3) ||MoveUp(0,3) || MoveDown(0,3)){
-      currentPlayer = player[index+1];
+      currentPlayer = player[1];
     }
     if (MoveRight(1,1) || MoveLeft(1,1) ||MoveUp(1,1) || MoveDown(1,1) || MoveRight(1,2) || MoveLeft(1,2) ||MoveUp(1,2) || MoveDown(1,2) || MoveRight(1,3) || MoveLeft(1,3) ||MoveUp(1,3) || MoveDown(1,3)){
-      currentPlayer = player[index-1];
+      currentPlayer = player[0];
     }
     console.log(currentPlayer);  
   }
+  
   // Prompt pour lui demander ou il veut se déplacer (on peut même lui indiquer les cases ou il peut aller)
   // On valide ou pas son Déplacement
   // On réalise le Déplacement
