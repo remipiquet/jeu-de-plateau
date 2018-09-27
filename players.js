@@ -21,5 +21,5 @@ function Player(name, health, force, weapon) {
   this.health = health;
   this.force = force;
   this.weapon = weapon;
-  this.position = null; // ex: {emptyX: 10, emptyY: 10}
+  this.position = null;
 };

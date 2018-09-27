@@ -9,6 +9,7 @@ var myGame = new Board(5, 4);
 *********************************************/
 
 var players = []; // Création d'un tableau pour les joueurs
+// TODO var nbPlayeurs = 4;
 
 for (var i=0; i<2; i++) { // On incrémente i jusqu'à 1 (2 joueurs)
   var index = parseInt(i) + 1; // i est un entier et on lui ajoute +1 
@@ -18,15 +19,58 @@ for (var i=0; i<2; i++) { // On incrémente i jusqu'à 1 (2 joueurs)
 
 var boardEmptyCells = myGame.getEmptyCells(); // On prend les cases vides
 
-players[0].position = boardEmptyCells[Math.floor(Math.random()*(boardEmptyCells.length))]; // On place le joueur 1 dans une de ces cases vides
+//players[0].position = boardEmptyCells[Math.floor(Math.random()*(boardEmptyCells.length))]; // On place le joueur 1 dans une de ces cases vides
 
-var found = false; // Placement du joueur 2
+
+
+// pour chaque joueur on place le joueur de maniere a ne pas etre a coté d'un autre joueur
+var accessibleCells = boardEmptyCells;
+
+//console.log("boardEmptyCells.length:" + boardEmptyCells.length);
+//console.log("accessibleCells.length:" + accessibleCells.length);
+for(var indexPlayer=0; indexPlayer<2; indexPlayer++){
+  players[indexPlayer].position = accessibleCells[Math.floor(Math.random() * (accessibleCells.length))];
+
+  // On rend inacccessible les cases qui sont proches de player x et sa case
+  var inaccessibleCells = new Array();
+  inaccessibleCells.push(players[indexPlayer].position);
+
+  if (players[indexPlayer].position.X - 1 >= 0){
+     inaccessibleCells.push({ X: players[indexPlayer].position.X-1, Y: players[indexPlayer].position.Y });
+}
+  if (players[indexPlayer].position.X + 1 <= accessibleCells.length) {
+     inaccessibleCells.push({ X: players[indexPlayer].position.X+1, Y: players[indexPlayer].position.Y });
+  }
+  if (players[indexPlayer].position.Y - 1 >= 0){
+      inaccessibleCells.push({ X: players[indexPlayer].position.X, Y: players[indexPlayer].position.Y-1 });
+  }
+  if (players[indexPlayer].position.X + 1 <= accessibleCells.length) {
+      inaccessibleCells.push({ X: players[indexPlayer].position.X, Y: players[indexPlayer].position.Y+1 });
+  }
+
+  // on enleve les cases inaccessibles des cases accessibles
+  for(var j=0; j<accessibleCells.length; j++){
+    for (var k = 0; k < inaccessibleCells.length; k++) {
+      console.log('j '+j);
+      if (inaccessibleCells[k].X == accessibleCells[j].X && inaccessibleCells[k].Y == accessibleCells[j].Y){
+      //  if(j>=0 && accessibleCells.length>=j){
+          accessibleCells.splice(j, 1);
+       // }
+      }
+    }
+  }
+}
+
+/*
+var found = false;
+
 while (!found) { // Tant que found vaut false
   players[1].position = boardEmptyCells[Math.floor(Math.random()*(boardEmptyCells.length))]; // On place le joueur 2 dans une case vide
-  if (players[1].position.emptyX != players[0].position.emptyX && players[1].position.emptyY != players[0].position.emptyY) { // Si J1&J2 ont des X&Y différents
+  if (players[1].position.X != players[0].position.X && players[1].position.Y != players[0].position.Y) { // Si J1&J2 ont des X&Y différents
     found = true; // On valide la condition et J2 est placé
   }
 }
+*/
 console.log(players); // debug console
 
 
@@ -42,7 +86,7 @@ var weapon1Position = Math.floor(Math.random()*(boardEmptyCells.length)); // On 
 
 var weapon1Json = boardEmptyCells[weapon1Position]; // On stocke le placement de l'arme 1 en JSON dans ces cases vides
 
-  myGame.board[weapon1Json.emptyX][weapon1Json.emptyY] = weapon1.name; // On donne à la case le résultat 5 (pour signifier l'arme n°1 sur le plateau)
+  myGame.board[weapon1Json.X][weapon1Json.Y] = weapon1.name; // On donne à la case le résultat 5 (pour signifier l'arme n°1 sur le plateau)
 
 
 // Placement de l'arme 2 (Fourche)
@@ -52,7 +96,7 @@ var weapon2Position = Math.floor(Math.random()*(boardEmptyCells.length)); // On 
 
 var weapon2Json = boardEmptyCells[weapon2Position]; // On stocke le placement de l'arme 2 en JSON dans ces cases vides
 
-  myGame.board[weapon2Json.emptyX][weapon2Json.emptyY] = weapon2.name; // On donne à la case le résultat 6 (pour signifier l'arme n°2 sur le plateau)
+  myGame.board[weapon2Json.X][weapon2Json.Y] = weapon2.name; // On donne à la case le résultat 6 (pour signifier l'arme n°2 sur le plateau)
 
 
 // Placement de l'arme 3 (Flingue)
@@ -62,7 +106,7 @@ var weapon3Position = Math.floor(Math.random()*(boardEmptyCells.length)); // On 
 
 var weapon3Json = boardEmptyCells[weapon3Position]; // On stocke le placement de l'arme 3 en JSON dans ces cases vides
 
-  myGame.board[weapon3Json.emptyX][weapon3Json.emptyY] = weapon3.name; // On donne à la case le résultat 7 (pour signifier l'arme n°3 sur le plateau)
+  myGame.board[weapon3Json.X][weapon3Json.Y] = weapon3.name; // On donne à la case le résultat 7 (pour signifier l'arme n°3 sur le plateau)
 
 
 // Placement de l'arme 4 (Lance-flame)
@@ -72,7 +116,7 @@ var weapon4Position = Math.floor(Math.random()*(boardEmptyCells.length)); // On 
 
 var weapon4Json = boardEmptyCells[weapon4Position]; // On stocke le placement de l'arme 2 en JSON dans ces cases vides
 
-  myGame.board[weapon4Json.emptyX][weapon4Json.emptyY] = weapon4.name; // On donne à la case le résultat 8 (pour signifier l'arme n°2 sur le plateau)
+  myGame.board[weapon4Json.X][weapon4Json.Y] = weapon4.name; // On donne à la case le résultat 8 (pour signifier l'arme n°2 sur le plateau)
 
 
 
@@ -97,7 +141,7 @@ function endBoard(x,y){ // a changer avec myGame (est-ce que X est supérieur à
 
 function whereIsPlayer(index) {
   var player = players[index];
-  console.log(player.name + " est en X "+player.position.emptyX+" Y "+player.position.emptyY);
+  console.log(player.name + " est en X "+player.position.X+" Y "+player.position.Y);
 }
 whereIsPlayer(0);
 whereIsPlayer(1);
@@ -109,9 +153,9 @@ var numCells = 0;
 
 // Pour bouger à droite
 function MoveRight(index, numCells) {
-  if (CellIsFree(players[index].position.emptyX+numCells,players[index].position.emptyY)){
-    players[index].position.emptyX = players[index].position.emptyX+numCells;
-  //  player1Json.emptyX = player1Json.emptyX+3  ---> pour bouger de 3 cases
+  if (CellIsFree(players[index].position.X+numCells,players[index].position.Y)){
+    players[index].position.X = players[index].position.X+numCells;
+  //  player1Json.X = player1Json.X+3  ---> pour bouger de 3 cases
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
@@ -119,8 +163,8 @@ function MoveRight(index, numCells) {
 
 // Pour bouger à gauche
 function MoveLeft(index, numCells) {
-  if (CellIsFree(players[index].position.emptyX-numCells,players[index].position.emptyY)){
-    players[index].position.emptyX = players[index].position.emptyX-numCells;
+  if (CellIsFree(players[index].position.X-numCells,players[index].position.Y)){
+    players[index].position.X = players[index].position.X-numCells;
   }
     whereIsPlayer(0);
     whereIsPlayer(1);
@@ -128,8 +172,8 @@ function MoveLeft(index, numCells) {
 
 // Pour bouger en haut
 function MoveUp(index, numCells) {
-  if (CellIsFree(players[index].position.emptyX,players[index].position.emptyY)){ 
-    players[index].position.emptyY = players[index].position.emptyY-numCells;
+  if (CellIsFree(players[index].position.X,players[index].position.Y)){ 
+    players[index].position.Y = players[index].position.Y-numCells;
   }
     whereIsPlayer(0);
     whereIsPlayer(1);
@@ -137,8 +181,8 @@ function MoveUp(index, numCells) {
 
 // Pour bouger en bas
 function MoveDown(index, numCells) {
-  if (CellIsFree(players[index].position.emptyX,players[index].position.emptyY)){ 
-    players[index].position.emptyY = players[index].position.emptyY+numCells;
+  if (CellIsFree(players[index].position.X,players[index].position.Y)){ 
+    players[index].position.Y = players[index].position.Y+numCells;
   }
     whereIsPlayer(0);
     whereIsPlayer(1);
