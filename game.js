@@ -129,7 +129,7 @@ function MoveLeft(index, numCells) {
 // Pour bouger en haut
 function MoveUp(index, numCells) {
   if (CellIsFree(players[index].position.emptyX,players[index].position.emptyY)){ 
-    players[index].position.emptyX = players[index].position.emptyY-numCells;
+    players[index].position.emptyY = players[index].position.emptyY-numCells;
   }
     whereIsPlayer(0);
     whereIsPlayer(1);
@@ -138,14 +138,12 @@ function MoveUp(index, numCells) {
 // Pour bouger en bas
 function MoveDown(index, numCells) {
   if (CellIsFree(players[index].position.emptyX,players[index].position.emptyY)){ 
-    players[index].position.emptyX = players[index].position.emptyY+numCells;
+    players[index].position.emptyY = players[index].position.emptyY+numCells;
   }
     whereIsPlayer(0);
     whereIsPlayer(1);
 }
  // Prompt de commande de déplacement
-
-
 function Move(){
   var currentPlayer = Player[0];
   window.alert("Titre du jeu à trouver");
@@ -181,20 +179,27 @@ function Move(){
     if (command == "2haut3"){MoveUp(1,3);}
     if (command == "2bas3"){MoveDown(1,3);}
 
-    else (alert("Je n'ai pas compris!")); // /!\ A REFAIRE ça renvoie "je n'ai pas compris" même quand on déplacce correctement le joueur
+    else (alert("Je n'ai pas compris!")); // /!\ A REFAIRE ça renvoie "je n'ai pas compris" même quand on déplace correctement le joueur
   }
 
 /***************************************
 *       Gestion du tour par tour       *
 ***************************************/
   // Quel joueur est en train de jouer
-  
-var currentPlayer = Player[0];
-window.alert("Titre du jeu à trouver");
-prompt("Joueur 1, à toi de jouer. Où veux tu te déplacer ?")
-  
   // Prompt pour lui demander ou il veut se déplacer (on peut même lui indiquer les cases ou il peut aller)
   // On valide ou pas son Déplacement
   // On réalise le Déplacement
   // On passe la main au joueur suivant
   // Jusqu'a ce que mort s'en suive (au début mettre une fonction stop pour arrêter)
+
+
+
+/***************************************
+*      ********   To do   ********     *
+***************************************/
+// Les joueurs ne doivent pas apparaitre sur les armes
+// Les joueurs ne doivent pas pouvoir "sauter" par dessus les rochers
+// Y'a un bug de déplacement (des fois le joueur se déplace de plusieurs cases au lieu d'une)
+// Limite du plateau à fixer
+// Fonction qui récupère les déplacements possibles
+// Gestion du tour par tour
