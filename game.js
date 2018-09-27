@@ -27,7 +27,7 @@ while (!found) { // Tant que found vaut false
     found = true; // On valide la condition et J2 est placé
   }
 }
-console.log(players);
+console.log(players); // debug console
 
 
 /********************************************
@@ -72,7 +72,7 @@ var weapon4Position = Math.floor(Math.random()*(boardEmptyCells.length)); // On 
 
 var weapon4Json = boardEmptyCells[weapon4Position]; // On stocke le placement de l'arme 2 en JSON dans ces cases vides
 
-  myGame.board[weapon4Json.emptyX][weapon4Json.emptyY] = weapon4; // On donne à la case le résultat 8 (pour signifier l'arme n°2 sur le plateau)
+  myGame.board[weapon4Json.emptyX][weapon4Json.emptyY] = weapon4.name; // On donne à la case le résultat 8 (pour signifier l'arme n°2 sur le plateau)
 
 
 
@@ -85,7 +85,7 @@ myGame.afficheTout();
 *        Déplacement des joueurs       *
 ***************************************/
 
-function AccessOK(x,y){ // à changer en Acccess (ou un truc comme ça)
+function CellIsFree(x,y){ // Accessibilité des cases
   return myGame.board[x][y] == 0;
 }
 
@@ -109,7 +109,7 @@ var numCells = 0;
 
 // Pour bouger à droite
 function MoveRight(index, numCells) {
-  if (AccessOK(players[index].position.emptyX+numCells,players[index].position.emptyY)){
+  if (CellIsFree(players[index].position.emptyX+numCells,players[index].position.emptyY)){
     players[index].position.emptyX = players[index].position.emptyX+numCells;
   //  player1Json.emptyX = player1Json.emptyX+3  ---> pour bouger de 3 cases
   }
@@ -119,7 +119,7 @@ function MoveRight(index, numCells) {
 
 // Pour bouger à gauche
 function MoveLeft(index, numCells) {
-  if (AccessOK(players[index].position.emptyX-numCells,players[index].position.emptyY)){
+  if (CellIsFree(players[index].position.emptyX-numCells,players[index].position.emptyY)){
     players[index].position.emptyX = players[index].position.emptyX-numCells;
   }
     whereIsPlayer(0);
@@ -128,7 +128,7 @@ function MoveLeft(index, numCells) {
 
 // Pour bouger en haut
 function MoveUp(index, numCells) {
-  if (AccessOK(players[index].position.emptyX,players[index].position.emptyY)){ 
+  if (CellIsFree(players[index].position.emptyX,players[index].position.emptyY)){ 
     players[index].position.emptyX = players[index].position.emptyY-numCells;
   }
     whereIsPlayer(0);
@@ -137,15 +137,19 @@ function MoveUp(index, numCells) {
 
 // Pour bouger en bas
 function MoveDown(index, numCells) {
-  if (AccessOK(players[index].position.emptyX,players[index].position.emptyY)){ 
+  if (CellIsFree(players[index].position.emptyX,players[index].position.emptyY)){ 
     players[index].position.emptyX = players[index].position.emptyY+numCells;
   }
     whereIsPlayer(0);
     whereIsPlayer(1);
 }
  // Prompt de commande de déplacement
+
+
 function Move(){
-  var command = prompt("Déplacement"); // Prompt pour lui demander ou il veut se déplacer (on peut même lui indiquer les cases ou il peut aller)
+  var currentPlayer = Player[0];
+  window.alert("Titre du jeu à trouver");
+  var command = prompt("Joueur 1, à toi de jouer. Où veux tu te déplacer ?"); // Prompt pour lui demander ou il veut se déplacer (on peut même lui indiquer les cases ou il peut aller)
 
     if (command == "1droite1"){MoveRight(0,1);}
     if (command == "1gauche1"){MoveLeft(0,1);}
@@ -177,7 +181,7 @@ function Move(){
     if (command == "2haut3"){MoveUp(1,3);}
     if (command == "2bas3"){MoveDown(1,3);}
 
-    // else (alert("Je n'ai pas compris!"));
+    else (alert("Je n'ai pas compris!")); // /!\ A REFAIRE ça renvoie "je n'ai pas compris" même quand on déplacce correctement le joueur
   }
 
 /***************************************
@@ -185,16 +189,9 @@ function Move(){
 ***************************************/
   // Quel joueur est en train de jouer
   
-  function NextPlayer(){
-    var currentPlayer = player[0];
-    if (MoveRight(0,1) || MoveLeft(0,1) ||MoveUp(0,1) || MoveDown(0,1) || MoveRight(0,2) || MoveLeft(0,2) ||MoveUp(0,2) || MoveDown(0,2) || MoveRight(0,3) || MoveLeft(0,3) ||MoveUp(0,3) || MoveDown(0,3)){
-      currentPlayer = player[1];
-    }
-    if (MoveRight(1,1) || MoveLeft(1,1) ||MoveUp(1,1) || MoveDown(1,1) || MoveRight(1,2) || MoveLeft(1,2) ||MoveUp(1,2) || MoveDown(1,2) || MoveRight(1,3) || MoveLeft(1,3) ||MoveUp(1,3) || MoveDown(1,3)){
-      currentPlayer = player[0];
-    }
-    console.log(currentPlayer);  
-  }
+var currentPlayer = Player[0];
+window.alert("Titre du jeu à trouver");
+prompt("Joueur 1, à toi de jouer. Où veux tu te déplacer ?")
   
   // Prompt pour lui demander ou il veut se déplacer (on peut même lui indiquer les cases ou il peut aller)
   // On valide ou pas son Déplacement
