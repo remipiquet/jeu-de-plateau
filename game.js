@@ -52,10 +52,10 @@ for(var indexPlayer=0; indexPlayer<2; indexPlayer++){
   for(var j=0; j<accessibleCells.length; j++){
     for (var k = 0; k < inaccessibleCells.length; k++) {
       console.log('j '+j);
-      if (inaccessibleCells[k].X == accessibleCells[j].X && inaccessibleCells[k].Y == accessibleCells[j].Y){
-      //  if(j>=0 && accessibleCells.length>=j){
+      if (j >= 0 && accessibleCells.length > j) {
+        if (inaccessibleCells[k].X == accessibleCells[j].X && inaccessibleCells[k].Y == accessibleCells[j].Y){
           accessibleCells.splice(j, 1);
-       // }
+        }
       }
     }
   }
@@ -146,7 +146,7 @@ function whereIsPlayer(index) {
 whereIsPlayer(0);
 whereIsPlayer(1);
 // On vérifie les cases acccessibles autour de lui (de x-3 à x+3 et de y-3 à y+3)
-// On valide la case choisie par l'utilisateur et on modifie la position du joueur
+// On valide la case choisie par l'utilisateur et on modifhie la position du joueur
 // On vérifie si les deux joueurs sont côte à côte
 
 var numCells = 0;
@@ -190,14 +190,46 @@ function MoveDown(index, numCells) {
  // Prompt de commande de déplacement
 function Move(){
   var currentPlayer = Player[0];
+  return currentPlayer;
   window.alert("Titre du jeu à trouver");
   var command = prompt("Joueur 1, à toi de jouer. Où veux tu te déplacer ?"); // Prompt pour lui demander ou il veut se déplacer (on peut même lui indiquer les cases ou il peut aller)
 
-    if (command == "1droite1"){MoveRight(0,1);}
-    if (command == "1gauche1"){MoveLeft(0,1);}
-    if (command == "1haut1"){MoveUp(0,1);}
-    if (command == "1bas1"){MoveDown(0,1);}
+  switch (command){
+    case "1droite1" : MoveRight(0, 1); break;
+    case "1gauche1": MoveLeft(0, 1); break;
+    case "1haut1": MoveLeft(0, 1); break;
+    case "1bas1": MoveLeft(0, 1); break;
 
+    case "1droite2": MoveRight(0, 2); break;
+    case "1gauche2": MoveLeft(0, 2); break;
+    case "1haut2": MoveLeft(0, 2); break;
+    case "1bas2": MoveLeft(0, 2); break;
+
+    case "1droite3": MoveRight(0, 3); break;
+    case "1gauche3": MoveLeft(0, 3); break;
+    case "1haut3": MoveLeft(0, 3); break;
+    case "1bas3": MoveLeft(0, 3); break;
+
+    case "2droite1": MoveRight(1, 1); break;
+    case "2gauche1": MoveLeft(1, 1); break;
+    case "2haut1": MoveLeft(1, 1); break;
+    case "2bas1": MoveLeft(1, 1); break;
+
+    case "2droite2": MoveRight(1, 2); break;
+    case "2gauche2": MoveLeft(1, 2); break;
+    case "2haut2": MoveLeft(1, 2); break;
+    case "2bas2": MoveLeft(1, 2); break;
+
+    case "2droite3": MoveRight(1, 3); break;
+    case "2gauche3": MoveLeft(1, 3); break;
+    case "2haut3": MoveLeft(1, 3); break;
+    case "2bas3": MoveLeft(1, 3); break;
+
+    default: alert("Je n'ai pas compris!");
+  }
+    // currentPlayer.move permet d'enlever la moitié du script
+
+/*  Ancienne méthode en usine à if
     if (command == "1droite2"){MoveRight(0,2);}
     if (command == "1gauche2"){MoveLeft(0,2);}
     if (command == "1haut2"){MoveUp(0,2);}
@@ -223,8 +255,10 @@ function Move(){
     if (command == "2haut3"){MoveUp(1,3);}
     if (command == "2bas3"){MoveDown(1,3);}
 
-    else (alert("Je n'ai pas compris!")); // /!\ A REFAIRE ça renvoie "je n'ai pas compris" même quand on déplace correctement le joueur
+    default : (alert("Je n'ai pas compris!")); // a finir
   }
+  */
+
 
 /***************************************
 *       Gestion du tour par tour       *
@@ -235,6 +269,11 @@ function Move(){
   // On réalise le Déplacement
   // On passe la main au joueur suivant
   // Jusqu'a ce que mort s'en suive (au début mettre une fonction stop pour arrêter)
+
+  // boucle "while !Stop" sur le tableau player.length
+  // appeler move pour le faire bouger
+  // currentplayer = i+1 (sauf si on arrive au bout du tableau, dans ce cas i=0)
+  // quand on tape Stop, ça stope le jeu
 
 
 
