@@ -8,25 +8,25 @@ function Weapon(id, name, damage) {
 }
 
 var weapon1 = {
-  name : "Couteau",
+  name : "Banana",
   damage : 20,
   id : 1,
 };
 
 var weapon2 = {
-  name : "Fourche",
+  name : "Fork",
   damage : 30,
   id : 2,
 };
 
 var weapon3 = {
-  name : "Pistolet",
+  name : "Mace",
   damage : 40,
   id : 3,
 };
 
 var weapon4 = {
-  name : "Fusil",
+  name : "LightSaber",
   damage : 50,
   id : 4,
 };
