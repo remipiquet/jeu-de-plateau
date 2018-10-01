@@ -4,7 +4,7 @@ function Weapon(id, name, damage) {
   this.id = id;
   this.name = name;
   this.damage = damage;
-  this.position = null; // ex: {emptyX: 10, emptyY: 10}
+  this.position = null;
 }
 
 var weapon1 = {

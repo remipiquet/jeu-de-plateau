@@ -2,33 +2,24 @@ function Board(mapSize, statRocks) {
     /*
 		mapSize -> la taille d'un des coté de la carte
 		statRocks -> si on veut beaucoup de rochers, on aura une proportion de rochers de 1/statRocks a peu près
-		board -> la map du jeu dans un tableau
-		players -> un tableau contenant les joueurs
-        weaponsNumber -> nombre d'armes générées sur le plateau
 	*/
 
-    //Propriétés
-	this.mapSize = mapSize; // taille d'un des côtés de la carte
-	this.statRocks = statRocks; // proportion des rocher
-	this.board = new Array(); //création des lignes du tableau
+  
+	this.mapSize = mapSize;
+	this.statRocks = statRocks;
+	this.board = new Array();
 
-    //   /!\ A partir de là, à virer pour passer en méthodes /!\
-    for (var x=0; x<this.mapSize; x++){ // on génère le coté X du plateau par rapport à la mapSize
-		//console.log('x = '+ x); //histoire de comprendre ce que ca fait en console
-
-            this.board[x] = new Array(); // on crée notre tableau de colonne pour chaque ligne
-
-            // pour chaque x on parcours tout les y possibles
+   
+    for (var x=0; x<this.mapSize; x++){
+        this.board[x] = new Array();
             for(var y=0; y<this.mapSize; y++){
                 //pour chaque colonne de chaque ligne on mets ou non un rocher
                 if(Math.floor((Math.random() * this.statRocks)) == 0){ // on genere un nombre entre 0 et statRocks compris et si on a 0 on met un rocher (1/10 de rochers quoi)
 				    this.board[x][y] = "Rock";
                 }else{    // dans ce cas la case est vide
-				    this.board[x][y] = 0; // TODO: vérifier que l'initialisation a 0 est utile dans bien des langages de prog les tableaux sont par défaut a 0
-                // j'ai mis 4 quand y'a un rocher et 3 quand c'est vide comme ça on réserve 1 et 2 pour les joueurs
+				    this.board[x][y] = 0;
                 }
-
-        }
+            }
     }
 
 
