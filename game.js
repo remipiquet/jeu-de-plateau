@@ -117,14 +117,26 @@ myGame.afficheTout();
 /****************************************
  *           Tour par tour              *
  ***************************************/
-
-function CurrentPlayer() {
-  var currentplayer = player[0];
-  while (i < player.length){
-    if (currentPlayer.Move)
+/*
+function TurnByTurn() {
+  var currentPlayer;
+  var stop = console.log("stop");  // A changer il faudrait faire en sorte que quand on marque "stop" dans la console, ça arrête la boucle
+  for (currentPlayer=0; currentPlayer<playersArray.length; currentPlayer++){
+    if (currentPlayer < playersArray.length){
+      if (currentPlayer.Move){
+        currentPlayer++;
+      }
+    }
+    else if(i >= player.length){
+      if (currentPlayer.Move){
+        currentPlayer = 0;
+      }
+    }
+    return currentPlayer;
   }
-  // tant que i<player.length, dès que player bouge, on incrémente player[index]
 }
+*/
+var currentPlayer = 0
 
 
 
@@ -135,12 +147,12 @@ function CurrentPlayer() {
  *        Déplacement des joueurs       *
  ***************************************/
 
-function CellIsFree(x, y) { // Accessibilité des cases
+function CellIsNoRock(x, y) { // Accessibilité des cases
   return myGame.board[x][y] == 0;
 }
 
-function whereIsPlayer(index) {
-  var player = playersArray[index];
+function whereIsPlayer(num) {
+  var player = playersArray[num];
   console.log(player.name + " est en X " + player.position.X + " Y " + player.position.Y);
 }
 whereIsPlayer(0);
@@ -152,87 +164,88 @@ whereIsPlayer(1);
 var numCells = 0;
 
 // Pour bouger à droite
-function MoveRight(index, numCells) {
-  if (CellIsFree(playersArray[index].position.X + numCells, playersArray[index].position.Y)) {
-    playersArray[index].position.X = playersArray[index].position.X + numCells;
+function MoveRight(numCells) {
+  if (CellIsNoRock(playersArray[currentPlayer].position.X + numCells, playersArray[currentPlayer].position.Y)) {
+    playersArray[currentPlayer].position.X = playersArray[currentPlayer].position.X + numCells;
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
 }
 
 // Pour bouger à gauche
-function MoveLeft(index, numCells) {
-  if (CellIsFree(playersArray[index].position.X - numCells, playersArray[index].position.Y)) {
-    playersArray[index].position.X = playersArray[index].position.X - numCells;
+function MoveLeft(numCells) {
+  if (CellIsNoRock(playersArray[currentPlayer].position.X - numCells, playersArray[currentPlayer].position.Y)) {
+    playersArray[currentPlayer].position.X = playersArray[currentPlayer].position.X - numCells;
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
 }
 
 // Pour bouger en haut
-function MoveUp(index, numCells) {
-  if (CellIsFree(playersArray[index].position.X, playersArray[index].position.Y)) {
-    playersArray[index].position.Y = playersArray[index].position.Y - numCells;
+function MoveUp(numCells) {
+  if (CellIsNoRock(playersArray[currentPlayer].position.X, playersArray[currentPlayer].position.Y)) {
+    playersArray[currentPlayer].position.Y = playersArray[currentPlayer].position.Y - numCells;
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
 }
 
 // Pour bouger en bas
-function MoveDown(index, numCells) {
-  if (CellIsFree(playersArray[index].position.X, playersArray[index].position.Y)) {
-    playersArray[index].position.Y = playersArray[index].position.Y + numCells;
+function MoveDown(numCells) {
+  if (CellIsNoRock(playersArray[currentPlayer].position.X, playersArray[currentPlayer].position.Y)) {
+    playersArray[currentPlayer].position.Y = playersArray[currentPlayer].position.Y + numCells;
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
 }
 // Prompt de commande de déplacement
 function Move() {
- // window.alert("Titre du jeu à trouver");
-  var command = prompt("Joueur 1, à toi de jouer. Où veux tu te déplacer ?");
+  // window.alert("Titre du jeu à trouver");
+  var joueurEnCours = currentPlayer+1;
+  var command = prompt("Joueur à toi de jouer. Où veux tu te déplacer ?");
   //return currentPlayer;
 
   switch (command) {
     case "1droite1":
-      MoveRight(0, 1);
+      MoveRight(currentPlayer, 1);
       break;
     case "1gauche1":
-      MoveLeft(0, 1);
+      MoveLeft(currentPlayer, 1);
       break;
     case "1haut1":
-      MoveLeft(0, 1);
+      MoveLeft(currentPlayer, 1);
       break;
     case "1bas1":
-      MoveLeft(0, 1);
+      MoveLeft(currentPlayer, 1);
       break;
 
     case "1droite2":
-      MoveRight(0, 2);
+      MoveRight(currentPlayer, 2);
       break;
     case "1gauche2":
-      MoveLeft(0, 2);
+      MoveLeft(currentPlayer, 2);
       break;
     case "1haut2":
-      MoveLeft(0, 2);
+      MoveLeft(currentPlayer, 2);
       break;
     case "1bas2":
-      MoveLeft(0, 2);
+      MoveLeft(currentPlayer, 2);
       break;
 
     case "1droite3":
-      MoveRight(0, 3);
+      MoveRight(currentPlayer, 3);
       break;
     case "1gauche3":
-      MoveLeft(0, 3);
+      MoveLeft(currentPlayer, 3);
       break;
     case "1haut3":
-      MoveLeft(0, 3);
+      MoveLeft(currentPlayer, 3);
       break;
     case "1bas3":
-      MoveLeft(0, 3);
+      MoveLeft(currentPlayer, 3);
       break;
 
-    case "2droite1":
+    /*case "2droite1":
       MoveRight(1, 1);
       break;
     case "2gauche1":
@@ -270,7 +283,7 @@ function Move() {
     case "2bas3":
       MoveLeft(1, 3);
       break;
-
+*/
     default:
       alert("Je n'ai pas compris!");
   }
