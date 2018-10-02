@@ -126,45 +126,26 @@ myGame.afficheTout();
 // currentplayer = i+1 (sauf si on arrive au bout du tableau, dans ce cas i=0)
 // quand on tape Stop, ça stope le jeu
 
-/*
-function TurnByTurn() {
-  var currentPlayer;
-  var stop = console.log("stop");  // A changer il faudrait faire en sorte que quand on marque "stop" dans la console, ça arrête la boucle
-  for (currentPlayer=0; currentPlayer<playersArray.length; currentPlayer++){
-    if (currentPlayer < playersArray.length){
-      if (Move()){
-        currentPlayer++;
-      }
+
+function Stop(){
+  var stop = true;
+}
+
+function CurrentPlayer(){
+  while (!stop){
+    var currentPlayer = 0;
+    if (Move){
+      currentPlayer = currentPlayer++;
+      return currentPlayer;
     }
-    else if(i >= player.length){
-      if (Move()){
-        currentPlayer = 0;
-      }
+    if (currentPlayer >= playersArray.length){
+      currentPlayer = 0;
+      return currentPlayer;
     }
-    return currentPlayer;
   }
 }
-*/
 
-/*
-function TurnByTurn(){
-
-}
-var stop=false;
-//while (!stop){
-  var currentPlayer = playersArray[0];
-  if (currentPlayer.Move){
-    if (currentPlayer < playersArray.length){
-      currentPlayer++;
-    }
-    else if (currentPlayer >= playersArray.length){
-      currentPlayer=0;
-    }
-  }  
-//}
-*/
-
-var currentplayer = playersArray[0];
+//var currentPlayer = 0;
 
 
 
@@ -186,38 +167,37 @@ whereIsPlayer(1);
 
 
 //var numCells = 0;
-
 // Pour bouger à droite
-function MoveRight(index, numCells) {
-  if (CellIsNoRock(playersArray[index].position.X + numCells, playersArray[index].position.Y)) {
-    playersArray[index].position.X = playersArray[index].position.X + numCells;
+function MoveRight(currentPlayer, numCells) {
+  if (CellIsNoRock(playersArray[currentPlayer].position.X + numCells, playersArray[currentPlayer].position.Y)) {
+    playersArray[currentPlayer].position.X = playersArray[currentPlayer].position.X + numCells;
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
 }
 
 // Pour bouger à gauche
-function MoveLeft(index, numCells) {
-  if (CellIsNoRock(playersArray[index].position.X - numCells, playersArray[index].position.Y)) {
-    playersArray[index].position.X = playersArray[index].position.X - numCells;
+function MoveLeft(currentPlayer, numCells) {
+  if (CellIsNoRock(playersArray[currentPlayer].position.X - numCells, playersArray[currentPlayer].position.Y)) {
+    playersArray[currentPlayer].position.X = playersArray[currentPlayer].position.X - numCells;
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
 }
 
 // Pour bouger en haut
-function MoveUp(index, numCells) {
-  if (CellIsNoRock(playersArray[index].position.X, playersArray[index].position.Y)) {
-    playersArray[index].position.Y = playersArray[index].position.Y - numCells;
+function MoveUp(currentPlayer, numCells) {
+  if (CellIsNoRock(playersArray[currentPlayer].position.X, playersArray[currentPlayer].position.Y)) {
+    playersArray[currentPlayer].position.Y = playersArray[currentPlayer].position.Y - numCells;
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
 }
 
 // Pour bouger en bas
-function MoveDown(index, numCells) {
-  if (CellIsNoRock(playersArray[index].position.X, playersArray[index].position.Y)) {
-    playersArray[index].position.Y = playersArray[index].position.Y + numCells;
+function MoveDown(currentPlayer, numCells) {
+  if (CellIsNoRock(playersArray[currentPlayer].position.X, playersArray[currentPlayer].position.Y)) {
+    playersArray[currentPlayer].position.Y = playersArray[currentPlayer].position.Y + numCells;
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
@@ -225,7 +205,7 @@ function MoveDown(index, numCells) {
 // Prompt de commande de déplacement
 function Move() {
   // window.alert("Titre du jeu à trouver");
-  var command = prompt(currentPlayer.name + " à toi de jouer. Où veux tu te déplacer ?");
+  var command = prompt(playersArray[currentPlayer].name + " à toi de jouer. Où veux tu te déplacer ?");
   //return currentPlayer;
 
   switch (command) {
