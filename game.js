@@ -13,10 +13,12 @@ var playersArray = []; // Création d'un tableau pour les joueurs
 var nbPlayers = 2;
 
 for (var i = 0; i < nbPlayers; i++) {
-  var currentPlayer = parseInt(i) + 1;
-  var player = new Player('Joueur ' + currentPlayer, 100, 10, 'fist');
+  var index = parseInt(i) + 1;
+  var player = new Player('Joueur ' + index, 100, 10, 'fist');
   playersArray.push(player);
 }
+
+var currentPlayer = 0;
 
 var accessibleCells = myGame.getEmptyCells();
 
@@ -115,25 +117,27 @@ myGame.afficheTout();
 // currentplayer = i+1 (sauf si on arrive au bout du tableau, dans ce cas i=0)
 // quand on tape Stop, ça stope le jeu
 
-function Stop(){
-  var stop = true;
-}
 
 function CurrentPlayer(){
+  if (currentPlayer < playersArray.length){
+    currentPlayer ++;
+  }
+  else {
+    currentPlayer = 0;
+  }
+}
+
+
+function TurnByTurn(){
+  var stop = false;
   while (!stop){
-    var currentPlayer = 0;
-    if (Move){
-      currentPlayer = currentPlayer++;
-      return currentPlayer;
-    }
-    if (currentPlayer >= playersArray.length){
-      currentPlayer = 0;
-      return currentPlayer;
+    stop = Move();
+    if (!stop){
+      CurrentPlayer();
     }
   }
 }
 
-var currentPlayer = 0; // /!\ temporaire, en attente de la gestion du tour par tour
 
 
 /****************************************
@@ -191,8 +195,9 @@ function MoveDown(currentPlayer, numCells) {
 // Prompt de commande de déplacement
 function Move() {
   // window.alert("Titre du jeu à trouver");
+  console.log(currentPlayer);
   var command = prompt(playersArray[currentPlayer].name + " à toi de jouer. Où veux tu te déplacer ?");
-
+  var state = false;
   switch (command) {
     case "droite1":
       MoveRight(currentPlayer, 1);
@@ -233,9 +238,14 @@ function Move() {
       MoveDown(currentPlayer, 3);
       break;
 
-
+    case "stop":
+      state=true;
+      break;
+      
     default:
       alert("Je n'ai pas compris!");
+    
+    return state;  
   }
 }
 

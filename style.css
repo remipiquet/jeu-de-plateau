@@ -1,3 +1,11 @@
+html { 
+    margin:0;
+    padding:0;
+    background: url(img/map.jpg) no-repeat center fixed; 
+    -webkit-background-size: cover; /* pour anciens Chrome et Safari */
+    background-size: cover; /* version standardisée */
+  }
+
 table
 {
     border-collapse: collapse; /* les bordures sont collées */
