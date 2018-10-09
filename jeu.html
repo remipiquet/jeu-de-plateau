@@ -6,11 +6,66 @@
         <title>Super Jeu</title>
     </head>
     <body>
-        <button onclick="TurnByTurn()">test déplacement</button>
-        <button onclick="Stop()">Stop</button>
-        <canvas id="Pirates!" width="500" height="500">
+        <div id="container">
+            <div id="zone">
+                <button onclick="TurnByTurn()">test déplacement</button>
+                <button onclick="Stop()">Stop</button>
+            </div>          
+            <div id="zone">    
+                <section>
+                        <article>
+                            <table>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                        </table>
+                    </article>    
+                </section>
+            </div>  
+            <div id="zone">
+                <button onclick="Attack()">Attaque</button>
+                <button onclick="Defend()">Defense</button>
+            </div>   
+        </div>    
+        <!--
+            <canvas id="Pirates!" width="500" height="500">
             Votre navigateur ne gère pas la balise canvas, veuillez changer de navigateur ou le mettre à jour.
         </canvas>
+        -->
+
+    </div>
         <script src="board.js"></script>
         <script src="weapons.js"></script>
         <script src="players.js"></script>

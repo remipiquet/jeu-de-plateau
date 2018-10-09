@@ -15,7 +15,7 @@ function Board(mapSize, statRocks) {
             for(var y=0; y<this.mapSize; y++){
                 //pour chaque colonne de chaque ligne on mets ou non un rocher
                 if(Math.floor((Math.random() * this.statRocks)) == 0){ // on genere un nombre entre 0 et statRocks compris et si on a 0 on met un rocher (1/10 de rochers quoi)
-				    this.board[x][y] = "Rock";
+				    this.board[x][y] = "barrel";
                 }else{    // dans ce cas la case est vide
 				    this.board[x][y] = 0;
                 }
@@ -60,9 +60,6 @@ Board.prototype.afficheTout = function() {
 		}
 	}
 };
-
-
-
 
 //myGame.contenuCase(1, 2);
 //myGame.afficheTout();

@@ -19,6 +19,7 @@ for (var i = 0; i < nbPlayers; i++) {
 }
 
 var currentPlayer = 0;
+var currentEnemy = 1;
 
 var accessibleCells = myGame.getEmptyCells();
 
@@ -66,7 +67,7 @@ for (var indexPlayer = 0; indexPlayer < 2; indexPlayer++) {
         }
       }
     }
-  }
+  } 
 }
 
 
@@ -78,25 +79,25 @@ for (var indexPlayer = 0; indexPlayer < 2; indexPlayer++) {
 var accessibleCells = myGame.getEmptyCells();
 var weapon1Position = Math.floor(Math.random() * (accessibleCells.length));
 var weapon1Json = accessibleCells[weapon1Position];
-myGame.board[weapon1Json.X][weapon1Json.Y] = weapon1.name;
+myGame.board[weapon1Json.X][weapon1Json.Y] = weapon2.name;
 
 // Placement de l'arme 2 (sword)
 var accessibleCells = myGame.getEmptyCells();
 var weapon2Position = Math.floor(Math.random() * (accessibleCells.length));
 var weapon2Json = accessibleCells[weapon2Position];
-myGame.board[weapon2Json.X][weapon2Json.Y] = weapon2.name;
+myGame.board[weapon2Json.X][weapon2Json.Y] = weapon3.name;
 
 // Placement de l'arme 3 (harpoon)
 var accessibleCells = myGame.getEmptyCells();
 var weapon3Position = Math.floor(Math.random() * (accessibleCells.length));
 var weapon3Json = accessibleCells[weapon3Position];
-myGame.board[weapon3Json.X][weapon3Json.Y] = weapon3.name;
+myGame.board[weapon3Json.X][weapon3Json.Y] = weapon4.name;
 
 // Placement de l'arme 4 (gun)
 var accessibleCells = myGame.getEmptyCells();
 var weapon4Position = Math.floor(Math.random() * (accessibleCells.length));
 var weapon4Json = accessibleCells[weapon4Position];
-myGame.board[weapon4Json.X][weapon4Json.Y] = weapon4.name;
+myGame.board[weapon4Json.X][weapon4Json.Y] = weapon5.name;
 
 // Commande pour voir le plateau en textuel
 myGame.afficheTout();
@@ -130,6 +131,9 @@ function CurrentPlayer(){
 
 function TurnByTurn(){
   var stop = false;
+  if (currentPlayer.health <= 0){
+    stop = true;
+  }
   while (!stop){
     stop = Move();
     if (!stop){
@@ -138,12 +142,12 @@ function TurnByTurn(){
   }
 }
 
-function Enemmy(){
+function CurrentEnemy(){
   if (currentPlayer=0){
-    playersArray[1]=ennemy;
+    currentEnemy=1;
   }
   if (currentPlayer=1){
-    playersArray[0]=ennemy;
+    currentEnemy=0;
   }
 }
 
@@ -263,21 +267,24 @@ function Move() {
  *         Gestion de la baston         *
  ***************************************/
 
-// Si currentPlayer est à côté d'un autre joueur
-// autreJoueur.health = autreJoueur.health - currentPlayer.force
 function Attack(){
-  if (playersArray[currentPlayer].position.X == ennemy.position.X+1 &&
-    playersArray[currentPlayer].position.Y == ennemy.position.Y ||
-    playersArray[currentPlayer].position.X == ennemy.position.X-1 &&
-    playersArray[currentPlayer].position.Y == ennemy.position.Y ||
-    playersArray[currentPlayer].position.Y == ennemy.position.Y+1 &&
-    playersArray[currentPlayer].position.X == ennemy.position.X ||
-    playersArray[currentPlayer].position.Y == ennemy.position.Y-1 &&
-    playersArray[currentPlayer].position.X == ennemy.position.X){
-    playersArray[currentPlayer].health = enemmy.health - playersArray[currentPlayer].force;
-    console.log(playersArray[currentPlayer].name + "inflige " + playersArray[currentPlayer].force + " points de dégats");
-    console.log("Il reste " + ennemy.health + " points de vie à " + ennemy.name);
+  //while (currentPlayer.health > 0)
+  //Enemy();
+  if (playersArray[currentPlayer].position.X == playersArray[currentEnemy].position.X+1 &&
+    playersArray[currentPlayer].position.Y == playersArray[currentEnemy].position.Y ||
+    playersArray[currentPlayer].position.X == playersArray[currentEnemy].position.X-1 &&
+    playersArray[currentPlayer].position.Y == playersArray[currentEnemy].position.Y ||
+    playersArray[currentPlayer].position.Y == playersArray[currentEnemy].position.Y+1 &&
+    playersArray[currentPlayer].position.X == playersArray[currentEnemy].position.X ||
+    playersArray[currentPlayer].position.Y == playersArray[currentEnemy].position.Y-1 &&
+    playersArray[currentPlayer].position.X == playersArray[currentEnemy].position.X){
+    playersArray[currentEnemy].health = playersArray[currentEnemy].health - playersArray[currentPlayer].force;
+    console.log(playersArray[currentPlayer].name + " inflige " + playersArray[currentPlayer].force + " points de dégats");
+    console.log("Il reste " + playersArray[currentEnemy].health + " points de vie à " + playersArray[currentEnemy].name);
   }  
+  else {
+    alert("Vous n'êtes pas à côté d'un ennemi !")
+  } 
 }
 
 function Defend(){
@@ -289,11 +296,7 @@ function Defend(){
  ***************************************/
 // Les joueurs ne doivent pas apparaitre sur les armes
 // Les joueurs ne doivent pas pouvoir "sauter" par dessus les rochers
-// Y'a un bug de déplacement (des fois le joueur se déplace de plusieurs cases au lieu d'une)
 // Limite du plateau à fixer (endBoard)
 // Fonction qui récupère les déplacements possibles
-// Gestion du tour par tour
 // Boucle à faire pour le placement des armes
 // placement des joueurs dans le tabeau JSON (pour qu'on les voie sur le plateau)
-
-// 01/10 : problème avec currentPlayer
