@@ -9,7 +9,7 @@ var myGame = new Board(5, 4);
  *    Placement des joueurs sur le plateau    *
  *********************************************/
 
-var playersArray = []; // Création d'un tableau pour les joueurs
+var playersArray = [];
 var nbPlayers = 2;
 
 for (var i = 0; i < nbPlayers; i++) {
