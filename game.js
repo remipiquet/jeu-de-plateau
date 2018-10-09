@@ -14,7 +14,7 @@ var nbPlayers = 2;
 
 for (var i = 0; i < nbPlayers; i++) {
   var index = parseInt(i) + 1;
-  var player = new Player('Joueur ' + index, 100, 10, 'fist');
+  var player = new Player('Joueur ' + index, 100, 10, 'hook');
   playersArray.push(player);
 }
 
@@ -74,25 +74,25 @@ for (var indexPlayer = 0; indexPlayer < 2; indexPlayer++) {
  *     Placement des armes sur le plateau    *
  ********************************************/
 
-// Placement de l'arme 1 (Couteau)
+// Placement de l'arme 1 (knife)
 var accessibleCells = myGame.getEmptyCells();
 var weapon1Position = Math.floor(Math.random() * (accessibleCells.length));
 var weapon1Json = accessibleCells[weapon1Position];
 myGame.board[weapon1Json.X][weapon1Json.Y] = weapon1.name;
 
-// Placement de l'arme 2 (Fourche)
+// Placement de l'arme 2 (sword)
 var accessibleCells = myGame.getEmptyCells();
 var weapon2Position = Math.floor(Math.random() * (accessibleCells.length));
 var weapon2Json = accessibleCells[weapon2Position];
 myGame.board[weapon2Json.X][weapon2Json.Y] = weapon2.name;
 
-// Placement de l'arme 3 (Flingue)
+// Placement de l'arme 3 (harpoon)
 var accessibleCells = myGame.getEmptyCells();
 var weapon3Position = Math.floor(Math.random() * (accessibleCells.length));
 var weapon3Json = accessibleCells[weapon3Position];
 myGame.board[weapon3Json.X][weapon3Json.Y] = weapon3.name;
 
-// Placement de l'arme 4 (Lance-flame)
+// Placement de l'arme 4 (gun)
 var accessibleCells = myGame.getEmptyCells();
 var weapon4Position = Math.floor(Math.random() * (accessibleCells.length));
 var weapon4Json = accessibleCells[weapon4Position];
@@ -135,6 +135,15 @@ function TurnByTurn(){
     if (!stop){
       CurrentPlayer();
     }
+  }
+}
+
+function Enemmy(){
+  if (currentPlayer=0){
+    playersArray[1]=ennemy;
+  }
+  if (currentPlayer=1){
+    playersArray[0]=ennemy;
   }
 }
 
@@ -247,6 +256,32 @@ function Move() {
     
     return state;  
   }
+}
+
+
+/****************************************
+ *         Gestion de la baston         *
+ ***************************************/
+
+// Si currentPlayer est à côté d'un autre joueur
+// autreJoueur.health = autreJoueur.health - currentPlayer.force
+function Attack(){
+  if (playersArray[currentPlayer].position.X == ennemy.position.X+1 &&
+    playersArray[currentPlayer].position.Y == ennemy.position.Y ||
+    playersArray[currentPlayer].position.X == ennemy.position.X-1 &&
+    playersArray[currentPlayer].position.Y == ennemy.position.Y ||
+    playersArray[currentPlayer].position.Y == ennemy.position.Y+1 &&
+    playersArray[currentPlayer].position.X == ennemy.position.X ||
+    playersArray[currentPlayer].position.Y == ennemy.position.Y-1 &&
+    playersArray[currentPlayer].position.X == ennemy.position.X){
+    playersArray[currentPlayer].health = enemmy.health - playersArray[currentPlayer].force;
+    console.log(playersArray[currentPlayer].name + "inflige " + playersArray[currentPlayer].force + " points de dégats");
+    console.log("Il reste " + ennemy.health + " points de vie à " + ennemy.name);
+  }  
+}
+
+function Defend(){
+// Est-ce que je peux pas intégrer à l'objet Player une propriété booléenne "defense" ?
 }
 
 /***************************************
