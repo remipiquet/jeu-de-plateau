@@ -14,7 +14,7 @@ var nbPlayers = 2;
 
 for (var i = 0; i < nbPlayers; i++) {
   var index = parseInt(i) + 1;
-  var player = new Player('Joueur ' + index, 100, 10, 'hook');
+  var player = new Player('Joueur ' + index, 100, weapon1, weapon1.damage);
   playersArray.push(player);
 }
 
@@ -77,27 +77,27 @@ for (var indexPlayer = 0; indexPlayer < 2; indexPlayer++) {
 
 // Placement de l'arme 1 (knife)
 var accessibleCells = myGame.getEmptyCells();
-var weapon1Position = Math.floor(Math.random() * (accessibleCells.length));
-var weapon1Json = accessibleCells[weapon1Position];
-myGame.board[weapon1Json.X][weapon1Json.Y] = weapon2.name;
+var weapon2Position = Math.floor(Math.random() * (accessibleCells.length));
+var weapon2Json = accessibleCells[weapon2Position];
+myGame.board[weapon2Json.X][weapon2Json.Y] = weapon2.name;
 
 // Placement de l'arme 2 (sword)
 var accessibleCells = myGame.getEmptyCells();
-var weapon2Position = Math.floor(Math.random() * (accessibleCells.length));
-var weapon2Json = accessibleCells[weapon2Position];
-myGame.board[weapon2Json.X][weapon2Json.Y] = weapon3.name;
+var weapon3Position = Math.floor(Math.random() * (accessibleCells.length));
+var weapon3Json = accessibleCells[weapon3Position];
+myGame.board[weapon3Json.X][weapon3Json.Y] = weapon3.name;
 
 // Placement de l'arme 3 (harpoon)
 var accessibleCells = myGame.getEmptyCells();
-var weapon3Position = Math.floor(Math.random() * (accessibleCells.length));
-var weapon3Json = accessibleCells[weapon3Position];
-myGame.board[weapon3Json.X][weapon3Json.Y] = weapon4.name;
+var weapon4Position = Math.floor(Math.random() * (accessibleCells.length));
+var weapon4Json = accessibleCells[weapon4Position];
+myGame.board[weapon4Json.X][weapon4Json.Y] = weapon4.name;
 
 // Placement de l'arme 4 (gun)
 var accessibleCells = myGame.getEmptyCells();
-var weapon4Position = Math.floor(Math.random() * (accessibleCells.length));
-var weapon4Json = accessibleCells[weapon4Position];
-myGame.board[weapon4Json.X][weapon4Json.Y] = weapon5.name;
+var weapon5Position = Math.floor(Math.random() * (accessibleCells.length));
+var weapon5Json = accessibleCells[weapon5Position];
+myGame.board[weapon5Json.X][weapon5Json.Y] = weapon5.name;
 
 // Commande pour voir le plateau en textuel
 myGame.afficheTout();
@@ -261,6 +261,22 @@ function Move() {
     return state;  
   }
 }
+
+
+/****************************************
+ *     Gestion du changement d'arme     *
+ ***************************************/
+
+// si currentPlayer est sur une case weapon
+function WeaponChange(){
+    console.log("prout");
+}
+if (playersArray[currentPlayer].position.X == myGame.board[weapon2Json.X] && playersArray[currentPlayer].position.Y == myGame.board[weapon2Json.Y] 
+  || playersArray[currentPlayer].position.X == myGame.board[weapon2Json.X] && playersArray[currentPlayer].position.Y == myGame.board[weapon2Json.Y]){
+  WeaponChange();
+}
+// ça change son arme et sa force contre celle qui est dans la case
+// et ça remplace l'arme au sol par l'arme que le joueur avait
 
 
 /****************************************
