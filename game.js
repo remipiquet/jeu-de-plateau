@@ -10,11 +10,11 @@ var myGame = new Board(5, 4);
  *********************************************/
 
 var playersArray = [];
-var nbPlayers = 2;
+var nbPlayers = 2; 
 
 for (var i = 0; i < nbPlayers; i++) {
   var index = parseInt(i) + 1;
-  var player = new Player('Joueur ' + index, 100, weapon1, weapon1.damage);
+  var player = new Player('Joueur ' + index, 100, weapon1.name, weapon1.damage);
   playersArray.push(player);
 }
 
@@ -25,7 +25,7 @@ var accessibleCells = myGame.getEmptyCells();
 
 // pour chaque joueur on place le joueur de maniere a ne pas etre a coté d'un autre joueur
 
-for (var indexPlayer = 0; indexPlayer < 2; indexPlayer++) {
+for (var indexPlayer = 0; indexPlayer < nbPlayers; indexPlayer++) {
   playersArray[indexPlayer].position = accessibleCells[Math.floor(Math.random() * (accessibleCells.length))];
 
   // On rend inacccessible les cases qui sont proches de player x et sa case
@@ -60,7 +60,7 @@ for (var indexPlayer = 0; indexPlayer < 2; indexPlayer++) {
   // on enleve les cases inaccessibles des cases accessibles
   for (var j = 0; j < accessibleCells.length; j++) {
     for (var k = 0; k < inaccessibleCells.length; k++) {
-      //console.log('j '+j);  //debug
+      //console.log('j '+ j);  //debug
       if (j >= 0 && accessibleCells.length > j) {
         if (inaccessibleCells[k].X == accessibleCells[j].X && inaccessibleCells[k].Y == accessibleCells[j].Y) {
           accessibleCells.splice(j, 1);
@@ -128,7 +128,6 @@ function CurrentPlayer(){
   }
 }
 
-
 function TurnByTurn(){
   var stop = false;
   if (currentPlayer.health <= 0){
@@ -138,6 +137,9 @@ function TurnByTurn(){
     stop = Move();
     if (!stop){
       CurrentPlayer();
+    }
+    else {
+      alert(currentEnemy.name + " wins !")
     }
   }
 }
@@ -150,7 +152,6 @@ function CurrentEnemy(){
     currentEnemy=0;
   }
 }
-
 
 
 /****************************************
@@ -214,41 +215,53 @@ function Move() {
   switch (command) {
     case "droite1":
       MoveRight(currentPlayer, 1);
+      WeaponChange();
       break;
     case "gauche1":
       MoveLeft(currentPlayer, 1);
+      WeaponChange();
       break;
     case "haut1":
       MoveUp(currentPlayer, 1);
+      WeaponChange();
       break;
     case "bas1":
       MoveDown(currentPlayer, 1);
+      WeaponChange();
       break;
 
     case "droite2":
       MoveRight(currentPlayer, 2);
+      WeaponChange();
       break;
     case "gauche2":
       MoveLeft(currentPlayer, 2);
+      WeaponChange();
       break;
     case "haut2":
       MoveUp(currentPlayer, 2);
+      WeaponChange();
       break;
     case "bas2":
       MoveDown(currentPlayer, 2);
+      WeaponChange();
       break;
 
     case "droite3":
       MoveRight(currentPlayer, 3);
+      WeaponChange();
       break;
     case "gauche3":
       MoveLeft(currentPlayer, 3);
+      WeaponChange();
       break;
     case "haut3":
       MoveUp(currentPlayer, 3);
+      WeaponChange();
       break;
     case "bas3":
       MoveDown(currentPlayer, 3);
+      WeaponChange();
       break;
 
     case "stop":
@@ -269,12 +282,12 @@ function Move() {
 
 // si currentPlayer est sur une case weapon
 function WeaponChange(){
-    console.log("prout");
+  if (playersArray[currentPlayer].position == weapon2Json || playersArray[currentPlayer].position == weapon3Json 
+    || playersArray[currentPlayer].position == weapon4Json || playersArray[currentPlayer].position == weapon5Json){
+      console.log("prout");
+    } 
 }
-if (playersArray[currentPlayer].position.X == myGame.board[weapon2Json.X] && playersArray[currentPlayer].position.Y == myGame.board[weapon2Json.Y] 
-  || playersArray[currentPlayer].position.X == myGame.board[weapon2Json.X] && playersArray[currentPlayer].position.Y == myGame.board[weapon2Json.Y]){
-  WeaponChange();
-}
+
 // ça change son arme et sa force contre celle qui est dans la case
 // et ça remplace l'arme au sol par l'arme que le joueur avait
 
@@ -283,9 +296,7 @@ if (playersArray[currentPlayer].position.X == myGame.board[weapon2Json.X] && pla
  *         Gestion de la baston         *
  ***************************************/
 
-function Attack(){
-  //while (currentPlayer.health > 0)
-  //Enemy();
+function Duel(){
   if (playersArray[currentPlayer].position.X == playersArray[currentEnemy].position.X+1 &&
     playersArray[currentPlayer].position.Y == playersArray[currentEnemy].position.Y ||
     playersArray[currentPlayer].position.X == playersArray[currentEnemy].position.X-1 &&
@@ -294,7 +305,7 @@ function Attack(){
     playersArray[currentPlayer].position.X == playersArray[currentEnemy].position.X ||
     playersArray[currentPlayer].position.Y == playersArray[currentEnemy].position.Y-1 &&
     playersArray[currentPlayer].position.X == playersArray[currentEnemy].position.X){
-    playersArray[currentEnemy].health = playersArray[currentEnemy].health - playersArray[currentPlayer].force;
+    playersArray[currentPlayer].attack(playersArray[currentEnemy]);
     console.log(playersArray[currentPlayer].name + " inflige " + playersArray[currentPlayer].force + " points de dégats");
     console.log("Il reste " + playersArray[currentEnemy].health + " points de vie à " + playersArray[currentEnemy].name);
   }  
@@ -303,9 +314,6 @@ function Attack(){
   } 
 }
 
-function Defend(){
-// Est-ce que je peux pas intégrer à l'objet Player une propriété booléenne "defense" ?
-}
 
 /***************************************
  *      ********   To do   ********     *
@@ -316,3 +324,5 @@ function Defend(){
 // Fonction qui récupère les déplacements possibles
 // Boucle à faire pour le placement des armes
 // placement des joueurs dans le tabeau JSON (pour qu'on les voie sur le plateau)
+
+// /!\ Problème avec le tour par tour qui continue d'incrémenter après le joueur 2
