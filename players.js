@@ -1,10 +1,10 @@
 // Fichier JS des joueurs
 
-function Player(name, health, force, weapon) {
+function Player(name, health, weapon) {
   this.name = name;
   this.health = health;
-  this.weapon = weapon;
-  this.force = weapon1.damage;
+  this.weapon = weapon.name;
+  this.force = weapon.damage;
   this.position = null;
   this.defense = false;
 

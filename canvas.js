@@ -1,6 +1,8 @@
+var ts = new Tileset("grass-tiles.png");
+
 window.onload = function()
 {
-    var canvas = document.getElementById('mon_canvas');
+    var canvas = document.getElementById('Pirates!');
         if(!canvas)
         {
             alert("Impossible de récupérer le canvas");
@@ -15,5 +17,9 @@ window.onload = function()
         }
 
 
-    //C'est ici que l'on placera tout le code servant à nos dessins.
+        ts.dessinerTile(1, context, 10, 10);
+        ts.dessinerTile(5, context, 50, 10);
+        ts.dessinerTile(6, context, 90, 10);
+        ts.dessinerTile(7, context, 130, 10);
+        
 }

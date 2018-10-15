@@ -3,7 +3,9 @@
     <head>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="style.css" />
-        <title>Super Jeu</title>
+        <title>Pirates!</title>
+        <!--[if lt IE 9]><script type="text/javascript" src="ExplorerCanvas-master/excanvas.js"></script><![endif]-->
+
     </head>
     <body>
         <div id="container">
@@ -59,17 +61,19 @@
                 <button onclick="Defend()">Defense</button>
             </div>   
         </div>    
-        <!--
-            <canvas id="Pirates!" width="500" height="500">
-            Votre navigateur ne gère pas la balise canvas, veuillez changer de navigateur ou le mettre à jour.
+        
+        <canvas id="Pirates!" width="500" height="500">
+        Votre navigateur ne gère pas la balise canvas, veuillez changer de navigateur ou le mettre à jour.
         </canvas>
-        -->
+        
 
     </div>
         <script src="board.js"></script>
         <script src="weapons.js"></script>
         <script src="players.js"></script>
         <script src="game.js"></script>
+        <script type="text/javascript" src="tileset.js"></script>
+
 
     </body>
 </html>

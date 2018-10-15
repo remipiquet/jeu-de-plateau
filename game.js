@@ -14,7 +14,7 @@ var nbPlayers = 2;
 
 for (var i = 0; i < nbPlayers; i++) {
   var index = parseInt(i) + 1;
-  var player = new Player('Joueur ' + index, 100, weapon1.name, weapon1.damage);
+  var player = new Player('Joueur ' + index, 100, weapon1,);
   playersArray.push(player);
 }
 
