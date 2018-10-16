@@ -24,10 +24,12 @@ window.onload = function()
 
         
         var barrel = new Image();
-        barrel.src = 'img/knife.png';
-        barrel.addEventListener('load', function(){
-            context.drawImage(barrel, myGame.board[weapon2Json.X]*50, myGame.board[weapon2Json.Y]*50);
-        });
-
+        if(Board.board[x][y] == "barrel"){
+            barrel.src = 'img/barrel.png';
+            barrel.addEventListener('load', function(){
+                context.drawImage(barrel, Board.board[x]*50, Board.board[y]*50, 50, 50);
+            });
+        }
 
 }
+

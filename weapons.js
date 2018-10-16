@@ -12,3 +12,7 @@ var weapon3 = new Weapon (3, "sword", 30);
 var weapon4 = new Weapon (4, "harpoon", 40);
 var weapon5 = new Weapon (5, "gun", 50);
 
+this.drop = function (weaponOnGround){
+  
+}
+
