@@ -75,25 +75,25 @@ for (var indexPlayer = 0; indexPlayer < nbPlayers; indexPlayer++) {
  *     Placement des armes sur le plateau    *
  ********************************************/
 
-// Placement de l'arme 1 (knife)
+// Placement de l'arme 2 (knife)
 var accessibleCells = myGame.getEmptyCells();
 var weapon2Position = Math.floor(Math.random() * (accessibleCells.length));
 var weapon2Json = accessibleCells[weapon2Position];
 myGame.board[weapon2Json.X][weapon2Json.Y] = weapon2.name;
 
-// Placement de l'arme 2 (sword)
+// Placement de l'arme 3 (sword)
 var accessibleCells = myGame.getEmptyCells();
 var weapon3Position = Math.floor(Math.random() * (accessibleCells.length));
 var weapon3Json = accessibleCells[weapon3Position];
 myGame.board[weapon3Json.X][weapon3Json.Y] = weapon3.name;
 
-// Placement de l'arme 3 (harpoon)
+// Placement de l'arme 4 (harpoon)
 var accessibleCells = myGame.getEmptyCells();
 var weapon4Position = Math.floor(Math.random() * (accessibleCells.length));
 var weapon4Json = accessibleCells[weapon4Position];
 myGame.board[weapon4Json.X][weapon4Json.Y] = weapon4.name;
 
-// Placement de l'arme 4 (gun)
+// Placement de l'arme 5 (gun)
 var accessibleCells = myGame.getEmptyCells();
 var weapon5Position = Math.floor(Math.random() * (accessibleCells.length));
 var weapon5Json = accessibleCells[weapon5Position];
@@ -106,18 +106,6 @@ myGame.afficheTout();
 /****************************************
  *       Gestion du tour par tour       *
  ***************************************/
-// Quel joueur est en train de jouer
-// Prompt pour lui demander ou il veut se déplacer (on peut même lui indiquer les cases ou il peut aller)
-// On valide ou pas son Déplacement
-// On réalise le déplacement
-// On passe la main au joueur suivant
-// Jusqu'a ce que mort s'en suive (au début mettre une fonction stop pour arrêter)
-//--------------------------------------------------------------------------------
-// boucle "while !Stop" sur le tableau player.length
-// appeler move pour le faire bouger
-// currentplayer = i+1 (sauf si on arrive au bout du tableau, dans ce cas i=0)
-// quand on tape Stop, ça stope le jeu
-
 
 function CurrentPlayer(){
   if (currentPlayer < playersArray.length){
@@ -128,7 +116,7 @@ function CurrentPlayer(){
   }
 }
 
-function TurnByTurn(){
+function EndGame(){
   var stop = false;
   if (currentPlayer.health <= 0){
     stop = true;
@@ -139,7 +127,7 @@ function TurnByTurn(){
       CurrentPlayer();
     }
     else {
-      alert(currentEnemy.name + " wins !")
+      alert("Bravo, " + currentEnemy.name + " gagne la partie !")
     }
   }
 }

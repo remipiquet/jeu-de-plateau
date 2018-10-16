@@ -1,5 +1,3 @@
-var ts = new Tileset("grass-tiles.png");
-
 window.onload = function()
 {
     var canvas = document.getElementById('Pirates!');
@@ -15,11 +13,21 @@ window.onload = function()
             alert("Impossible de récupérer le context du canvas");
             return;
         }
+    
+        var tileset = new Image();
+        tileset.src = 'img/tileset.png';
+        tileset.addEventListener('load', function() {
+            var pattern = context.createPattern(tileset, 'repeat');
+            context.fillStyle = pattern;
+            context.fillRect(0, 0, 500, 500);
+        });
 
-
-        ts.dessinerTile(1, context, 10, 10);
-        ts.dessinerTile(5, context, 50, 10);
-        ts.dessinerTile(6, context, 90, 10);
-        ts.dessinerTile(7, context, 130, 10);
         
+        var barrel = new Image();
+        barrel.src = 'img/knife.png';
+        barrel.addEventListener('load', function(){
+            context.drawImage(barrel, myGame.board[weapon2Json.X]*50, myGame.board[weapon2Json.Y]*50);
+        });
+
+
 }
