@@ -319,9 +319,11 @@ function DrawBarrels(){
   for (i=0; i<myGame.board.length; i++) {
     for (j=0; j<myGame.board.length; j++) {
         if (myGame.board[i][j] == "barrel") {
-          console.log("tonneau en" +i +" "+j);
+          console.log("tonneau en " +i*50 +" "+j*50);
           barrel.src = 'img/barrel.png';
-          context.drawImage(barrel, i*50, j*50, 50, 50);
+          barrel.addEventListener('load', function () {
+          context.drawImage(barrel, i * 50, j * 50, 50, 50);
+        });
       }
     }
   }
