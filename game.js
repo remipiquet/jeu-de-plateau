@@ -303,6 +303,29 @@ function Duel(){
 }
 
 
+function DrawBarrels(){
+  var canvas = document.getElementById('Pirates!');
+  if (!canvas) {
+    alert("Impossible de récupérer le canvas");
+    return;
+  }
+
+  var context = canvas.getContext('2d');
+  if (!context) {
+    alert("Impossible de récupérer le context du canvas");
+    return;
+  }
+  var barrel = new Image();
+  for (i=0; i<myGame.board.length; i++) {
+    for (j=0; j<myGame.board.length; j++) {
+        if (myGame.board[i][j] == "barrel") {
+          console.log("tonneau en" +i +" "+j);
+          barrel.src = 'img/barrel.png';
+          context.drawImage(barrel, i*50, j*50, 50, 50);
+      }
+    }
+  }
+}
 /***************************************
  *      ********   To do   ********     *
  ***************************************/

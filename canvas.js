@@ -21,15 +21,8 @@ window.onload = function()
             context.fillStyle = pattern;
             context.fillRect(0, 0, 500, 500);
         });
-
         
-        var barrel = new Image();
-        if(Board.board[x][y] == "barrel"){
-            barrel.src = 'img/barrel.png';
-            barrel.addEventListener('load', function(){
-                context.drawImage(barrel, Board.board[x]*50, Board.board[y]*50, 50, 50);
-            });
-        }
-
+    DrawBarrels();
+        
 }
 
