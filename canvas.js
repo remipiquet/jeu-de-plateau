@@ -22,7 +22,7 @@ window.onload = function()
             context.fillRect(0, 0, 500, 500);
         });
         
-    DrawBarrels();
+    //DrawBarrels();
         
 }
 
