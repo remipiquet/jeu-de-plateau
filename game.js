@@ -344,7 +344,7 @@ function DrawBarrels(){
 
 }
 
-function drawGameBoard() {
+function DrawGameBoard() {
   for (i = 0; i < myGame.board.length; i++) {
     $("#tableZone").append("<tr>");
     for (j = 0; j < myGame.board.length; j++) {
@@ -353,7 +353,7 @@ function drawGameBoard() {
         //        var i50 = i*50;
         //        var j50 = j*50;
         console.log("tonneau en " + i + " " + j);
-        $("#tableZone").rows.length
+        $("tr:even").append("<img id="barrel" src="img/barrel.png" />");
 
       
       }
@@ -361,7 +361,8 @@ function drawGameBoard() {
     $("#tableZone").append("</tr>");
   }
 }
-drawGameBoard();
+DrawGameBoard();
+
 
 /***************************************
  *      ********   To do   ********     *

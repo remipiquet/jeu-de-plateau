@@ -4,28 +4,28 @@
         <meta charset="utf-8" />
         <link rel="stylesheet" href="style.css" />
         <title>Pirates!</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+        <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-        crossorigin="anonymous">
+        crossorigin="anonymous">-->
         <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
         crossorigin="anonymous"></script>
 
     </head>
     <body>
         <div id="container">
-            <div id="zone">
+            <div id="moveZone">
                 <button onclick="TurnByTurn()">test déplacement</button>
                 <button onclick="Stop()">Stop</button>
             </div>          
-            <div id="MoveZone">    
+            <div id="boardZone">    
                 <section>
                     <article>
-                        <table id="TableZone">
+                        <table id="tableZone">
                         </table>
                     </article>    
                 </section>
             </div>  
-            <div id="ActionZone">
+            <div id="actionZone">
                 <button onclick="Duel()">Attaque</button>
                 <button onclick="Defend()">Defense</button>
             </div>   
