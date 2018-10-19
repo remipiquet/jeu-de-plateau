@@ -344,24 +344,24 @@ function DrawBarrels(){
 
 }
 
-function DrawBarrelsJquery() {
+function drawGameBoard() {
   for (i = 0; i < myGame.board.length; i++) {
-    $("#TableZone").html("<tr>");
+    $("#tableZone").append("<tr>");
     for (j = 0; j < myGame.board.length; j++) {
-        $("#TableZone").html("<td></td>")
+        $("#tableZone").append("<td></td>")
       if (myGame.board[i][j] == "barrel") {
         //        var i50 = i*50;
         //        var j50 = j*50;
         console.log("tonneau en " + i + " " + j);
-
+        $("#tableZone").rows.length
 
       
       }
     }
-    $("#TableZone").html("</tr>");
+    $("#tableZone").append("</tr>");
   }
 }
-DrawBarrelsJquery();
+drawGameBoard();
 
 /***************************************
  *      ********   To do   ********     *
