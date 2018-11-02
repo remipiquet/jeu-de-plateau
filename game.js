@@ -303,65 +303,29 @@ function Duel(){
 }
 
 
-function DrawBarrels(){
-  var canvas = document.getElementById('Pirates!');
-  if (!canvas) {
-    alert("Impossible de récupérer le canvas");
-    return;
-  }
-
-  var context = canvas.getContext('2d');
-  if (!context) {
-    alert("Impossible de récupérer le context du canvas");
-    return;
-  }
-
-
-  /*
-  var barrel = new Image();
-  barrel.src = 'img/barrel.png';
-
-  for (i = 0; i < myGame.board.length; i++) {
-    for (j = 0; j < myGame.board.length; j++) {
-        if (myGame.board[i][j] == "barrel") {
-  //        var i50 = i*50;
-  //        var j50 = j*50;
-          console.log("tonneau en "+i+" "+j);
-
-
-          barrel.on = function () {
-            console.log("test " + i + " " + j);
-            context.drawImage(barrel, i*50, j*50, 50, 50);
-            
-          
-          };
-      }
-    }
-                    //barrel.src = 'img/barrel.png';
-  }
-*/
-
-
-}
+/****************************************
+ *       Mise en place du visuel        *
+ ***************************************/
 
 function DrawGameBoard() {
+  var container = $('#tableZone');
   for (i = 0; i < myGame.board.length; i++) {
-    $("#tableZone").append("<tr>");
+    var row = $('<tr class="row"></tr>').attr('id', i);
     for (j = 0; j < myGame.board.length; j++) {
-        $("#tableZone").append("<td></td>")
-      if (myGame.board[i][j] == "barrel") {
-        //        var i50 = i*50;
-        //        var j50 = j*50;
+      row.append(function(n){
+        var contentBarrel = "<td id= "+j +"> </td>";
+        if (myGame.board[i][j] == "barrel") {
         console.log("tonneau en " + i + " " + j);
-        $("tr:even").append("<img id="barrel" src="img/barrel.png" />");
-
-      
-      }
+        contentBarrel = "<td id= " + j + "> B </td>";
+        }
+        return contentBarrel;
+      });
     }
-    $("#tableZone").append("</tr>");
+    container.append(row);
   }
 }
 DrawGameBoard();
+
 
 
 /***************************************
@@ -375,3 +339,5 @@ DrawGameBoard();
 // placement des joueurs dans le tabeau JSON (pour qu'on les voie sur le plateau)
 
 // /!\ Problème avec le tour par tour qui continue d'incrémenter après le joueur 2
+
+//"<td id="+j +"></td>"
