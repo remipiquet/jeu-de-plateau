@@ -2,7 +2,7 @@
  *           Initialisation du jeu            *
  *********************************************/
 
-var myGame = new Board(5, 4);
+var myGame = new Board(10, 8);
 
 
 /*********************************************
@@ -315,9 +315,28 @@ function DrawGameBoard() {
       row.append(function(n){
         var contentBarrel = "<td id= "+j +"> </td>";
         var visualBarrel = '<img src="img/barrel.png" alt="barrel"></img>';
+        var weapon1Visual = '<img src="img/hook.png" alt="hook"></img>'
+        var weapon2Visual = '<img src="img/knife.png" alt="knife"></img>'
+        var weapon3Visual = '<img src="img/sword.png" alt="sword"></img>'
+        var weapon4Visual = '<img src="img/harpoon.png" alt="harpoon"></img>'
+        var weapon5Visual = '<img src="img/gun.png" alt="gun"></img>'
         if (myGame.board[i][j] == "barrel") {
-        contentBarrel = "<td id= " + j + ">" + visualBarrel +"</td>";
-        
+          contentBarrel = "<td id= " + j + ">" + visualBarrel +"</td>";
+        }  
+        if (myGame.board[i][j] == weapon2.name) {
+          contentBarrel = "<td id= " + j + ">" + weapon1Visual +"</td>";
+        }  
+        if (myGame.board[i][j] == weapon2.name) {
+          contentBarrel = "<td id= " + j + ">" + weapon2Visual +"</td>";
+        }
+        if (myGame.board[i][j] == weapon3.name) {
+          contentBarrel = "<td id= " + j + ">" + weapon3Visual +"</td>";
+        }
+        if (myGame.board[i][j] == weapon4.name) {
+          contentBarrel = "<td id= " + j + ">" + weapon4Visual +"</td>";
+        }
+        if (myGame.board[i][j] == weapon5.name) {
+          contentBarrel = "<td id= " + j + ">" + weapon5Visual +"</td>";
         }
         return contentBarrel;
       });
