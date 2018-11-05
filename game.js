@@ -314,10 +314,10 @@ function DrawGameBoard() {
     for (j = 0; j < myGame.board.length; j++) {
       row.append(function(n){
         var contentBarrel = "<td id= "+j +"> </td>";
+        var visualBarrel = '<img src="img/barrel.png" alt="barrel"></img>';
         if (myGame.board[i][j] == "barrel") {
-        console.log("tonneau en " + i + " " + j);
-        contentBarrel = "<td id= " + j + "> B </td>";
-        //contentBarrel = "<td id= " + j + "> " + barrel + "</td>";
+        contentBarrel = "<td id= " + j + ">" + visualBarrel +"</td>";
+        
         }
         return contentBarrel;
       });
