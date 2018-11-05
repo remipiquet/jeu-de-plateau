@@ -25,5 +25,6 @@ function Player(name, health, weapon) {
   this.defend = function (){
     this.defense = true;
   }
+
 }
 
