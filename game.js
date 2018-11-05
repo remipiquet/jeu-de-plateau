@@ -317,6 +317,7 @@ function DrawGameBoard() {
         if (myGame.board[i][j] == "barrel") {
         console.log("tonneau en " + i + " " + j);
         contentBarrel = "<td id= " + j + "> B </td>";
+        //contentBarrel = "<td id= " + j + "> " + barrel + "</td>";
         }
         return contentBarrel;
       });
