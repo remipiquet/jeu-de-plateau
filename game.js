@@ -14,7 +14,7 @@ var nbPlayers = 2;
 
 for (var i = 0; i < nbPlayers; i++) {
   var index = parseInt(i) + 1;
-  var player = new Player('Joueur ' + index, 100, weapon1,);
+  var player = new Player('Joueur ' + index, 100, weapon1);
   playersArray.push(player);
 }
 
@@ -27,8 +27,14 @@ var accessibleCells = myGame.getEmptyCells();
 
 for (var indexPlayer = 0; indexPlayer < nbPlayers; indexPlayer++) {
   playersArray[indexPlayer].position = accessibleCells[Math.floor(Math.random() * (accessibleCells.length))];
-  var player1position = playersArray[0].position;
-  var player2position = playersArray[1].position;
+
+
+  var player1Position = playersArray[0].position;
+  //var player2Position = playersArray[1].position;
+
+  myGame.board[player1Position.X][player1Position.Y] = playersArray[0].name;
+  //myGame.board[player2Position.X][player2Position.Y] = playersArray[1].name;
+
 
   // On rend inacccessible les cases qui sont proches de player x et sa case
   var inaccessibleCells = new Array();
@@ -317,37 +323,34 @@ function DrawGameBoard() {
       row.append(function(n){
         var caseContent = "<td id= "+j +"> </td>";
         var barrelVisual = '<img src="img/barrel.png" alt="barrel"></img>';
-        var weapon1Visual = '<img src="img/hook.png" alt="hook"></img>'
-        var weapon2Visual = '<img src="img/knife.png" alt="knife"></img>'
-        var weapon3Visual = '<img src="img/sword.png" alt="sword"></img>'
-        var weapon4Visual = '<img src="img/harpoon.png" alt="harpoon"></img>'
-        var weapon5Visual = '<img src="img/gun.png" alt="gun"></img>'
-        var player1Visual = '<img src="img/player1.png" alt="player1"></img>'
-        var player2Visual = '<img src="img/player2.png" alt="player2"></img>'
+        var player1Visual = '<img src="img/player1.png" alt="player1"></img>';
+        var player2Visual = '<img src="img/player2.png" alt="player2"></img>';
         if (myGame.board[i][j] == "barrel") {
           caseContent = "<td id= " + j + ">" + barrelVisual +"</td>";
         }  
-        if (myGame.board[i][j] == weapon2.name) {
-          caseContent = "<td id= " + j + ">" + weapon1Visual +"</td>";
+        if (myGame.board[i][j] == weapon1.name) {
+          caseContent = "<td id= " + j + ">" + weapon1.visual +"</td>";
         }  
         if (myGame.board[i][j] == weapon2.name) {
-          caseContent = "<td id= " + j + ">" + weapon2Visual +"</td>";
+          caseContent = "<td id= " + j + ">" + weapon2.visual +"</td>";
         }
         if (myGame.board[i][j] == weapon3.name) {
-          caseContent = "<td id= " + j + ">" + weapon3Visual +"</td>";
+          caseContent = "<td id= " + j + ">" + weapon3.visual +"</td>";
         }
         if (myGame.board[i][j] == weapon4.name) {
-          caseContent = "<td id= " + j + ">" + weapon4Visual +"</td>";
+          caseContent = "<td id= " + j + ">" + weapon4.visual +"</td>";
         }
         if (myGame.board[i][j] == weapon5.name) {
-          caseContent = "<td id= " + j + ">" + weapon5Visual +"</td>";
+          caseContent = "<td id= " + j + ">" + weapon5.visual +"</td>";
         }
-        if (myGame.board[i][j] == player1position) {
+        
+        if (myGame.board[i][j] == playersArray[0].name) {
           caseContent = "<td id= " + j + ">" + player1Visual +"</td>";
         }
-        if (myGame.board[i][j] == player2position) {
+        if (myGame.board[i][j] == playersArray[1].name) {
           caseContent = "<td id= " + j + ">" + player2Visual +"</td>";
         }
+      
         return caseContent;
       });
     }

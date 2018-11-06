@@ -5,8 +5,9 @@ function Player(name, health, weapon) {
   this.health = health;
   this.weapon = weapon.name;
   this.force = weapon.damage;
-  this.position = null;
+  this.position = this.position;
   this.defense = false;
+  this.visual = null;
 
   this.attack = function (player){
     player.isTouched(this.force);
@@ -24,6 +25,10 @@ function Player(name, health, weapon) {
 
   this.defend = function (){
     this.defense = true;
+  }
+
+  this.move = function (){
+    //basculer dedans toutes les fonctions pour bouger le perso
   }
 
 }
