@@ -26,42 +26,34 @@ var accessibleCells = myGame.getEmptyCells();
 // pour chaque joueur on place le joueur de maniere a ne pas etre a coté d'un autre joueur
 
 for (var indexPlayer = 0; indexPlayer < nbPlayers; indexPlayer++) {
-  playersArray[indexPlayer].position = accessibleCells[Math.floor(Math.random() * (accessibleCells.length))];
-
-
-  var player1Position = playersArray[0].position;
-  //var player2Position = playersArray[1].position;
-
-  myGame.board[player1Position.X][player1Position.Y] = playersArray[0].name;
-  //myGame.board[player2Position.X][player2Position.Y] = playersArray[1].name;
-
+  playersArray[indexPlayer].setPosition(accessibleCells[Math.floor(Math.random() * (accessibleCells.length))]);
 
   // On rend inacccessible les cases qui sont proches de player x et sa case
   var inaccessibleCells = new Array();
-  inaccessibleCells.push(playersArray[indexPlayer].position);
+  inaccessibleCells.push(playersArray[indexPlayer].getPosition());
 
-  if (playersArray[indexPlayer].position.X - 1 >= 0) {
+  if (playersArray[indexPlayer].getPosition().X - 1 >= 0) {
     inaccessibleCells.push({
-      X: playersArray[indexPlayer].position.X - 1,
-      Y: playersArray[indexPlayer].position.Y
+      X: playersArray[indexPlayer].getPosition().X - 1,
+      Y: playersArray[indexPlayer].getPosition().Y
     });
   }
-  if (playersArray[indexPlayer].position.X + 1 <= accessibleCells.length) {
+  if (playersArray[indexPlayer].getPosition().X + 1 <= accessibleCells.length) {
     inaccessibleCells.push({
-      X: playersArray[indexPlayer].position.X + 1,
-      Y: playersArray[indexPlayer].position.Y
+      X: playersArray[indexPlayer].getPosition().X + 1,
+      Y: playersArray[indexPlayer].getPosition().Y
     });
   }
-  if (playersArray[indexPlayer].position.Y - 1 >= 0) {
+  if (playersArray[indexPlayer].getPosition().Y - 1 >= 0) {
     inaccessibleCells.push({
-      X: playersArray[indexPlayer].position.X,
-      Y: playersArray[indexPlayer].position.Y - 1
+      X: playersArray[indexPlayer].getPosition().X,
+      Y: playersArray[indexPlayer].getPosition().Y - 1
     });
   }
-  if (playersArray[indexPlayer].position.X + 1 <= accessibleCells.length) {
+  if (playersArray[indexPlayer].getPosition().X + 1 <= accessibleCells.length) {
     inaccessibleCells.push({
-      X: playersArray[indexPlayer].position.X,
-      Y: playersArray[indexPlayer].position.Y + 1
+      X: playersArray[indexPlayer].getPosition().X,
+      Y: playersArray[indexPlayer].getPosition().Y + 1
     });
   }
 
@@ -76,7 +68,12 @@ for (var indexPlayer = 0; indexPlayer < nbPlayers; indexPlayer++) {
       }
     }
   } 
+  myGame.placerJoueur(playersArray[indexPlayer]);
 }
+
+//myGame.board[getPosition().X][player1Position.Y] = playersArray[0].name; //ACHIER
+//myGame.board[player2Position.X][player2Position.Y] = playersArray[1].name;
+
 
 
 /********************************************

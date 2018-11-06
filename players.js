@@ -5,9 +5,17 @@ function Player(name, health, weapon) {
   this.health = health;
   this.weapon = weapon.name;
   this.force = weapon.damage;
-  this.position = this.position;
+  this.position = null;
   this.defense = false;
   this.visual = null;
+
+  this.getPosition = function () {
+    return this.position;
+  }
+
+  this.setPosition = function (position) {
+    this.position = position;
+  }
 
   this.attack = function (player){
     player.isTouched(this.force);

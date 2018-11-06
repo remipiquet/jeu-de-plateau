@@ -7,7 +7,7 @@ function Board(mapSize, statRocks) {
   
 	this.mapSize = mapSize;
 	this.statRocks = statRocks;
-	this.board = new Array();
+	this.board = new Array(); // TODO changer le nom board
 
    
     for (var x=0; x<this.mapSize; x++){
@@ -29,6 +29,10 @@ function Board(mapSize, statRocks) {
         this.initPlayers();
         this.initRocks();
     };
+
+    this.placerJoueur = function (player) {
+        this.board[player.getPosition().X][player.getPosition().Y] = player;
+    }
 
 }
 
