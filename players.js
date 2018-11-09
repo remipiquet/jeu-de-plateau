@@ -36,7 +36,7 @@ function Player(name, health, weapon) {
   }
 
   this.move = function (){
-    //basculer dedans toutes les fonctions pour bouger le perso
+    //TODO basculer dedans toutes les fonctions pour bouger le perso
   }
 
 }

@@ -4,12 +4,10 @@ function Board(mapSize, statRocks) {
 		statRocks -> si on veut beaucoup de rochers, on aura une proportion de rochers de 1/statRocks a peu près
 	*/
 
-  
 	this.mapSize = mapSize;
 	this.statRocks = statRocks;
-	this.board = new Array(); // TODO changer le nom board
+	this.board = new Array();
 
-   
     for (var x=0; x<this.mapSize; x++){
         this.board[x] = new Array();
             for(var y=0; y<this.mapSize; y++){
@@ -22,7 +20,6 @@ function Board(mapSize, statRocks) {
             }
     }
 
-
     //Méthodes
     this.initParameters = function () {
         this.initMap();
@@ -30,12 +27,7 @@ function Board(mapSize, statRocks) {
         this.initRocks();
     };
 
-    this.placerJoueur = function (player) {
-        this.board[player.getPosition().X][player.getPosition().Y] = player;
-    }
-
 }
-
 
 //fonction pour récupérer les cases vides
 Board.prototype.getEmptyCells = function() {
@@ -65,6 +57,4 @@ Board.prototype.afficheTout = function() {
 	}
 };
 
-//myGame.contenuCase(1, 2);
-//myGame.afficheTout();
-//myGame.getEmptyCells();
+

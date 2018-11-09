@@ -60,7 +60,6 @@ for (var indexPlayer = 0; indexPlayer < nbPlayers; indexPlayer++) {
   // on enleve les cases inaccessibles des cases accessibles
   for (var j = 0; j < accessibleCells.length; j++) {
     for (var k = 0; k < inaccessibleCells.length; k++) {
-      //console.log('j '+ j);  //debug
       if (j >= 0 && accessibleCells.length > j) {
         if (inaccessibleCells[k].X == accessibleCells[j].X && inaccessibleCells[k].Y == accessibleCells[j].Y) {
           accessibleCells.splice(j, 1);
@@ -68,11 +67,17 @@ for (var indexPlayer = 0; indexPlayer < nbPlayers; indexPlayer++) {
       }
     }
   } 
-  myGame.placerJoueur(playersArray[indexPlayer]);
+
+
 }
 
-//myGame.board[getPosition().X][player1Position.Y] = playersArray[0].name; //ACHIER
-//myGame.board[player2Position.X][player2Position.Y] = playersArray[1].name;
+var player1 = playersArray[0];
+var player2 = playersArray[1];
+var player1Json = player1.position;
+var player2Json = player2.position;
+myGame.board[player1Json.X][player1Json.Y] = playersArray[0].name; //TODO Enlever les .name
+myGame.board[player2Json.X][player2Json.Y] = playersArray[1].name; //TODO Enlever les .name
+
 
 
 
@@ -84,25 +89,25 @@ for (var indexPlayer = 0; indexPlayer < nbPlayers; indexPlayer++) {
 var accessibleCells = myGame.getEmptyCells();
 var weapon2Position = Math.floor(Math.random() * (accessibleCells.length));
 var weapon2Json = accessibleCells[weapon2Position];
-myGame.board[weapon2Json.X][weapon2Json.Y] = weapon2.name;
+myGame.board[weapon2Json.X][weapon2Json.Y] = weapon2.name; //TODO Enlever les .name
 
 // Placement de l'arme 3 (sword)
 var accessibleCells = myGame.getEmptyCells();
 var weapon3Position = Math.floor(Math.random() * (accessibleCells.length));
 var weapon3Json = accessibleCells[weapon3Position];
-myGame.board[weapon3Json.X][weapon3Json.Y] = weapon3.name;
+myGame.board[weapon3Json.X][weapon3Json.Y] = weapon3.name; //TODO Enlever les .name
 
 // Placement de l'arme 4 (harpoon)
 var accessibleCells = myGame.getEmptyCells();
 var weapon4Position = Math.floor(Math.random() * (accessibleCells.length));
 var weapon4Json = accessibleCells[weapon4Position];
-myGame.board[weapon4Json.X][weapon4Json.Y] = weapon4.name;
+myGame.board[weapon4Json.X][weapon4Json.Y] = weapon4.name; //TODO Enlever les .name
 
 // Placement de l'arme 5 (gun)
 var accessibleCells = myGame.getEmptyCells();
 var weapon5Position = Math.floor(Math.random() * (accessibleCells.length));
 var weapon5Json = accessibleCells[weapon5Position];
-myGame.board[weapon5Json.X][weapon5Json.Y] = weapon5.name;
+myGame.board[weapon5Json.X][weapon5Json.Y] = weapon5.name; //TODO Enlever les .name
 
 // Commande pour voir le plateau en textuel
 myGame.afficheTout();
@@ -325,26 +330,26 @@ function DrawGameBoard() {
         if (myGame.board[i][j] == "barrel") {
           caseContent = "<td id= " + j + ">" + barrelVisual +"</td>";
         }  
-        if (myGame.board[i][j] == weapon1.name) {
+        if (myGame.board[i][j] == weapon1.name) { //TODO Enlever les .name
           caseContent = "<td id= " + j + ">" + weapon1.visual +"</td>";
         }  
-        if (myGame.board[i][j] == weapon2.name) {
+        if (myGame.board[i][j] == weapon2.name) { //TODO Enlever les .name
           caseContent = "<td id= " + j + ">" + weapon2.visual +"</td>";
         }
-        if (myGame.board[i][j] == weapon3.name) {
+        if (myGame.board[i][j] == weapon3.name) { //TODO Enlever les .name
           caseContent = "<td id= " + j + ">" + weapon3.visual +"</td>";
         }
-        if (myGame.board[i][j] == weapon4.name) {
+        if (myGame.board[i][j] == weapon4.name) { //TODO Enlever les .name
           caseContent = "<td id= " + j + ">" + weapon4.visual +"</td>";
         }
-        if (myGame.board[i][j] == weapon5.name) {
+        if (myGame.board[i][j] == weapon5.name) { //TODO Enlever les .name
           caseContent = "<td id= " + j + ">" + weapon5.visual +"</td>";
         }
         
-        if (myGame.board[i][j] == playersArray[0].name) {
+        if (myGame.board[i][j] == player1.name) { //TODO Enlever les .name
           caseContent = "<td id= " + j + ">" + player1Visual +"</td>";
         }
-        if (myGame.board[i][j] == playersArray[1].name) {
+        if (myGame.board[i][j] == player2.name) { //TODO Enlever les .name
           caseContent = "<td id= " + j + ">" + player2Visual +"</td>";
         }
       
