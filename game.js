@@ -71,8 +71,12 @@ for (var indexPlayer = 0; indexPlayer < nbPlayers; indexPlayer++) {
 
 }
 
-var player1 = playersArray[0];
+
+
+var player1 = playersArray[0]; //TODO Boucle à faire
 var player2 = playersArray[1];
+player1.setIndex(0);
+player2.setIndex(1);
 var player1Json = player1.position;
 var player2Json = player2.position;
 myGame.board[player1Json.X][player1Json.Y] = playersArray[0].name; //TODO Enlever les .name
@@ -155,7 +159,7 @@ function CurrentEnemy(){
 /****************************************
  *        Déplacement des joueurs       *
  ***************************************/
-
+// A mettre dans player
 function CellIsNoRock(x, y) { // Accessibilité des cases
   return myGame.board[x][y] == 0;
 }
@@ -277,6 +281,7 @@ function Move() {
 /****************************************
  *     Gestion du changement d'arme     *
  ***************************************/
+// Pluôt à mettre dans player
 
 // si currentPlayer est sur une case weapon
 function WeaponChange(){
@@ -371,8 +376,5 @@ DrawGameBoard();
 // Limite du plateau à fixer (endBoard)
 // Fonction qui récupère les déplacements possibles
 // Boucle à faire pour le placement des armes
-// placement des joueurs dans le tabeau JSON (pour qu'on les voie sur le plateau)
 
 // /!\ Problème avec le tour par tour qui continue d'incrémenter après le joueur 2
-
-//"<td id="+j +"></td>"
