@@ -132,5 +132,5 @@ function Player(name, health, weapon) {
 
   }
 
-}
+
 
