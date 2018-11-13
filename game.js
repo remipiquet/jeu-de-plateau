@@ -32,39 +32,39 @@ for (var indexPlayer = 0; indexPlayer < nbPlayers; indexPlayer++) {
   inaccessibleCells.push(playersArray[indexPlayer].getPosition());
 
   if (playersArray[indexPlayer].getPosition().X - 1 >= 0) {
-  inaccessibleCells.push({
-  X: playersArray[indexPlayer].getPosition().X - 1,
-  Y: playersArray[indexPlayer].getPosition().Y
-  });
+    inaccessibleCells.push({
+      X: playersArray[indexPlayer].getPosition().X - 1,
+      Y: playersArray[indexPlayer].getPosition().Y
+    });
   }
   if (playersArray[indexPlayer].getPosition().X + 1 <= accessibleCells.length) {
-  inaccessibleCells.push({
-  X: playersArray[indexPlayer].getPosition().X + 1,
-  Y: playersArray[indexPlayer].getPosition().Y
-  });
+    inaccessibleCells.push({
+      X: playersArray[indexPlayer].getPosition().X + 1,
+      Y: playersArray[indexPlayer].getPosition().Y
+    });
   }
   if (playersArray[indexPlayer].getPosition().Y - 1 >= 0) {
-  inaccessibleCells.push({
-  X: playersArray[indexPlayer].getPosition().X,
-  Y: playersArray[indexPlayer].getPosition().Y - 1
-  });
+    inaccessibleCells.push({
+      X: playersArray[indexPlayer].getPosition().X,
+      Y: playersArray[indexPlayer].getPosition().Y - 1
+    });
   }
   if (playersArray[indexPlayer].getPosition().X + 1 <= accessibleCells.length) {
-  inaccessibleCells.push({
-  X: playersArray[indexPlayer].getPosition().X,
-  Y: playersArray[indexPlayer].getPosition().Y + 1
-  });
+    inaccessibleCells.push({
+      X: playersArray[indexPlayer].getPosition().X,
+      Y: playersArray[indexPlayer].getPosition().Y + 1
+    });
   }
 
   // on enleve les cases inaccessibles des cases accessibles
   for (var j = 0; j < accessibleCells.length; j++) {
-  for (var k = 0; k < inaccessibleCells.length; k++) {
-  if (j >= 0 && accessibleCells.length > j) {
-  if (inaccessibleCells[k].X == accessibleCells[j].X && inaccessibleCells[k].Y == accessibleCells[j].Y) {
-  accessibleCells.splice(j, 1);
-  }
-  }
-  }
+    for (var k = 0; k < inaccessibleCells.length; k++) {
+      if (j >= 0 && accessibleCells.length > j) {
+        if (inaccessibleCells[k].X == accessibleCells[j].X && inaccessibleCells[k].Y == accessibleCells[j].Y) {
+          accessibleCells.splice(j, 1);
+        }
+      }
+    }
   } 
 
 
@@ -118,35 +118,35 @@ myGame.afficheTout();
 // TODO Objet TurnByTurn
 function CurrentPlayer(){
   if (currentPlayer < playersArray.length){
-  currentPlayer ++;
+    currentPlayer ++;
   }
   else {
-  currentPlayer = 0;
+    currentPlayer = 0;
   }
 }
 
 function EndGame(){
   var stop = false;
   if (currentPlayer.health <= 0){
-  stop = true;
+    stop = true;
   }
   while (!stop){
-  stop = Move();
-  if (!stop){
-  CurrentPlayer();
-  }
-  else {
-  alert("Bravo, " + currentEnemy.name + " gagne la partie !")
-  }
+    stop = Move();
+    if (!stop){
+      CurrentPlayer();
+    }
+    else {
+      alert("Bravo, " + currentEnemy.name + " gagne la partie !")
+    }
   }
 }
 
 function CurrentEnemy(){
   if (currentPlayer=0){
-  currentEnemy=1;
+    currentEnemy=1;
   }
   if (currentPlayer=1){
-  currentEnemy=0;
+    currentEnemy=0;
   }
 }
 
@@ -170,8 +170,8 @@ whereIsPlayer(1);
 // Pour bouger à droite
 function MoveRight(currentPlayer, numCells) {
   if (CellIsNoRock(playersArray[currentPlayer].position.X + numCells, playersArray[currentPlayer].position.Y)) {
-  playersArray[currentPlayer].position.X = playersArray[currentPlayer].position.X + numCells;
-  DrawGameBoard();
+    playersArray[currentPlayer].position.X = playersArray[currentPlayer].position.X + numCells;
+    DrawGameBoard();
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
@@ -180,8 +180,8 @@ function MoveRight(currentPlayer, numCells) {
 // Pour bouger à gauche
 function MoveLeft(currentPlayer, numCells) {
   if (CellIsNoRock(playersArray[currentPlayer].position.X - numCells, playersArray[currentPlayer].position.Y)) {
-  playersArray[currentPlayer].position.X = playersArray[currentPlayer].position.X - numCells;
-  DrawGameBoard();
+    playersArray[currentPlayer].position.X = playersArray[currentPlayer].position.X - numCells;
+    DrawGameBoard();
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
@@ -190,8 +190,8 @@ function MoveLeft(currentPlayer, numCells) {
 // Pour bouger en haut
 function MoveUp(currentPlayer, numCells) {
   if (CellIsNoRock(playersArray[currentPlayer].position.X, playersArray[currentPlayer].position.Y)) {
-  playersArray[currentPlayer].position.Y = playersArray[currentPlayer].position.Y - numCells;
-  DrawGameBoard();
+    playersArray[currentPlayer].position.Y = playersArray[currentPlayer].position.Y - numCells;
+    DrawGameBoard();
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
@@ -200,8 +200,8 @@ function MoveUp(currentPlayer, numCells) {
 // Pour bouger en bas
 function MoveDown(currentPlayer, numCells) {
   if (CellIsNoRock(playersArray[currentPlayer].position.X, playersArray[currentPlayer].position.Y)) {
-  playersArray[currentPlayer].position.Y = playersArray[currentPlayer].position.Y + numCells;
-  DrawGameBoard();
+    playersArray[currentPlayer].position.Y = playersArray[currentPlayer].position.Y + numCells;
+    DrawGameBoard();
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
@@ -220,7 +220,7 @@ function MoveDown(currentPlayer, numCells) {
 function WeaponChange(){
   if (myGame.board[player1Json.X][player1Json.Y] == weapon2Json || playersArray[currentPlayer].position == weapon3Json 
   || playersArray[currentPlayer].position == weapon4Json || playersArray[currentPlayer].position == weapon5Json){
-  console.log("prout");
+    console.log("prout");
   } 
 }
 
@@ -256,53 +256,60 @@ function Duel(){
  ***************************************/
 
 function DrawGameBoard() {
-  var container = $('#tableZone');
   for (i = 0; i < myGame.board.length; i++) {
-  var row = $('<tr class="row"></tr>').attr('id', i);
-  for (j = 0; j < myGame.board.length; j++) {
-  row.append(function(n){
-  var caseContent = "<td id= "+j +"> </td>";
-  var barrelVisual = '<img src="img/barrel.png" alt="barrel"></img>';
-  var player1Visual = '<img src="img/player1.png" alt="player1"></img>';
-  var player2Visual = '<img src="img/player2.png" alt="player2"></img>';
-  if (myGame.board[i][j] == "barrel") {
-  caseContent = "<td id= " + j + ">" + barrelVisual +"</td>";
-  }  
-  if (myGame.board[i][j] == weapon1.name) { //TODO Enlever les .name
-  caseContent = "<td id= " + j + ">" + weapon1.visual +"</td>";
-  }  
-  if (myGame.board[i][j] == weapon2.name) { //TODO Enlever les .name
-  caseContent = "<td id= " + j + ">" + weapon2.visual +"</td>";
-  }
-  if (myGame.board[i][j] == weapon3.name) { //TODO Enlever les .name
-  caseContent = "<td id= " + j + ">" + weapon3.visual +"</td>";
-  }
-  if (myGame.board[i][j] == weapon4.name) { //TODO Enlever les .name
-  caseContent = "<td id= " + j + ">" + weapon4.visual +"</td>";
-  }
-  if (myGame.board[i][j] == weapon5.name) { //TODO Enlever les .name
-  caseContent = "<td id= " + j + ">" + weapon5.visual +"</td>";
-  }
+    var row = $('<tr class="row"></tr>').attr('id', i);
+    for (j = 0; j < myGame.board.length; j++) {
+      row.append(function(n){
+        var caseContent = "<td id= "+j +"> </td>";
+        var barrelVisual = '<img src="img/barrel.png" alt="barrel"></img>';
+        var player1Visual = '<img src="img/player1.png" alt="player1"></img>';
+        var player2Visual = '<img src="img/player2.png" alt="player2"></img>';
+        if (myGame.board[i][j] == "barrel") {
+          caseContent = "<td id= " + j + ">" + barrelVisual +"</td>";
+        }  
+        if (myGame.board[i][j] == weapon1.name) { //TODO Enlever les .name
+          caseContent = "<td id= " + j + ">" + weapon1.visual +"</td>";
+        }  
+        if (myGame.board[i][j] == weapon2.name) { //TODO Enlever les .name
+          caseContent = "<td id= " + j + ">" + weapon2.visual +"</td>";
+        }
+        if (myGame.board[i][j] == weapon3.name) { //TODO Enlever les .name
+          caseContent = "<td id= " + j + ">" + weapon3.visual +"</td>";
+        }
+        if (myGame.board[i][j] == weapon4.name) { //TODO Enlever les .name
+          caseContent = "<td id= " + j + ">" + weapon4.visual +"</td>";
+        }
+        if (myGame.board[i][j] == weapon5.name) { //TODO Enlever les .name
+          caseContent = "<td id= " + j + ">" + weapon5.visual +"</td>";
+        }
   
-  if (myGame.board[i][j] == player1.name) { //TODO Enlever les .name
-  caseContent = "<td id= " + j + ">" + player1Visual +"</td>";
-  }
-  if (myGame.board[i][j] == player2.name) { //TODO Enlever les .name
-  caseContent = "<td id= " + j + ">" + player2Visual +"</td>";
-  }
+        if (myGame.board[i][j] == player1.name) { //TODO Enlever les .name
+          caseContent = "<td id= " + j + ">" + player1Visual +"</td>";
+        }
+        if (myGame.board[i][j] == player2.name) { //TODO Enlever les .name
+          caseContent = "<td id= " + j + ">" + player2Visual +"</td>";
+        }
   
-  return caseContent;
-  });
-  }
-  container.append(row);
-  }
-
-  this.update = function(){
-
+        return caseContent;
+      });
+    }
+    $('#tableZone').append(row);
   }
 }
 DrawGameBoard();
 
+
+/****************************************
+ *        Mise à jour du visuel         *
+ ***************************************/
+
+function UpdateGameBoard(){
+  if (myGame.board[i][j] == 0) {
+    $(player1Visual).replaceWith("PROUT !!!!");
+
+  }  
+  
+}
 
 /***************************************
  *      ********   To do   ********     *
