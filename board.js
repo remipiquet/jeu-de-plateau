@@ -8,6 +8,7 @@ function Board(mapSize, statRocks) {
 	this.statRocks = statRocks;
 	this.board = new Array();
 
+    //Génération du plateau et des cases "rocher" (Barrel)
     for (var x=0; x<this.mapSize; x++){
         this.board[x] = new Array();
             for(var y=0; y<this.mapSize; y++){

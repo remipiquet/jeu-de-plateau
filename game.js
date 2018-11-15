@@ -1,154 +1,155 @@
 /*********************************************
- *           Initialisation du jeu            *
- *********************************************/
+*           Initialisation du jeu            *
+*********************************************/
 
 var myGame = new Board(10, 8);
 
 
 /*********************************************
- *    Placement des joueurs sur le plateau    *
- *********************************************/
+*    Placement des joueurs sur le plateau    *
+*********************************************/
 
 var playersArray = [];
 var nbPlayers = 2; 
-
 for (var i = 0; i < nbPlayers; i++) {
   var index = parseInt(i) + 1;
   var player = new Player('Joueur ' + index, 100, weapon1);
   playersArray.push(player); // TODO a passer en POO
 }
-
 var currentPlayer = 0;
 var currentEnemy = 1;
-
 var accessibleCells = myGame.getEmptyCells();
 
-// pour chaque joueur on place le joueur de maniere a ne pas etre a coté d'un autre joueur
-for (var indexPlayer = 0; indexPlayer < nbPlayers; indexPlayer++) {
-  playersArray[indexPlayer].setPosition(accessibleCells[Math.floor(Math.random() * (accessibleCells.length))]);
+function placePlayers() {
+    // pour chaque joueur on place le joueur de maniere a ne pas etre a coté d'un autre joueur
+    for (var indexPlayer = 0; indexPlayer < nbPlayers; indexPlayer++) {
+      playersArray[indexPlayer].setPosition(accessibleCells[Math.floor(Math.random() * (accessibleCells.length))]);
 
-  // On rend inacccessible les cases qui sont proches de player x et sa case
-  var inaccessibleCells = new Array();
-  inaccessibleCells.push(playersArray[indexPlayer].getPosition());
+      // On rend inacccessible les cases qui sont proches de player x et sa case
+      var inaccessibleCells = new Array();
+      inaccessibleCells.push(playersArray[indexPlayer].getPosition());
 
-  if (playersArray[indexPlayer].getPosition().X - 1 >= 0) {
-    inaccessibleCells.push({
-      X: playersArray[indexPlayer].getPosition().X - 1,
-      Y: playersArray[indexPlayer].getPosition().Y
-    });
-  }
-  if (playersArray[indexPlayer].getPosition().X + 1 <= accessibleCells.length) {
-    inaccessibleCells.push({
-      X: playersArray[indexPlayer].getPosition().X + 1,
-      Y: playersArray[indexPlayer].getPosition().Y
-    });
-  }
-  if (playersArray[indexPlayer].getPosition().Y - 1 >= 0) {
-    inaccessibleCells.push({
-      X: playersArray[indexPlayer].getPosition().X,
-      Y: playersArray[indexPlayer].getPosition().Y - 1
-    });
-  }
-  if (playersArray[indexPlayer].getPosition().X + 1 <= accessibleCells.length) {
-    inaccessibleCells.push({
-      X: playersArray[indexPlayer].getPosition().X,
-      Y: playersArray[indexPlayer].getPosition().Y + 1
-    });
-  }
+      if (playersArray[indexPlayer].getPosition().X - 1 >= 0) {
+        inaccessibleCells.push({
+          X: playersArray[indexPlayer].getPosition().X - 1,
+          Y: playersArray[indexPlayer].getPosition().Y
+        });
+    }
+    if (playersArray[indexPlayer].getPosition().X + 1 <= accessibleCells.length) {
+      inaccessibleCells.push({
+        X: playersArray[indexPlayer].getPosition().X + 1,
+        Y: playersArray[indexPlayer].getPosition().Y
+      });
+    }
+    if (playersArray[indexPlayer].getPosition().Y - 1 >= 0) {
+      inaccessibleCells.push({
+        X: playersArray[indexPlayer].getPosition().X,
+        Y: playersArray[indexPlayer].getPosition().Y - 1
+      });
+    }
+    if (playersArray[indexPlayer].getPosition().X + 1 <= accessibleCells.length) {
+      inaccessibleCells.push({
+        X: playersArray[indexPlayer].getPosition().X,
+        Y: playersArray[indexPlayer].getPosition().Y + 1
+      });
+    }
 
-  // on enleve les cases inaccessibles des cases accessibles
-  for (var j = 0; j < accessibleCells.length; j++) {
-    for (var k = 0; k < inaccessibleCells.length; k++) {
-      if (j >= 0 && accessibleCells.length > j) {
-        if (inaccessibleCells[k].X == accessibleCells[j].X && inaccessibleCells[k].Y == accessibleCells[j].Y) {
-          accessibleCells.splice(j, 1);
+    // on enleve les cases inaccessibles des cases accessibles
+    for (var j = 0; j < accessibleCells.length; j++) {
+      for (var k = 0; k < inaccessibleCells.length; k++) {
+        if (j >= 0 && accessibleCells.length > j) {
+          if (inaccessibleCells[k].X == accessibleCells[j].X && inaccessibleCells[k].Y == accessibleCells[j].Y) {
+            accessibleCells.splice(j, 1);
+          }
         }
       }
-    }
-  } 
-
-
+    } 
+  }
 }
+placePlayers();
 
 var player1 = playersArray[0];
 var player2 = playersArray[1];
 var player1Json = player1.position;
 var player2Json = player2.position;
-myGame.board[player1Json.X][player1Json.Y] = playersArray[0].name; //TODO Enlever les .name
-myGame.board[player2Json.X][player2Json.Y] = playersArray[1].name; //TODO Enlever les .name
+myGame.board[player1Json.X][player1Json.Y] = player1.name; //TODO Enlever les .name
+myGame.board[player2Json.X][player2Json.Y] = player2.name; //TODO Enlever les .name
 
 
 
 
 /********************************************
- *     Placement des armes sur le plateau    *
- ********************************************/
+*     Placement des armes sur le plateau    *
+********************************************/
 
-// Placement de l'arme 2 (knife)
-var accessibleCells = myGame.getEmptyCells();
-var weapon2Position = Math.floor(Math.random() * (accessibleCells.length));
-var weapon2Json = accessibleCells[weapon2Position];
-myGame.board[weapon2Json.X][weapon2Json.Y] = weapon2.name; //TODO Enlever les .name
+function placeWeapons() {
+  // Placement de l'arme 2 (knife)
+  var accessibleCells = myGame.getEmptyCells();
+  var weapon2Position = Math.floor(Math.random() * (accessibleCells.length));
+  var weapon2Json = accessibleCells[weapon2Position];
+  myGame.board[weapon2Json.X][weapon2Json.Y] = weapon2.name; //TODO Enlever les .name
 
-// Placement de l'arme 3 (sword)
-var accessibleCells = myGame.getEmptyCells();
-var weapon3Position = Math.floor(Math.random() * (accessibleCells.length));
-var weapon3Json = accessibleCells[weapon3Position];
-myGame.board[weapon3Json.X][weapon3Json.Y] = weapon3.name; //TODO Enlever les .name
+  // Placement de l'arme 3 (sword)
+  var accessibleCells = myGame.getEmptyCells();
+  var weapon3Position = Math.floor(Math.random() * (accessibleCells.length));
+  var weapon3Json = accessibleCells[weapon3Position];
+  myGame.board[weapon3Json.X][weapon3Json.Y] = weapon3.name; //TODO Enlever les .name
 
-// Placement de l'arme 4 (harpoon)
-var accessibleCells = myGame.getEmptyCells();
-var weapon4Position = Math.floor(Math.random() * (accessibleCells.length));
-var weapon4Json = accessibleCells[weapon4Position];
-myGame.board[weapon4Json.X][weapon4Json.Y] = weapon4.name; //TODO Enlever les .name
+  // Placement de l'arme 4 (harpoon)
+  var accessibleCells = myGame.getEmptyCells();
+  var weapon4Position = Math.floor(Math.random() * (accessibleCells.length));
+  var weapon4Json = accessibleCells[weapon4Position];
+  myGame.board[weapon4Json.X][weapon4Json.Y] = weapon4.name; //TODO Enlever les .name
+  // Placement de l'arme 5 (gun)
+  var accessibleCells = myGame.getEmptyCells();
+  var weapon5Position = Math.floor(Math.random() * (accessibleCells.length));
+  var weapon5Json = accessibleCells[weapon5Position];
+  myGame.board[weapon5Json.X][weapon5Json.Y] = weapon5.name; //TODO Enlever les .name
 
-// Placement de l'arme 5 (gun)
-var accessibleCells = myGame.getEmptyCells();
-var weapon5Position = Math.floor(Math.random() * (accessibleCells.length));
-var weapon5Json = accessibleCells[weapon5Position];
-myGame.board[weapon5Json.X][weapon5Json.Y] = weapon5.name; //TODO Enlever les .name
-
-// Commande pour voir le plateau en textuel
-myGame.afficheTout();
+  // Commande pour voir le plateau en textuel
+  myGame.afficheTout();
+}
+placeWeapons();
 
 
 /****************************************
- *       Gestion du tour par tour       *
- ***************************************/
+*       Gestion du tour par tour       *
+***************************************/
 // TODO Objet TurnByTurn
-function CurrentPlayer(){
-  if (currentPlayer < playersArray.length){
-    currentPlayer ++;
-  }
-  else {
-    currentPlayer = 0;
-  }
-}
-
-function EndGame(){
-  var stop = false;
-  if (currentPlayer.health <= 0){
-    stop = true;
-  }
-  while (!stop){
-    stop = Move();
-    if (!stop){
-      CurrentPlayer();
+function turnByTurn() {
+  function CurrentPlayer(){
+    if (currentPlayer < playersArray.length){
+      currentPlayer ++;
     }
     else {
-      alert("Bravo, " + currentEnemy.name + " gagne la partie !")
+      currentPlayer = 0;
+    }
+  }
+  function EndGame(){
+    var stop = false;
+    if (currentPlayer.health <= 0){
+      stop = true;
+    }
+    while (!stop){
+      stop = Move();
+      if (!stop){
+        CurrentPlayer();
+      }
+      else {
+        alert("Bravo, " + currentEnemy.name + " gagne la partie !")
+      }
+    }
+  }
+  function CurrentEnemy(){
+    if (currentPlayer=0){
+      currentEnemy=1;
+    }
+    if (currentPlayer=1){
+      currentEnemy=0;
     }
   }
 }
-
-function CurrentEnemy(){
-  if (currentPlayer=0){
-    currentEnemy=1;
-  }
-  if (currentPlayer=1){
-    currentEnemy=0;
-  }
-}
+turnByTurn();
 
 
 /****************************************
@@ -310,6 +311,13 @@ function UpdateGameBoard(){
   }  
   
 }
+// Gestion du clic 
+function clic() {
+  console.log("clic dans la case " + myGame.board[i] + " " + myGame.board[j]);
+}
+var tableClic = document.getElementById("tableZone");
+tableClic.addEventListener("click", clic);
+
 
 /***************************************
  *      ********   To do   ********     *
