@@ -169,40 +169,40 @@ whereIsPlayer(1);
 
 
 // Pour bouger à droite
-function MoveRight(currentPlayer, numCells) {
-  if (CellIsNoRock(playersArray[currentPlayer].position.X + numCells, playersArray[currentPlayer].position.Y)) {
-    playersArray[currentPlayer].position.X = playersArray[currentPlayer].position.X + numCells;
-    DrawGameBoard();
+function MoveRight(numPlayer, numCells) {
+  if (CellIsNoRock(playersArray[numPlayer].position.X + numCells, playersArray[numPlayer].position.Y)) {
+    playersArray[numPlayer].position.X = playersArray[numPlayer].position.X + numCells;
+    //UpdateGameBoard();
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
 }
 
 // Pour bouger à gauche
-function MoveLeft(currentPlayer, numCells) {
-  if (CellIsNoRock(playersArray[currentPlayer].position.X - numCells, playersArray[currentPlayer].position.Y)) {
-    playersArray[currentPlayer].position.X = playersArray[currentPlayer].position.X - numCells;
-    DrawGameBoard();
+function MoveLeft(numPlayer, numCells) {
+  if (CellIsNoRock(playersArray[numPlayer].position.X - numCells, playersArray[numPlayer].position.Y)) {
+    playersArray[numPlayer].position.X = playersArray[numPlayer].position.X - numCells;
+    //UpdateGameBoard();
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
 }
 
 // Pour bouger en haut
-function MoveUp(currentPlayer, numCells) {
-  if (CellIsNoRock(playersArray[currentPlayer].position.X, playersArray[currentPlayer].position.Y)) {
-    playersArray[currentPlayer].position.Y = playersArray[currentPlayer].position.Y - numCells;
-    DrawGameBoard();
+function MoveUp(numPlayer, numCells) {
+  if (CellIsNoRock(playersArray[numPlayer].position.X, playersArray[numPlayer].position.Y)) {
+    playersArray[numPlayer].position.Y = playersArray[numPlayer].position.Y - numCells;
+    //UpdateGameBoard();
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
 }
 
 // Pour bouger en bas
-function MoveDown(currentPlayer, numCells) {
-  if (CellIsNoRock(playersArray[currentPlayer].position.X, playersArray[currentPlayer].position.Y)) {
-    playersArray[currentPlayer].position.Y = playersArray[currentPlayer].position.Y + numCells;
-    DrawGameBoard();
+function MoveDown(numPlayer, numCells) {
+  if (CellIsNoRock(playersArray[numPlayer].position.X, playersArray[numPlayer].position.Y)) {
+    playersArray[numPlayer].position.Y = playersArray[numPlayer].position.Y + numCells;
+    //UpdateGameBoard();
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
@@ -268,26 +268,26 @@ function DrawGameBoard() {
         if (myGame.board[i][j] == "barrel") {
           caseContent = "<td id= " + j + ">" + barrelVisual +"</td>";
         }  
-        if (myGame.board[i][j] == weapon1) { //TODO Enlever les .name
+        if (myGame.board[i][j] == weapon1) {
           caseContent = "<td id= " + j + ">" + weapon1.visual +"</td>";
         }  
-        if (myGame.board[i][j] == weapon2) { //TODO Enlever les .name
+        if (myGame.board[i][j] == weapon2) {
           caseContent = "<td id= " + j + ">" + weapon2.visual +"</td>";
         }
-        if (myGame.board[i][j] == weapon3) { //TODO Enlever les .name
+        if (myGame.board[i][j] == weapon3) {
           caseContent = "<td id= " + j + ">" + weapon3.visual +"</td>";
         }
-        if (myGame.board[i][j] == weapon4) { //TODO Enlever les .name
+        if (myGame.board[i][j] == weapon4) {
           caseContent = "<td id= " + j + ">" + weapon4.visual +"</td>";
         }
-        if (myGame.board[i][j] == weapon5) { //TODO Enlever les .name
+        if (myGame.board[i][j] == weapon5) {
           caseContent = "<td id= " + j + ">" + weapon5.visual +"</td>";
         }
   
-        if (myGame.board[i][j] == player1) { //TODO Enlever les .name
+        if (myGame.board[i][j] == player1) {
           caseContent = "<td id= " + j + ">" + player1Visual +"</td>";
         }
-        if (myGame.board[i][j] == player2) { //TODO Enlever les .name
+        if (myGame.board[i][j] == player2) {
           caseContent = "<td id= " + j + ">" + player2Visual +"</td>";
         }
   
@@ -305,7 +305,7 @@ DrawGameBoard();
  ***************************************/
 
 function UpdateGameBoard(){
-  if (MoveUp(currentPlayer,numCells)) {
+  if (myGame.board[X][Y] == player1) {
     $(player1Visual).replaceWith("PROUT !!!!");
 
   }  
