@@ -72,8 +72,8 @@ var player1 = playersArray[0];
 var player2 = playersArray[1];
 var player1Json = player1.position;
 var player2Json = player2.position;
-myGame.board[player1Json.X][player1Json.Y] = player1.name; //TODO Enlever les .name
-myGame.board[player2Json.X][player2Json.Y] = player2.name; //TODO Enlever les .name
+myGame.board[player1Json.X][player1Json.Y] = player1; 
+myGame.board[player2Json.X][player2Json.Y] = player2; 
 
 
 
@@ -87,24 +87,24 @@ function placeWeapons() {
   var accessibleCells = myGame.getEmptyCells();
   var weapon2Position = Math.floor(Math.random() * (accessibleCells.length));
   var weapon2Json = accessibleCells[weapon2Position];
-  myGame.board[weapon2Json.X][weapon2Json.Y] = weapon2.name; //TODO Enlever les .name
+  myGame.board[weapon2Json.X][weapon2Json.Y] = weapon2; //TODO Enlever les .name
 
   // Placement de l'arme 3 (sword)
   var accessibleCells = myGame.getEmptyCells();
   var weapon3Position = Math.floor(Math.random() * (accessibleCells.length));
   var weapon3Json = accessibleCells[weapon3Position];
-  myGame.board[weapon3Json.X][weapon3Json.Y] = weapon3.name; //TODO Enlever les .name
+  myGame.board[weapon3Json.X][weapon3Json.Y] = weapon3; //TODO Enlever les .name
 
   // Placement de l'arme 4 (harpoon)
   var accessibleCells = myGame.getEmptyCells();
   var weapon4Position = Math.floor(Math.random() * (accessibleCells.length));
   var weapon4Json = accessibleCells[weapon4Position];
-  myGame.board[weapon4Json.X][weapon4Json.Y] = weapon4.name; //TODO Enlever les .name
+  myGame.board[weapon4Json.X][weapon4Json.Y] = weapon4; //TODO Enlever les .name
   // Placement de l'arme 5 (gun)
   var accessibleCells = myGame.getEmptyCells();
   var weapon5Position = Math.floor(Math.random() * (accessibleCells.length));
   var weapon5Json = accessibleCells[weapon5Position];
-  myGame.board[weapon5Json.X][weapon5Json.Y] = weapon5.name; //TODO Enlever les .name
+  myGame.board[weapon5Json.X][weapon5Json.Y] = weapon5; //TODO Enlever les .name
 
   // Commande pour voir le plateau en textuel
   myGame.afficheTout();
@@ -268,26 +268,26 @@ function DrawGameBoard() {
         if (myGame.board[i][j] == "barrel") {
           caseContent = "<td id= " + j + ">" + barrelVisual +"</td>";
         }  
-        if (myGame.board[i][j] == weapon1.name) { //TODO Enlever les .name
+        if (myGame.board[i][j] == weapon1) { //TODO Enlever les .name
           caseContent = "<td id= " + j + ">" + weapon1.visual +"</td>";
         }  
-        if (myGame.board[i][j] == weapon2.name) { //TODO Enlever les .name
+        if (myGame.board[i][j] == weapon2) { //TODO Enlever les .name
           caseContent = "<td id= " + j + ">" + weapon2.visual +"</td>";
         }
-        if (myGame.board[i][j] == weapon3.name) { //TODO Enlever les .name
+        if (myGame.board[i][j] == weapon3) { //TODO Enlever les .name
           caseContent = "<td id= " + j + ">" + weapon3.visual +"</td>";
         }
-        if (myGame.board[i][j] == weapon4.name) { //TODO Enlever les .name
+        if (myGame.board[i][j] == weapon4) { //TODO Enlever les .name
           caseContent = "<td id= " + j + ">" + weapon4.visual +"</td>";
         }
-        if (myGame.board[i][j] == weapon5.name) { //TODO Enlever les .name
+        if (myGame.board[i][j] == weapon5) { //TODO Enlever les .name
           caseContent = "<td id= " + j + ">" + weapon5.visual +"</td>";
         }
   
-        if (myGame.board[i][j] == player1.name) { //TODO Enlever les .name
+        if (myGame.board[i][j] == player1) { //TODO Enlever les .name
           caseContent = "<td id= " + j + ">" + player1Visual +"</td>";
         }
-        if (myGame.board[i][j] == player2.name) { //TODO Enlever les .name
+        if (myGame.board[i][j] == player2) { //TODO Enlever les .name
           caseContent = "<td id= " + j + ">" + player2Visual +"</td>";
         }
   
@@ -305,7 +305,7 @@ DrawGameBoard();
  ***************************************/
 
 function UpdateGameBoard(){
-  if (myGame.board[i][j] == 0) {
+  if (MoveUp(currentPlayer,numCells)) {
     $(player1Visual).replaceWith("PROUT !!!!");
 
   }  
@@ -327,8 +327,13 @@ tableClic.addEventListener("click", clic);
 // Limite du plateau à fixer (endBoard)
 // Fonction qui récupère les déplacements possibles
 // Boucle à faire pour le placement des armes
-// placement des joueurs dans le tabeau JSON (pour qu'on les voie sur le plateau)
 
 // /!\ Problème avec le tour par tour qui continue d'incrémenter après le joueur 2
+// /!\ Problème avec les tonneaux qui parfois coincent un personnage
 
-//"<td id="+j +"></td>"
+/* A VOIR AVEC JOHAN :
+Récupération des cellules cliquées
+Actualisation du visuel
+Finalisation de player.move
+
+*/
