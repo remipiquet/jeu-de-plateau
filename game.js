@@ -335,5 +335,22 @@ tableClic.addEventListener("click", clic);
 Récupération des cellules cliquées
 Actualisation du visuel
 Finalisation de player.move
+*/
 
+/* @ Antho
+onclick="recuperationPositionX(this)"
+$("tableZone").append("<tr class='ligne' id='ligne" + y + "'onclick='recuperationPositionY(this);'></tr>");
+$("#ligne" + y).append("<td style= background-color: " + donjon[y][o].texte + "'onclick='recuperationPositionX(this)'></td>");
+
+OU
+
+$(document).ready(function(){
+  $(#donjon td).click(function(){
+    
+    var column_num = ($(this).index());
+    var row_num = ($(this).parent().index());
+
+    console.log("Row_num=" + row_num + " , Column_num =" + column_num + " " + this);
+  });
+});
 */
