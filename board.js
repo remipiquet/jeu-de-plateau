@@ -58,4 +58,8 @@ Board.prototype.afficheTout = function() {
 	}
 };
 
+// placement des joueurs sur le plateau
+
+// placement des armes sur le plateau
+
 
