@@ -174,7 +174,6 @@ function MoveRight(numPlayer, numCells) {
     playersArray[numPlayer].position.X = playersArray[numPlayer].position.X + numCells;
     DrawGameBoard();
   }
-  DrawGameBoard();
   whereIsPlayer(0);
   whereIsPlayer(1);
 }
@@ -259,8 +258,9 @@ function Duel(){
 
 function ResetGameBoard() {
   for (i = 0; i < myGame.board.length; i++) {
-    var row = $('<tr class="row"></tr>').attr('id', i);
-    $('#tableZone').remove(row);
+    var row = $("#x"+i);
+    row.remove();
+    console.log("delete row " +i);
   }
 }  
 
@@ -271,37 +271,37 @@ function DrawGameBoard() { // TODO A mettre dans Board (ou alors à distiller da
     myGame.active = true;
   }
   for (i = 0; i < myGame.board.length; i++) {
-    var row = $('<tr class="row"></tr>').attr('id', i);
+    var row = $('<tr class="row"></tr>').attr('id', "x"+i);
     for (j = 0; j < myGame.board.length; j++) {
       row.append(function(n){
-        var caseContent = "<td id= "+j +"> </td>";
+        var caseContent = "<td id= y"+j +"> </td>";
         var barrelVisual = '<img src="img/barrel.png" alt="barrel"></img>';
         var player1Visual = '<img src="img/player1.png" alt="player1"></img>';
         var player2Visual = '<img src="img/player2.png" alt="player2"></img>';
         if (myGame.board[i][j] == "barrel") {
-          caseContent = "<td id= " + j + ">" + barrelVisual +"</td>";
+          caseContent = "<td id= y" + j + ">" + barrelVisual +"</td>";
         }  
         if (myGame.board[i][j] == weapon1) {
-          caseContent = "<td id= " + j + ">" + weapon1.visual +"</td>";
+          caseContent = "<td id= y" + j + ">" + weapon1.visual +"</td>";
         }  
         if (myGame.board[i][j] == weapon2) {
-          caseContent = "<td id= " + j + ">" + weapon2.visual +"</td>";
+          caseContent = "<td id= y" + j + ">" + weapon2.visual +"</td>";
         }
         if (myGame.board[i][j] == weapon3) {
-          caseContent = "<td id= " + j + ">" + weapon3.visual +"</td>";
+          caseContent = "<td id= y" + j + ">" + weapon3.visual +"</td>";
         }
         if (myGame.board[i][j] == weapon4) {
-          caseContent = "<td id= " + j + ">" + weapon4.visual +"</td>";
+          caseContent = "<td id= y" + j + ">" + weapon4.visual +"</td>";
         }
         if (myGame.board[i][j] == weapon5) {
-          caseContent = "<td id= " + j + ">" + weapon5.visual +"</td>";
+          caseContent = "<td id= y" + j + ">" + weapon5.visual +"</td>";
         }
   
         if (myGame.board[i][j] == player1) {
-          caseContent = "<td id= " + j + ">" + player1Visual +"</td>";
+          caseContent = "<td id= y" + j + ">" + player1Visual +"</td>";
         }
         if (myGame.board[i][j] == player2) {
-          caseContent = "<td id= " + j + ">" + player2Visual +"</td>";
+          caseContent = "<td id= y" + j + ">" + player2Visual +"</td>";
         }
   
         return caseContent;
