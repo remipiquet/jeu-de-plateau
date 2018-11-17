@@ -6,7 +6,8 @@ function Board(mapSize, statRocks) {
 
 	this.mapSize = mapSize;
 	this.statRocks = statRocks;
-	this.board = new Array();
+    this.board = new Array();
+    this.active = false; // Premier dessin du plateau
 
     //Génération du plateau et des cases "rocher" (Barrel)
     for (var x=0; x<this.mapSize; x++){

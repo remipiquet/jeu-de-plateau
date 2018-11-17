@@ -172,8 +172,9 @@ whereIsPlayer(1);
 function MoveRight(numPlayer, numCells) {
   if (CellIsNoRock(playersArray[numPlayer].position.X + numCells, playersArray[numPlayer].position.Y)) {
     playersArray[numPlayer].position.X = playersArray[numPlayer].position.X + numCells;
-    //UpdateGameBoard();
+    DrawGameBoard();
   }
+  DrawGameBoard();
   whereIsPlayer(0);
   whereIsPlayer(1);
 }
@@ -182,7 +183,7 @@ function MoveRight(numPlayer, numCells) {
 function MoveLeft(numPlayer, numCells) {
   if (CellIsNoRock(playersArray[numPlayer].position.X - numCells, playersArray[numPlayer].position.Y)) {
     playersArray[numPlayer].position.X = playersArray[numPlayer].position.X - numCells;
-    //UpdateGameBoard();
+    DrawGameBoard();
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
@@ -192,7 +193,7 @@ function MoveLeft(numPlayer, numCells) {
 function MoveUp(numPlayer, numCells) {
   if (CellIsNoRock(playersArray[numPlayer].position.X, playersArray[numPlayer].position.Y)) {
     playersArray[numPlayer].position.Y = playersArray[numPlayer].position.Y - numCells;
-    //UpdateGameBoard();
+    DrawGameBoard();
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
@@ -202,7 +203,7 @@ function MoveUp(numPlayer, numCells) {
 function MoveDown(numPlayer, numCells) {
   if (CellIsNoRock(playersArray[numPlayer].position.X, playersArray[numPlayer].position.Y)) {
     playersArray[numPlayer].position.Y = playersArray[numPlayer].position.Y + numCells;
-    //UpdateGameBoard();
+    DrawGameBoard();
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
@@ -256,7 +257,19 @@ function Duel(){
  *       Mise en place du visuel        *
  ***************************************/
 
-function DrawGameBoard() {
+function ResetGameBoard() {
+  for (i = 0; i < myGame.board.length; i++) {
+    var row = $('<tr class="row"></tr>').attr('id', i);
+    $('#tableZone').remove(row);
+  }
+}  
+
+function DrawGameBoard() { // TODO A mettre dans Board (ou alors à distiller dans chacun des objets)
+  if (myGame.active) {
+    ResetGameBoard();
+  } else {
+    myGame.active = true;
+  }
   for (i = 0; i < myGame.board.length; i++) {
     var row = $('<tr class="row"></tr>').attr('id', i);
     for (j = 0; j < myGame.board.length; j++) {
@@ -304,13 +317,6 @@ DrawGameBoard();
  *        Mise à jour du visuel         *
  ***************************************/
 
-function UpdateGameBoard(){
-  if (myGame.board[X][Y] == player1) {
-    $(player1Visual).replaceWith("PROUT !!!!");
-
-  }  
-  
-}
 // Gestion du clic 
 function clic() {
   console.log("clic dans la case " + myGame.board[i] + " " + myGame.board[j]);
@@ -327,6 +333,7 @@ tableClic.addEventListener("click", clic);
 // Limite du plateau à fixer (endBoard)
 // Fonction qui récupère les déplacements possibles
 // Boucle à faire pour le placement des armes
+// Les joueurs peuvent être coincés avec les barrels
 
 // /!\ Problème avec le tour par tour qui continue d'incrémenter après le joueur 2
 // /!\ Problème avec les tonneaux qui parfois coincent un personnage
