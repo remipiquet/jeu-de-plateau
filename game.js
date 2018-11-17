@@ -260,7 +260,7 @@ function ResetGameBoard() {
   for (i = 0; i < myGame.board.length; i++) {
     var row = $("#x"+i);
     row.remove();
-    console.log("delete row " +i);
+    console.log("delete row " +i); // Problème avec la position des joueurs qui ne se met pas à jour
   }
 }  
 
