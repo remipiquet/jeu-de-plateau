@@ -87,24 +87,24 @@ function placeWeapons() {
   var accessibleCells = myGame.getEmptyCells();
   var weapon2Position = Math.floor(Math.random() * (accessibleCells.length));
   var weapon2Json = accessibleCells[weapon2Position];
-  myGame.board[weapon2Json.X][weapon2Json.Y] = weapon2; //TODO Enlever les .name
+  myGame.board[weapon2Json.X][weapon2Json.Y] = weapon2;
 
   // Placement de l'arme 3 (sword)
   var accessibleCells = myGame.getEmptyCells();
   var weapon3Position = Math.floor(Math.random() * (accessibleCells.length));
   var weapon3Json = accessibleCells[weapon3Position];
-  myGame.board[weapon3Json.X][weapon3Json.Y] = weapon3; //TODO Enlever les .name
+  myGame.board[weapon3Json.X][weapon3Json.Y] = weapon3;
 
   // Placement de l'arme 4 (harpoon)
   var accessibleCells = myGame.getEmptyCells();
   var weapon4Position = Math.floor(Math.random() * (accessibleCells.length));
   var weapon4Json = accessibleCells[weapon4Position];
-  myGame.board[weapon4Json.X][weapon4Json.Y] = weapon4; //TODO Enlever les .name
+  myGame.board[weapon4Json.X][weapon4Json.Y] = weapon4;
   // Placement de l'arme 5 (gun)
   var accessibleCells = myGame.getEmptyCells();
   var weapon5Position = Math.floor(Math.random() * (accessibleCells.length));
   var weapon5Json = accessibleCells[weapon5Position];
-  myGame.board[weapon5Json.X][weapon5Json.Y] = weapon5; //TODO Enlever les .name
+  myGame.board[weapon5Json.X][weapon5Json.Y] = weapon5; 
 
   // Commande pour voir le plateau en textuel
   myGame.afficheTout();
@@ -172,6 +172,8 @@ whereIsPlayer(1);
 function MoveRight(numPlayer, numCells) {
   if (CellIsNoRock(playersArray[numPlayer].position.X + numCells, playersArray[numPlayer].position.Y)) {
     playersArray[numPlayer].position.X = playersArray[numPlayer].position.X + numCells;
+    myGame.board[player1Json.X][player1Json.Y] = player1; 
+    myGame.board[player2Json.X][player2Json.Y] = player2; 
     DrawGameBoard();
   }
   whereIsPlayer(0);
@@ -179,9 +181,11 @@ function MoveRight(numPlayer, numCells) {
 }
 
 // Pour bouger à gauche
-function MoveLeft(numPlayer, numCells) {
+function MoveUp(numPlayer, numCells) {
   if (CellIsNoRock(playersArray[numPlayer].position.X - numCells, playersArray[numPlayer].position.Y)) {
     playersArray[numPlayer].position.X = playersArray[numPlayer].position.X - numCells;
+    myGame.board[player1Json.X][player1Json.Y] = player1; 
+    myGame.board[player2Json.X][player2Json.Y] = player2; 
     DrawGameBoard();
   }
   whereIsPlayer(0);
@@ -192,6 +196,8 @@ function MoveLeft(numPlayer, numCells) {
 function MoveUp(numPlayer, numCells) {
   if (CellIsNoRock(playersArray[numPlayer].position.X, playersArray[numPlayer].position.Y)) {
     playersArray[numPlayer].position.Y = playersArray[numPlayer].position.Y - numCells;
+    myGame.board[player1Json.X][player1Json.Y] = player1; 
+    myGame.board[player2Json.X][player2Json.Y] = player2; 
     DrawGameBoard();
   }
   whereIsPlayer(0);
@@ -202,6 +208,8 @@ function MoveUp(numPlayer, numCells) {
 function MoveDown(numPlayer, numCells) {
   if (CellIsNoRock(playersArray[numPlayer].position.X, playersArray[numPlayer].position.Y)) {
     playersArray[numPlayer].position.Y = playersArray[numPlayer].position.Y + numCells;
+    myGame.board[player1Json.X][player1Json.Y] = player1; 
+    myGame.board[player2Json.X][player2Json.Y] = player2; 
     DrawGameBoard();
   }
   whereIsPlayer(0);
@@ -260,7 +268,7 @@ function ResetGameBoard() {
   for (i = 0; i < myGame.board.length; i++) {
     var row = $("#x"+i);
     row.remove();
-    console.log("delete row " +i); // Problème avec la position des joueurs qui ne se met pas à jour
+    console.log("delete row " +i); // Problème avec le visuel des joueurs qui reste en place
   }
 }  
 
