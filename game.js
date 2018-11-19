@@ -8,7 +8,7 @@ var myGame = new Board(10, 8);
 /*********************************************
 *    Placement des joueurs sur le plateau    *
 *********************************************/
-
+/*
 var playersArray = [];
 var nbPlayers = 2; 
 for (var i = 0; i < nbPlayers; i++) {
@@ -68,23 +68,24 @@ function placePlayers() {
 }
 placePlayers();
 
+
 var player1 = playersArray[0];
 var player2 = playersArray[1];
 var player1Json = player1.position;
 var player2Json = player2.position;
 myGame.board[player1Json.X][player1Json.Y] = player1; 
 myGame.board[player2Json.X][player2Json.Y] = player2; 
-
+*/
 
 
 
 /********************************************
 *     Placement des armes sur le plateau    *
 ********************************************/
-
+/*
 function placeWeapons() {
   // Placement de l'arme 2 (knife)
-  var accessibleCells = myGame.getEmptyCells();
+  var accessibleCells = Board.getEmptyCells();
   var weapon2Position = Math.floor(Math.random() * (accessibleCells.length));
   var weapon2Json = accessibleCells[weapon2Position];
   myGame.board[weapon2Json.X][weapon2Json.Y] = weapon2;
@@ -110,7 +111,7 @@ function placeWeapons() {
   myGame.afficheTout();
 }
 placeWeapons();
-
+*/
 
 /****************************************
 *       Gestion du tour par tour       *
@@ -168,8 +169,8 @@ whereIsPlayer(0);
 whereIsPlayer(1);
 
 
-// Pour bouger à droite
-function MoveRight(numPlayer, numCells) {
+// Pour bouger en bas
+function MoveDown(numPlayer, numCells) {
   if (CellIsNoRock(playersArray[numPlayer].position.X + numCells, playersArray[numPlayer].position.Y)) {
     playersArray[numPlayer].position.X = playersArray[numPlayer].position.X + numCells;
     myGame.board[player1Json.X][player1Json.Y] = player1; 
@@ -180,7 +181,7 @@ function MoveRight(numPlayer, numCells) {
   whereIsPlayer(1);
 }
 
-// Pour bouger à gauche
+// Pour bouger en haut
 function MoveUp(numPlayer, numCells) {
   if (CellIsNoRock(playersArray[numPlayer].position.X - numCells, playersArray[numPlayer].position.Y)) {
     playersArray[numPlayer].position.X = playersArray[numPlayer].position.X - numCells;
@@ -192,21 +193,21 @@ function MoveUp(numPlayer, numCells) {
   whereIsPlayer(1);
 }
 
-// Pour bouger en haut
-function MoveUp(numPlayer, numCells) {
-  if (CellIsNoRock(playersArray[numPlayer].position.X, playersArray[numPlayer].position.Y)) {
+// Pour bouger à gauche
+function MoveLeft(numPlayer, numCells) {
+  if (CellIsNoRock(playersArray[numPlayer].position.X, playersArray[numPlayer].position.Y - numCells)) {
     playersArray[numPlayer].position.Y = playersArray[numPlayer].position.Y - numCells;
     myGame.board[player1Json.X][player1Json.Y] = player1; 
-    myGame.board[player2Json.X][player2Json.Y] = player2; 
+    myGame.board[player2Json.X][player2Json.Y] = player2;
     DrawGameBoard();
   }
   whereIsPlayer(0);
   whereIsPlayer(1);
 }
 
-// Pour bouger en bas
-function MoveDown(numPlayer, numCells) {
-  if (CellIsNoRock(playersArray[numPlayer].position.X, playersArray[numPlayer].position.Y)) {
+// Pour bouger à droite
+function MoveRight(numPlayer, numCells) {
+  if (CellIsNoRock(playersArray[numPlayer].position.X, playersArray[numPlayer].position.Y + numCells)) {
     playersArray[numPlayer].position.Y = playersArray[numPlayer].position.Y + numCells;
     myGame.board[player1Json.X][player1Json.Y] = player1; 
     myGame.board[player2Json.X][player2Json.Y] = player2; 
