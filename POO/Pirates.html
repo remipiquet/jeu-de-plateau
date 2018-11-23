@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="style.css" />
+        <title>Pirates!</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+        <div id="container">
+            <div id="moveZone">
+                <button onclick="playersArray[currentPlayer].move()">test déplacement</button>
+                <button onclick="Stop()">Stop</button>
+            </div>          
+            <div id="boardZone">    
+                <section>
+                    <article>
+                        <table id="tableZone">
+                        </table>
+                    </article>    
+                </section>
+            </div>  
+            <div id="actionZone">
+                <button onclick="Duel()">Attaque</button>
+                <button onclick="Defend()">Defense</button>
+            </div>   
+        </div>    
+
+    </div>
+        <script src="players.js"></script>
+        <script src="weapons.js"></script>
+        <script src="board.js"></script>
+        <script src="game.js"></script>
+
+
+    </body>
+</html>

@@ -1,6 +1,6 @@
 function Game() {
     function start() {
-
+        Map.generate();
     }
 }
 
