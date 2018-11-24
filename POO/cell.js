@@ -2,6 +2,9 @@ function Cell() {
     this.id = id;
     this.state = state;
     this.accessibility = true;
+    this.barrel = false;
+    this.player = false;
+    this.weapon = weapon;
 
     function printHTML() {
         /**

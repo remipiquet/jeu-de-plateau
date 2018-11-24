@@ -1,12 +1,11 @@
-function Map() {
+function Map(size) {
     /**
      * 
      */
-    this.mapSize = mapSize;
+    this.mapSize = size;
 	this.statBarrels = statBarrels;
     this.board = new Array();
     this.reDraw = false; // Premier dessin du plateau
-    this.currentPlayer //TODO
 
 
     function generate() {
@@ -18,11 +17,9 @@ function Map() {
                 for(var y=0; y<this.mapSize; y++){
                     //pour chaque colonne de chaque ligne on mets ou non un rocher
                     if(Math.floor((Math.random() * this.statBarrels)) == 0){ // on genere un nombre entre 0 et statBarrels compris et si on a 0 on met un rocher (1/10 de rochers quoi)
-                        this.board[x][y] = "barrel";
-                    }else{    // dans ce cas la case est vide
-                        this.board[x][y] = 0;
+                        Cell.barrel = true;
                     }
-                }
+                }    
         }
     }
 
@@ -56,55 +53,7 @@ function Map() {
          * Gestion des mouvements des joueurs
          */
         //TODO Appeler swapWeapon quand arme sur le passage
-        switch (command) {
-            case "droite1":
-                this.MoveRight(1);
-                break;
-            case "gauche1":
-                MoveLeft(currentPlayer, 1);
-                break;
-            case "haut1":
-                MoveUp(currentPlayer, 1);
-                break;
-            case "bas1":
-                MoveDown(currentPlayer, 1);
-                break;
-    
-            case "droite2":
-                MoveRight(currentPlayer, 2);
-                break;
-            case "gauche2":
-                MoveLeft(currentPlayer, 2);
-                break;
-            case "haut2":
-                MoveUp(currentPlayer, 2);
-                break;
-            case "bas2":
-                MoveDown(currentPlayer, 2);
-                break;
-    
-            case "droite3":
-                MoveRight(currentPlayer, 3);
-                break;
-            case "gauche3":
-                MoveLeft(currentPlayer, 3);
-                break;
-            case "haut3":
-                MoveUp(currentPlayer, 3);
-                break;
-            case "bas3":
-                MoveDown(currentPlayer, 3);
-                break;
-    
-            case "stop":
-                state=true;
-                break;
-            
-            default:
-                alert("Je n'ai pas compris!");
-        
-            return state;  
-        }
+
 
     }
 
