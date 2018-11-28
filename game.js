@@ -8,12 +8,12 @@ var myGame = new Board(10, 8);
 /*********************************************
 *    Placement des joueurs sur le plateau    *
 *********************************************/
-/*
+
 var playersArray = [];
 var nbPlayers = 2; 
 for (var i = 0; i < nbPlayers; i++) {
   var index = parseInt(i) + 1;
-  var player = new Player('Joueur ' + index, 100, weapon1);
+  var player = new Player('Joueur ' + index, 100, "hook");
   playersArray.push(player); // TODO a passer en POO
 }
 var currentPlayer = 0;
@@ -75,43 +75,48 @@ var player1Json = player1.position;
 var player2Json = player2.position;
 myGame.board[player1Json.X][player1Json.Y] = player1; 
 myGame.board[player2Json.X][player2Json.Y] = player2; 
-*/
+
 
 
 
 /********************************************
 *     Placement des armes sur le plateau    *
 ********************************************/
-/*
+var weapon1 = new Weapon(1, "hook", 10, '<img src="img/hook.png" alt="hook"></img>');
+var weapon2 = new Weapon(2, "knife", 20, '<img src="img/knife.png" alt="knife"></img>');
+var weapon3 = new Weapon(3, "sword", 30, '<img src="img/sword.png" alt="sword"></img>');
+var weapon4 = new Weapon(4, "harpoon", 40, '<img src="img/harpoon.png" alt="harpoon"></img>');
+var weapon5 = new Weapon(5, "gun", 50, '<img src="img/gun.png" alt="gun"></img>');
+
 function placeWeapons() {
   // Placement de l'arme 2 (knife)
-  var accessibleCells = Board.getEmptyCells();
+  var accessibleCells = myGame.getEmptyCells();
   var weapon2Position = Math.floor(Math.random() * (accessibleCells.length));
   var weapon2Json = accessibleCells[weapon2Position];
-  myGame.board[weapon2Json.X][weapon2Json.Y] = weapon2;
+  myGame.board[weapon2Json.X][weapon2Json.Y] = weapon2.name;
 
   // Placement de l'arme 3 (sword)
   var accessibleCells = myGame.getEmptyCells();
   var weapon3Position = Math.floor(Math.random() * (accessibleCells.length));
   var weapon3Json = accessibleCells[weapon3Position];
-  myGame.board[weapon3Json.X][weapon3Json.Y] = weapon3;
+  myGame.board[weapon3Json.X][weapon3Json.Y] = weapon3.name;
 
   // Placement de l'arme 4 (harpoon)
   var accessibleCells = myGame.getEmptyCells();
   var weapon4Position = Math.floor(Math.random() * (accessibleCells.length));
   var weapon4Json = accessibleCells[weapon4Position];
-  myGame.board[weapon4Json.X][weapon4Json.Y] = weapon4;
+  myGame.board[weapon4Json.X][weapon4Json.Y] = weapon4.name;
   // Placement de l'arme 5 (gun)
   var accessibleCells = myGame.getEmptyCells();
   var weapon5Position = Math.floor(Math.random() * (accessibleCells.length));
   var weapon5Json = accessibleCells[weapon5Position];
-  myGame.board[weapon5Json.X][weapon5Json.Y] = weapon5; 
+  myGame.board[weapon5Json.X][weapon5Json.Y] = weapon5.name;
 
   // Commande pour voir le plateau en textuel
   myGame.afficheTout();
 }
 placeWeapons();
-*/
+
 
 /****************************************
 *       Gestion du tour par tour       *
@@ -290,19 +295,19 @@ function DrawGameBoard() { // TODO A mettre dans Board (ou alors à distiller da
         if (myGame.board[i][j] == "barrel") {
           caseContent = "<td id= y" + j + ">" + barrelVisual +"</td>";
         }  
-        if (myGame.board[i][j] == weapon1) {
+        if (myGame.board[i][j] == weapon1.name) {
           caseContent = "<td id= y" + j + ">" + weapon1.visual +"</td>";
         }  
-        if (myGame.board[i][j] == weapon2) {
+        if (myGame.board[i][j] == weapon2.name) {
           caseContent = "<td id= y" + j + ">" + weapon2.visual +"</td>";
         }
-        if (myGame.board[i][j] == weapon3) {
+        if (myGame.board[i][j] == weapon3.name) {
           caseContent = "<td id= y" + j + ">" + weapon3.visual +"</td>";
         }
-        if (myGame.board[i][j] == weapon4) {
+        if (myGame.board[i][j] == weapon4.name) {
           caseContent = "<td id= y" + j + ">" + weapon4.visual +"</td>";
         }
-        if (myGame.board[i][j] == weapon5) {
+        if (myGame.board[i][j] == weapon5.name) {
           caseContent = "<td id= y" + j + ">" + weapon5.visual +"</td>";
         }
   

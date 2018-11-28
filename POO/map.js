@@ -1,11 +1,12 @@
-function Map(size) {
+function Map() {
     /**
      * 
      */
-    this.mapSize = size;
+    this.mapSize = mapSize;
 	this.statBarrels = statBarrels;
     this.board = new Array();
     this.reDraw = false; // Premier dessin du plateau
+    this.currentPlayer //TODO
 
 
     function generate() {
@@ -17,9 +18,11 @@ function Map(size) {
                 for(var y=0; y<this.mapSize; y++){
                     //pour chaque colonne de chaque ligne on mets ou non un rocher
                     if(Math.floor((Math.random() * this.statBarrels)) == 0){ // on genere un nombre entre 0 et statBarrels compris et si on a 0 on met un rocher (1/10 de rochers quoi)
-                        Cell.barrel = true;
+                        this.board[x][y] = "barrel";
+                    }else{    // dans ce cas la case est vide
+                        this.board[x][y] = 0;
                     }
-                }    
+                }
         }
     }
 
@@ -53,7 +56,7 @@ function Map(size) {
          * Gestion des mouvements des joueurs
          */
         //TODO Appeler swapWeapon quand arme sur le passage
-
+        
 
     }
 

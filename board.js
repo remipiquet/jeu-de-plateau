@@ -45,13 +45,13 @@ Board.prototype.getEmptyCells = function() {
 };
 
 // fonction pour retourner l'état d'une case du plateau
-this.contenuCase = function(x, y) {
+Board.prototype.contenuCase = function (x, y) {
     console.log(this.board[x][y]);
 	return this.board[x][y];
 };
 
 // fonction pour retourner l'état de toutes les cases du plateau
-this.afficheTout = function() {
+Board.prototype.afficheTout = function () {
 	for(var x=0; x<this.mapSize; x++){
 		for(var y=0; y<this.mapSize; y++){
 			console.log("La case X: " + x + " Y: " + y + " contient " + this.board[x][y]);
@@ -60,12 +60,12 @@ this.afficheTout = function() {
 };
 
 // placement des joueurs sur le plateau
-
+/*
 var playersArray = [];
 var nbPlayers = 2; 
 for (var i = 0; i < nbPlayers; i++) {
     var index = parseInt(i) + 1;
-    var player = new Player('Joueur ' + index, 100, weapon1);
+    var player = new Player('Joueur ' + index, 100, "hook");
     playersArray.push(player); // TODO a passer en POO
 }
 var currentPlayer = 0;
@@ -131,10 +131,11 @@ this.board[player1Json.X][player1Json.Y] = player1;
 this.board[player2Json.X][player2Json.Y] = player2;
 
 // placement des armes sur le plateau
-
+*/
 /********************************************
 *     Placement des armes sur le plateau    *
 ********************************************/
+/*
 function placeWeapons() {
     // Placement de l'arme 2 (knife)
     var accessibleCells = this.getEmptyCells();
@@ -163,4 +164,5 @@ function placeWeapons() {
     myGame.afficheTout();
 }
 placeWeapons();
+*/
 
