@@ -1,10 +1,10 @@
-function Map(mapSize, statBarrels) {
+function Map() {
     /**
      * 
      */
-    this.mapSize = mapSize;
-	this.statBarrels = statBarrels;
-    this.board = new Array();
+    this.mapSize = 10;
+	this.statBarrels = 8;
+    this.board = new Array(); // A lier avec cell.js
     this.reDraw = false; // Premier dessin du plateau
     this.currentPlayer //TODO
 
@@ -24,6 +24,21 @@ function Map(mapSize, statBarrels) {
                 }
         }
     }
+    generate();
+
+    //fonction pour récupérer les cases vides
+    function getEmptyCells() { 
+        var emptyCells = new Array(); // on crée un tableau
+        for(var x=0; x<this.mapSize; x++){ // on parcours l'axe X
+            for(var y=0; y<this.mapSize; y++){ // on parcours l'axe Y
+                if (this.board[x][y] == 0){ // si les cellules parcourues du tableau sont vides...
+                        emptyCells.push({X : x, Y : y}); // ...stockage en JSON des cellules vides
+                }
+            }
+        }
+            return emptyCells;
+    };
+    getEmptyCells();
 
     function placePlayers() {
         /**
@@ -31,13 +46,14 @@ function Map(mapSize, statBarrels) {
          */
         
         // Création du tableau de joueurs et génération en fonction du nombre de joueurs choisis 
-        let playersArray = [];
+        var playersArray = [];
         let numberOfPlayers = 2;
         for (let i = 0; i < numberOfPlayers; i++) {
             let index = parseInt(i) + 1;
             let player = new Player('Joueur ' + index, 100, "hook");
             playersArray.push(player);
         }
+        let accessibleCells = getEmptyCells();
         /* A VIRER
         let currentPlayer = 0;
         let currentEnemy = 1;
@@ -92,7 +108,6 @@ function Map(mapSize, statBarrels) {
             } 
         }
     }
-
     placePlayers();
 
     let player1 = playersArray[0];
@@ -116,26 +131,20 @@ function Map(mapSize, statBarrels) {
         myGame.board[weapon2Json.X][weapon2Json.Y] = weapon2;
 
         // Placement de l'arme 3 (sword)
-        let accessibleCells = myGame.getEmptyCells();
         let weapon3Position = Math.floor(Math.random() * (accessibleCells.length));
         let weapon3Json = accessibleCells[weapon3Position];
         myGame.board[weapon3Json.X][weapon3Json.Y] = weapon3;
 
         // Placement de l'arme 4 (harpoon)
-        let accessibleCells = myGame.getEmptyCells();
         let weapon4Position = Math.floor(Math.random() * (accessibleCells.length));
         let weapon4Json = accessibleCells[weapon4Position];
         myGame.board[weapon4Json.X][weapon4Json.Y] = weapon4;
         // Placement de l'arme 5 (gun)
-        let accessibleCells = myGame.getEmptyCells();
         let weapon5Position = Math.floor(Math.random() * (accessibleCells.length));
         let weapon5Json = accessibleCells[weapon5Position];
         myGame.board[weapon5Json.X][weapon5Json.Y] = weapon5;
-
-        // Commande pour voir le plateau en textuel
-        myGame.afficheTout();
-
     }
+    placeWeapons();
 
     function swapWeapon() {
         /**
@@ -214,6 +223,16 @@ function Map(mapSize, statBarrels) {
 
     }
 
+    // fonction pour retourner l'état de toutes les cases du plateau
+    function afficheTout() {
+        for(var x=0; x<this.mapSize; x++){
+            for(var y=0; y<this.mapSize; y++){
+                console.log("La case X: " + x + " Y: " + y + " contient " + this.board[x][y]);
+            }
+        }
+    };
+    afficheTout();
+
     function printHtml() {
         /**
          * Gestion de l'affichage sur la page HTML
@@ -223,3 +242,11 @@ function Map(mapSize, statBarrels) {
     }
 
 }
+Map();
+
+
+/* TODO
+*
+* Lier map.board à cell.js 
+*
+*/

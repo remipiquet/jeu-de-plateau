@@ -1,4 +1,4 @@
-function Player() {
+function Player(name, health, weapon) {
     this.name = name;
     this.health = health;
     this.weapon = weapon.name;

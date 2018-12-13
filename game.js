@@ -273,7 +273,8 @@ function Duel(){
 function ResetGameBoard() {
   for (i = 0; i < myGame.board.length; i++) {
     var row = $("#x"+i);
-    row.remove();
+    row.empty();
+    /*$('#tableZone').remove(row);*/
     console.log("delete row " +i); // Problème avec le visuel des joueurs qui reste en place
   }
 }  
