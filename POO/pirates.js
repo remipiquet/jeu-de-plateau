@@ -1,3 +1,3 @@
-let currentGame = new Game(10, 8);
+let currentGame = new Game();
 //currentGame.start();
 
