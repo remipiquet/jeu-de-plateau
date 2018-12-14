@@ -52,8 +52,6 @@ class Game{
         /**
          * Gestion du tour par tour
          */
-        
-        function CurrentPlayer(){
             if (currentPlayer < playersArray.length){
                 currentPlayer ++;
             }
@@ -61,6 +59,4 @@ class Game{
                 currentPlayer = 0;
             }
         } 
-
-    }
-}
+};

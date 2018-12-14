@@ -1,18 +1,20 @@
 class Cell{
-    constructor(id) {
+    constructor() {
         this.id = id;
+        this.array = [];
         this.state = state;
         this.accessibility = true;
         this.barrel = false;
         this.player = false;
         this.weapon = weapon;
     }
-}
 
-function printHTML() {
-    /**
-     * Gestion de l'affichage sur la page HTML
-     */
-    
 
-}
+    printHTML() {
+        /**
+         * Gestion de l'affichage sur la page HTML
+         */
+        
+
+    }
+};    

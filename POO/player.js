@@ -9,33 +9,33 @@ class Player{
         this.imgUrl = imgUrl;
         this.index = 0;
     }
-}    
 
-function getPlayerHealth() {
-    return "Il reste " + this.health + " points de vie au " + this.name;
-}
+    getPlayerHealth() {
+        return "Il reste " + this.health + " points de vie au " + this.name;
+    }
 
-function setPlayerHealth(value) {
-    return this.health = value;
-}
+    setPlayerHealth(value) {
+        return this.health = value;
+    }
 
-function setPlayerWeapon() {
-    /**
-     * Récupération de l'arme si présente sur la case du joueur
-     */
-}
+    setPlayerWeapon() {
+        /**
+         * Récupération de l'arme si présente sur la case du joueur
+         */
+    }
 
-function dropWeapon() {
-    /**
-     * Dépose l'arme que le joueur avait avant de passer sur une case contenant une arme
-     */
-}
+    dropWeapon() {
+        /**
+         * Dépose l'arme que le joueur avait avant de passer sur une case contenant une arme
+         */
+    }
 
-function printHtml() {
-    /**
-     * Gestion de l'affichage sur la page HTML
-     */
-    
+    printHtml() {
+        /**
+         * Gestion de l'affichage sur la page HTML
+         */
+        
 
-}
+    }
 
+}; 

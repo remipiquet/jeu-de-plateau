@@ -5,37 +5,40 @@ class Map {
     constructor (mapSize, statBarrels){
         this.mapSize = mapSize;
         this.statBarrels = statBarrels;
-        this.board = new Array(); // A lier avec cell.js
-        this.reDraw = false; // Premier dessin du plateau
-        this.playersArray = [];
+        board = new Array();
+        reDraw = false;
+        playersArray = [];
     }    
+    
+    test(mapSize){
+        console.log(mapSize);
+    }
 
 
     generate() {
         /**
          * Génération du plateau de jeu en 10x10 avec à peu près 1/10ème de tonneaux
          */
-        for (let x=0; x<this.mapSize; x++){
-            this.board[x] = new Array();
-                for(let y=0; y<this.mapSize; y++){
-                    if(Math.floor((Math.random() * this.statBarrels)) == 0){ 
-                        this.board[x][y] = "barrel";
+        for (let x=0; x<mapSize; x++){
+            Cell.array[x] = new Array();
+                for(let y=0; y<mapSize; y++){
+                    if(Math.floor((Math.random() * statBarrels)) == 0){ 
+                        Cell.barrel = true;
                     }else{
-                        this.board[x][y] = 0;
+                        Cell.barrel = false;
                     }
                 }
         }
     }
-    
 
     getEmptyCells() { 
         /**
          * Récupération des cases vides
          */
         var emptyCells = new Array(); // on crée un tableau
-        for(var x=0; x<this.mapSize; x++){ // on parcours l'axe X
-            for(var y=0; y<this.mapSize; y++){ // on parcours l'axe Y
-                if (this.board[x][y] == 0){ // si les cellules parcourues du tableau sont vides...
+        for(var x=0; x<mapSize; x++){ // on parcours l'axe X
+            for(var y=0; y<mapSize; y++){ // on parcours l'axe Y
+                if (board[x][y] == 0){ // si les cellules parcourues du tableau sont vides...
                         emptyCells.push({X : x, Y : y}); // ...stockage en JSON des cellules vides
                 }
             }
@@ -50,7 +53,6 @@ class Map {
          */
         
         // Création du tableau de joueurs et génération en fonction du nombre de joueurs choisis 
-        var playersArray = [];
         var numberOfPlayers = 2;
         for (var i = 0; i < numberOfPlayers; i++) {
             var index = parseInt(i) + 1;
@@ -58,13 +60,8 @@ class Map {
             playersArray.push(player);
         }
         var accessibleCells = getEmptyCells();
-        /* A VIRER
-        let currentPlayer = 0;
-        let currentEnemy = 1;
-        let accessibleCells = this.Board.getEmptyCells();
-        */
 
-    // pour chaque joueur on place le joueur de maniere a ne pas etre a coté d'un autre joueur
+        // pour chaque joueur on place le joueur de maniere a ne pas etre a coté d'un autre joueur
         for (let indexPlayer = 0; indexPlayer < numberOfPlayers; indexPlayer++) {
             playersArray[indexPlayer].position = Math.floor(Math.random() * (accessibleCells.length));
 
@@ -99,9 +96,8 @@ class Map {
                     Y: playersArray[indexPlayer].position.Y + 1
                 });
             }
-            return playersArray;
 
-        // on enleve les cases inaccessibles des cases accessibles
+            // on enleve les cases inaccessibles des cases accessibles
             for (let j = 0; j < accessibleCells.length; j++) {
                 for (let k = 0; k < inaccessibleCells.length; k++) {
                     if (j >= 0 && accessibleCells.length > j) {
@@ -115,14 +111,14 @@ class Map {
     } 
     
 
-
+    /*
     let player1 = playersArray[0];
     let player2 = playersArray[1];
     let player1Json = player1.position;
     let player2Json = player2.position;
     this.board[player1Json.X][player1Json.Y] = player1; 
     this.board[player2Json.X][player2Json.Y] = player2;
-
+    */
 
 
     placeWeapons() {
@@ -150,7 +146,6 @@ class Map {
         let weapon5Json = accessibleCells[weapon5Position];
         myGame.board[weapon5Json.X][weapon5Json.Y] = weapon5;
     }
-    
 
     swapWeapon() {
         /**
@@ -178,7 +173,6 @@ class Map {
             }
         }
     };
-    afficheTout();
 
     printHtml() {
         /**
@@ -187,10 +181,11 @@ class Map {
         
 
     }
-}
 
 
+};
 
+const testMap = new Map(10, 8);
 
 /* TODO
 *
