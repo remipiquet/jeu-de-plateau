@@ -39,3 +39,6 @@ class Player{
     }
 
 }; 
+
+var player1 = new Player (player1, 100, 'hook', '<img src="img/player1.png" alt="player1"></img>');
+var player2 = new Player (player2, 100, 'hook', '<img src="img/player2.png" alt="player1"></img>');

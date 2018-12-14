@@ -1,7 +1,6 @@
 class Cell{
     constructor() {
         this.id = id;
-        this.array = [];
         this.state = state;
         this.accessibility = true;
         this.barrel = false;

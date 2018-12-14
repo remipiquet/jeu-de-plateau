@@ -2,26 +2,24 @@ class Map {
     /**
      * 
      */
-    constructor (mapSize, statBarrels){
+    constructor (mapSize, statBarrels, board, reDraw,){
         this.mapSize = mapSize;
         this.statBarrels = statBarrels;
-        board = new Array();
-        reDraw = false;
-        playersArray = [];
+        this.board = board;
+        this.reDraw = reDraw;
     }    
     
-    test(mapSize){
-        console.log(mapSize);
-    }
-
+    Accesseurs
+    // Méthodes
 
     generate() {
         /**
          * Génération du plateau de jeu en 10x10 avec à peu près 1/10ème de tonneaux
          */
-        for (let x=0; x<mapSize; x++){
-            Cell.array[x] = new Array();
-                for(let y=0; y<mapSize; y++){
+        this.board = [];
+        for (var x=0; x<this.mapSize; x++){
+            this.board[x] = new Array();
+                for(var y=0; y<mapSize; y++){
                     if(Math.floor((Math.random() * statBarrels)) == 0){ 
                         Cell.barrel = true;
                     }else{
@@ -29,7 +27,8 @@ class Map {
                     }
                 }
         }
-    }
+        return this.board;
+    };
 
     getEmptyCells() { 
         /**
@@ -52,18 +51,11 @@ class Map {
          * Placement des joueurs sur le plateau
          */
         
-        // Création du tableau de joueurs et génération en fonction du nombre de joueurs choisis 
-        var numberOfPlayers = 2;
-        for (var i = 0; i < numberOfPlayers; i++) {
-            var index = parseInt(i) + 1;
-            var player = new Player('Joueur ' + index, 100, "hook");
-            playersArray.push(player);
-        }
         var accessibleCells = getEmptyCells();
 
         // pour chaque joueur on place le joueur de maniere a ne pas etre a coté d'un autre joueur
         for (let indexPlayer = 0; indexPlayer < numberOfPlayers; indexPlayer++) {
-            playersArray[indexPlayer].position = Math.floor(Math.random() * (accessibleCells.length));
+            player1.position = Math.floor(Math.random() * (accessibleCells.length));
 
             // On rend inacccessible les cases qui sont proches de player x et sa case
             let inaccessibleCells = new Array();
@@ -109,17 +101,6 @@ class Map {
             } 
         }
     } 
-    
-
-    /*
-    let player1 = playersArray[0];
-    let player2 = playersArray[1];
-    let player1Json = player1.position;
-    let player2Json = player2.position;
-    this.board[player1Json.X][player1Json.Y] = player1; 
-    this.board[player2Json.X][player2Json.Y] = player2;
-    */
-
 
     placeWeapons() {
         /**
@@ -185,7 +166,11 @@ class Map {
 
 };
 
-const testMap = new Map(10, 8);
+const testMap = new Map(10, 8, [], false);
+
+
+
+testMap.generate();
 
 /* TODO
 *
