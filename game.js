@@ -288,7 +288,7 @@ function DrawGameBoard() { // TODO A mettre dans Board (ou alors à distiller da
   for (i = 0; i < myGame.board.length; i++) {
     var row = $('<tr class="row"></tr>').attr('id', "x"+i);
     for (j = 0; j < myGame.board.length; j++) {
-      row.append(function(n){
+      row.append(function(){
         var caseContent = "<td id= y"+j +"> </td>";
         var barrelVisual = '<img src="img/barrel.png" alt="barrel"></img>';
         var player1Visual = '<img src="img/player1.png" alt="player1"></img>';

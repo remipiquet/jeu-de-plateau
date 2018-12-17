@@ -1,7 +1,7 @@
 class Game{
     constructor(){
         this.currentPlayer = null;
-        this.map = new Map(10, 8);
+        //this.map = new Map(10, 8);
     }
 
 

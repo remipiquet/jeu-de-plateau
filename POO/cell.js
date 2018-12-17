@@ -1,14 +1,14 @@
 class Cell{
-    constructor() {
+
+    constructor(id, weapon, barrel, player) {
         this.id = id;
-        this.state = state;
-        this.accessibility = true;
-        this.barrel = false;
-        this.player = false;
         this.weapon = weapon;
+        this.barrel = barrel;
+        this.player = player;
+        this.accessibility = true;
     }
 
-
+    
     printHTML() {
         /**
          * Gestion de l'affichage sur la page HTML
@@ -16,4 +16,5 @@ class Cell{
         
 
     }
-};    
+
+};  
