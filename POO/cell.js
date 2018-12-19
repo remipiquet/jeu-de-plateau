@@ -1,11 +1,13 @@
 class Cell{
 
-    constructor(id, weapon, barrel, player) {
+    constructor(id, weapon, barrel, player, X, Y) {
         this.id = id;
         this.weapon = weapon;
         this.barrel = barrel;
         this.player = player;
-        this.accessibility = true;
+        this.highlight = false;
+        this.X = X;
+        this.Y = Y
     }
 
     

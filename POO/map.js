@@ -17,13 +17,10 @@ class Map {
             this.board[x] = [];
             for (let y = 0; y < this.mapSize; y++) {
                 if (Math.floor((Math.random() * this.statBarrels)) == 0) {
-
-                    this.board[x][y] = new Cell(""+x+y, null, true, null);
+                    this.board[x][y] = new Cell(""+x+y, null, true, null, x, y);
                     //console.log(Cell);
-
                 } else {
-
-                    this.board[x][y] = new Cell(""+x+y, null, false, null);
+                    this.board[x][y] = new Cell(""+x+y, null, false, null, x, y);
                     //console.log(Cell);
                 }
             }
@@ -53,11 +50,13 @@ class Map {
          * Placement des joueurs sur le plateau
          */
         let accessibleCells = this.getEmptyCells();
-        
         let player1Position = Math.floor(Math.random() * (accessibleCells.length));
         let player1Json = accessibleCells[player1Position];
         this.board[player1Json.X][player1Json.Y].player = player1;
         player1.position = this.board[player1Json.X][player1Json.Y];
+        player1.positionX = this.board[player1Json.X];
+        player1.positionY = this.board[player1Json.Y];
+
 
         let player2Position = Math.floor(Math.random() * (accessibleCells.length));
         if (player1Position == player2Position+1 || player1Position == player2Position-1 || player1Position == player2Position+10 || player1Position == player2Position-10 ) {
@@ -72,7 +71,9 @@ class Map {
         }
         console.log(player1.position);
         console.log(player2.position);
-    } 
+
+        //TODO : Les joueurs ne doivent pas pouvoir être côte à côte (et là c'est le cas !!!!)
+    }
 
     placeWeapons() {
         /**
@@ -101,33 +102,15 @@ class Map {
         this.board[weapon5Json.X][weapon5Json.Y].weapon = weapon5;
     }
 
-/*    swapWeapon() {
+    //swapWeapon() {
         /**
          * Echange l'arme de current player contre celle qui est sur sa case
          */
 
 /*        this.currentPlayer.dropWeapon();
         this.currentPlayer.getWeapon();
-    }
+    }*/
 
-    movePlayer() {
-        /**
-         * Gestion des mouvements des joueurs
-         */
-        //TODO Appeler swapWeapon quand arme sur le passage
-        
-
-/*    }
-
-    // fonction pour retourner l'état de toutes les cases du plateau
-/*    afficheTout() {
-        for(var x=0; x<this.mapSize; x++){
-            for(var y=0; y<this.mapSize; y++){
-                console.log("La case X: " + x + " Y: " + y + " contient " + this.board[x][y]);
-            }
-        }
-    };
-*/
     ResetPrint() {
         for (let x = 0; x < this.board.length; x++) {
         let row = $("#x"+x);
@@ -141,11 +124,11 @@ class Map {
         /**
          * Gestion de l'affichage sur la page HTML
          */
-        /*if (this.reDraw = true) {
+        if (this.reDraw = true) {
             this.ResetPrint();
         } else {
             this.reDraw = true;
-        }*/
+        }
         let myBoard = this.board;
         for (let x = 0; x < this.board.length; x++) {
             var row = $('<tr class="row"></tr>').attr('id', "x"+x);
@@ -192,17 +175,17 @@ class Map {
 
 
 
-const testMap = new Map(10, 10);
+const gameMap = new Map(10, 10);
 
-testMap.generate(); 
+gameMap.generate(); 
 
-testMap.getEmptyCells();
+gameMap.getEmptyCells();
 
-testMap.placePlayers();
+gameMap.placePlayers();
 
-testMap.placeWeapons();
+gameMap.placeWeapons();
 
-testMap.printHtml();
+gameMap.printHtml();
 
 
 

@@ -1,2 +1,2 @@
-let currentGame = new Game();
+//let currentGame = new Game();
 

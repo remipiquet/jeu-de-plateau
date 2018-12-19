@@ -5,6 +5,8 @@ class Player{
         this.weapon = weapon.name;
         this.force = weapon.damage;
         this.position = null;
+        this.positionX = null;
+        this.positionY = null;
         this.defense = false;
         this.imgUrl = imgUrl;
         this.index = 0;
@@ -41,4 +43,4 @@ class Player{
 }; 
 
 var player1 = new Player (player1, 100, 'hook', '<img src="img/player1.png" alt="player1"></img>');
-var player2 = new Player (player2, 100, 'hook', '<img src="img/player2.png" alt="player1"></img>');
+var player2 = new Player (player2, 100, 'hook', '<img src="img/player2.png" alt="player2"></img>');
