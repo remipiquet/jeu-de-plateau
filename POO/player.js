@@ -13,11 +13,27 @@ class Player{
     }
 
     getPlayerHealth() {
-        return "Il reste " + this.health + " points de vie au " + this.name;
+        return this.health;
     }
 
     setPlayerHealth(value) {
         return this.health = value;
+    }
+
+    getPlayerPositionX() {
+        return this.positionX;
+    }
+
+    setPlayerPositionX(value){
+        return this.positionX = value;
+    }
+
+    getPlayerPositionY() {
+        return this.positionY;
+    }
+
+    setPlayerPositionX(value) {
+        return this.positionY = value;
     }
 
     setPlayerWeapon() {

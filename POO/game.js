@@ -23,23 +23,41 @@ class Game{
         let thisPlayer = this.currentPlayer;
         let playerPos = thisPlayer.position;
         let posId = playerPos.id;
+        posId +1 == $(caseContent).css('color', 'orange');
         
-        $('highlight').css('color', 'orange');
         //if (posId)
     }
-    whereIsPlayer() {
-        console.log(currentPlayer.name + " est en X " + currentPlayer.X + " Y " + currentPlayer.Y);
-    }
-    //movePlayer() {
+
+    getEmptyCells() {
+        /**
+         * Récupération des cases vides
+         */
+        let emptyCells = new Array(); // on crée un tableau
+        for (let x = 0; x < gameMap.mapSize; x++) { // on parcours l'axe X
+            for (let y = 0; y < gameMap.mapSize; y++) { // on parcours l'axe Y
+                if (gameMap.board[x][y].barrel == false) { // si les cellules parcourues du tableau sont vides...
+                    emptyCells.push({
+                        X: x,
+                        Y: y
+                    }); // ...stockage en JSON des cellules vides
+                }
+            }
+        }
+        //console.log(emptyCells);
+        return emptyCells;
+    };
+    movePlayer() {
         /**
          * Gestion des mouvements des joueurs
          */
         //TODO Appeler swapWeapon quand arme sur le passage
-        
+        let accessibleCells = this.getEmptyCells();
+        let toRight1 = document.getElementById((currentPlayer.position.x + 1) + '-' + (currentPlayer.position.y))
+
         
     //CellIsNoBarrel(x, y) { // Accessibilité des cases
     //  gameMap.getEmptyCells();
-    //}
+    }
     
 
     //}
@@ -47,8 +65,8 @@ class Game{
     
     
     // Pour bouger en bas
-    MoveDown(numCells) {
-        player1.positionX = player1.positionX + numCells;
+    MoveRight(numCells) {
+        player1.position = gameMap.board + numCells;
         gameMap.printHtml();
         }
 
@@ -115,8 +133,16 @@ class Game{
 };
 
 let currentGame = new Game();
-let currentPlayer = player1;
-let movedown = currentGame.MoveDown();
+currentGame.testHighlight();
+
+    // Pour bouger en bas
+    function MoveRight(numCells) {
+        let playerPosition = currentPlayer.position
+        player1.position = player1.positionX + numCells;
+        gameMap.printHtml();
+    }
+
+
 
 
 

@@ -2,7 +2,7 @@ class Map {
     /**
      * 
      */
-    constructor (mapSize, statBarrels,){
+    constructor (mapSize, statBarrels){
         this.mapSize = mapSize;
         this.statBarrels = statBarrels;
         this.board = [];
@@ -102,6 +102,34 @@ class Map {
         this.board[weapon5Json.X][weapon5Json.Y].weapon = weapon5;
     }
 
+    moveRight(value) {
+        let currentPlayerJson = currentPlayer.position;
+        this.board[currentPlayerJson.X][currentPlayerJson.Y + value].player = currentPlayer;
+        currentPlayer.position = this.board[currentPlayerJson.X][currentPlayerJson.Y + value];
+        this.printHtml();
+    }
+
+    moveLeft(value) {
+        let currentPlayerJson = currentPlayer.position;
+        this.board[currentPlayerJson.X][currentPlayerJson.Y - value].player = currentPlayer;
+        currentPlayer.position = this.board[currentPlayerJson.X][currentPlayerJson.Y - value];
+        this.printHtml();
+    }
+
+    moveUp(value) {
+        let currentPlayerJson = currentPlayer.position;
+        this.board[currentPlayerJson.X + value][currentPlayerJson.Y].player = currentPlayer;
+        currentPlayer.position = this.board[currentPlayerJson.X + value][currentPlayerJson.Y];
+        this.printHtml();
+    }
+
+    moveDown(value) {
+        let currentPlayerJson = currentPlayer.position;
+        this.board[currentPlayerJson.X + value][currentPlayerJson.Y].player = currentPlayer;
+        currentPlayer.position = this.board[currentPlayerJson.X + value][currentPlayerJson.Y];
+        this.printHtml();
+    }
+
     //swapWeapon() {
         /**
          * Echange l'arme de current player contre celle qui est sur sa case
@@ -154,7 +182,6 @@ class Map {
                 if (myBoard[x][y].weapon == weapon5) {
                 caseContent = "<td id= y" + y + ">" + weapon5.imgUrl +"</td>";
                 }
-        
                 if (myBoard[x][y].player == player1) {
                 caseContent = "<td id= y" + y + ">" + player1.imgUrl +"</td>";
                 }
@@ -176,6 +203,8 @@ class Map {
 
 
 const gameMap = new Map(10, 10);
+
+let currentPlayer = player1;
 
 gameMap.generate(); 
 
