@@ -13,20 +13,20 @@ class Game{
             this.currentPlayer = player2;
             this.currentEnemy = player1;
         }
-        else {
+        if(this.currentPlayer = player2){
             this.currentPlayer = player1;
             this.currentEnemy = player2;
         }
     }
     
-    testHighlight() {
+    /*testHighlight() {
         let thisPlayer = this.currentPlayer;
         let playerPos = thisPlayer.position;
         let posId = playerPos.id;
         posId +1 == $(caseContent).css('color', 'orange');
         
         //if (posId)
-    }
+    }*/
 
     getEmptyCells() {
         /**
@@ -51,54 +51,13 @@ class Game{
          * Gestion des mouvements des joueurs
          */
         //TODO Appeler swapWeapon quand arme sur le passage
-        let accessibleCells = this.getEmptyCells();
-        let toRight1 = document.getElementById((currentPlayer.position.x + 1) + '-' + (currentPlayer.position.y))
 
-        
-    //CellIsNoBarrel(x, y) { // Accessibilité des cases
-    //  gameMap.getEmptyCells();
     }
     
 
-    //}
-
+    defend() {
     
-    
-    // Pour bouger en bas
-    MoveRight(numCells) {
-        player1.position = gameMap.board + numCells;
-        gameMap.printHtml();
-        }
-
-    
-    
-    // Pour bouger en haut
-    /*MoveUp(numPlayer, numCells) {
-    if (CellIsNoRock(playersArray[numPlayer].position.X - numCells, playersArray[numPlayer].position.Y)) {
-        playersArray[numPlayer].position.X = playersArray[numPlayer].position.X - numCells;
-        myGame.board[player1Json.X][player1Json.Y] = player1; 
-        myGame.board[player2Json.X][player2Json.Y] = player2; 
-        DrawGameBoard();
-        }
     }
-    
-    // Pour bouger à gauche
-    MoveLeft(numPlayer, numCells) {
-    if (CellIsNoRock(playersArray[numPlayer].position.X, playersArray[numPlayer].position.Y - numCells)) {
-        playersArray[numPlayer].position.Y = playersArray[numPlayer].position.Y - numCells;
-        myGame.board[player1Json.X][player1Json.Y] = player1; 
-        myGame.board[player2Json.X][player2Json.Y] = player2;
-        DrawGameBoard();
-        }
-    }*/
-
-
-
-    /*defend() {
-        /**
-         * Gestion du statut de défense des joueurs
-         */
-//}
 
     /*fight() {
         /**
@@ -133,26 +92,7 @@ class Game{
 };
 
 let currentGame = new Game();
-currentGame.testHighlight();
-
-    // Pour bouger en bas
-    function MoveRight(numCells) {
-        let playerPosition = currentPlayer.position
-        player1.position = player1.positionX + numCells;
-        gameMap.printHtml();
-    }
 
 
-
-
-
-/* ZONE DE TEST
-let thisPlayer = currentGame.currentPlayer;
-let playerPos = thisPlayer.position;
-let posId = playerPos.id;
-let pos1R = posId ++;
-
-let myBoard = gameMap.board;
-let */
 
 

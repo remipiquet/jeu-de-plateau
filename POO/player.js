@@ -5,8 +5,6 @@ class Player{
         this.weapon = weapon.name;
         this.force = weapon.damage;
         this.position = null;
-        this.positionX = null;
-        this.positionY = null;
         this.defense = false;
         this.imgUrl = imgUrl;
         this.index = 0;
@@ -20,20 +18,12 @@ class Player{
         return this.health = value;
     }
 
-    getPlayerPositionX() {
-        return this.positionX;
+    getPlayerPosition() {
+        return this.position;
     }
 
-    setPlayerPositionX(value){
-        return this.positionX = value;
-    }
-
-    getPlayerPositionY() {
-        return this.positionY;
-    }
-
-    setPlayerPositionX(value) {
-        return this.positionY = value;
+    setPlayerPosition(value) {
+        return this.position = value;
     }
 
     setPlayerWeapon() {
@@ -58,5 +48,5 @@ class Player{
 
 }; 
 
-var player1 = new Player (player1, 100, 'hook', '<img src="img/player1.png" alt="player1"></img>');
-var player2 = new Player (player2, 100, 'hook', '<img src="img/player2.png" alt="player2"></img>');
+var player1 = new Player ("player1", 100, weapon1, '<img src="img/player1.png" alt="player1"></img>');
+var player2 = new Player ("player2", 100, weapon1, '<img src="img/player2.png" alt="player2"></img>');

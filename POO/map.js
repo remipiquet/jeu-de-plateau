@@ -102,32 +102,47 @@ class Map {
         this.board[weapon5Json.X][weapon5Json.Y].weapon = weapon5;
     }
 
+    /**
+     * Méthodes de mouvement des joueurs
+     */
     moveRight(value) {
+        let currentPlayer = currentGame.currentPlayer;
         let currentPlayerJson = currentPlayer.position;
         this.board[currentPlayerJson.X][currentPlayerJson.Y + value].player = currentPlayer;
         currentPlayer.position = this.board[currentPlayerJson.X][currentPlayerJson.Y + value];
+        //this.ResetPrint();
         this.printHtml();
+        currentGame.setNextTurn();
     }
 
     moveLeft(value) {
+        let currentPlayer = currentGame.currentPlayer;
         let currentPlayerJson = currentPlayer.position;
         this.board[currentPlayerJson.X][currentPlayerJson.Y - value].player = currentPlayer;
         currentPlayer.position = this.board[currentPlayerJson.X][currentPlayerJson.Y - value];
+        //this.ResetPrint();
         this.printHtml();
+        currentGame.setNextTurn();
     }
 
     moveUp(value) {
+        let currentPlayer = currentGame.currentPlayer;
         let currentPlayerJson = currentPlayer.position;
-        this.board[currentPlayerJson.X + value][currentPlayerJson.Y].player = currentPlayer;
-        currentPlayer.position = this.board[currentPlayerJson.X + value][currentPlayerJson.Y];
+        this.board[currentPlayerJson.X - value][currentPlayerJson.Y].player = currentPlayer;
+        currentPlayer.position = this.board[currentPlayerJson.X - value][currentPlayerJson.Y];
+        //this.ResetPrint();
         this.printHtml();
+        currentGame.setNextTurn();
     }
 
     moveDown(value) {
+        let currentPlayer = currentGame.currentPlayer;
         let currentPlayerJson = currentPlayer.position;
         this.board[currentPlayerJson.X + value][currentPlayerJson.Y].player = currentPlayer;
         currentPlayer.position = this.board[currentPlayerJson.X + value][currentPlayerJson.Y];
+        //this.ResetPrint();
         this.printHtml();
+        currentGame.setNextTurn();
     }
 
     //swapWeapon() {
@@ -139,54 +154,49 @@ class Map {
         this.currentPlayer.getWeapon();
     }*/
 
-    ResetPrint() {
+    /*ResetPrint() {
         for (let x = 0; x < this.board.length; x++) {
-        let row = $("#x"+x);
-        row.empty();
-        /*$('#tableZone').remove(row);*/
-        console.log("delete row " +x); // Problème avec le visuel des joueurs qui reste en place
+            let row = $("#x"+x);
+            $(".row").empty();
+            //$('#tableZone .class'+row).remove(row);
+            console.log("delete row " +x); // Problème avec le visuel des joueurs qui reste en place
         }
-    }  
+    }  */
 
     printHtml() {
-        /**
-         * Gestion de l'affichage sur la page HTML
-         */
-        if (this.reDraw = true) {
-            this.ResetPrint();
-        } else {
-            this.reDraw = true;
-        }
+        $(".row").remove();
+        //$('#tableZone').remove();
         let myBoard = this.board;
         for (let x = 0; x < this.board.length; x++) {
             var row = $('<tr class="row"></tr>').attr('id', "x"+x);
             for (let y = 0; y < this.board.length; y++) {
             row.append(function(){
-                let caseContent = "<td id= y"+y +"> </td>";
+                //$("#y"+y).empty();
+                let caseContent = "<td id=y"+y +"> </td>";
                 let barrelImg = '<img src="img/barrel.png" alt="barrel"></img>';
                 if (myBoard[x][y].barrel == true) {
-                caseContent = "<td id= y" + y + ">" + barrelImg +"</td>";
+                caseContent = "<td id=y class=barrel" + y + ">" + barrelImg +"</td>";
                 }  
                 if (myBoard[x][y].weapon == weapon1) {
-                caseContent = "<td id= y" + y + ">" + weapon1.imgUrl +"</td>";
+                caseContent = "<td id=y class=weapon1" + y + ">" + weapon1.imgUrl +"</td>";
                 }  
                 if (myBoard[x][y].weapon == weapon2) {
-                caseContent = "<td id= y" + y + ">" + weapon2.imgUrl +"</td>";
+                caseContent = "<td id=y class=weapon2" + y + ">" + weapon2.imgUrl +"</td>";
                 }
                 if (myBoard[x][y].weapon == weapon3) {
-                caseContent = "<td id= y" + y + ">" + weapon3.imgUrl +"</td>";
+                caseContent = "<td id=y class=weapon3" + y + ">" + weapon3.imgUrl +"</td>";
                 }
                 if (myBoard[x][y].weapon == weapon4) {
-                caseContent = "<td id= y" + y + ">" + weapon4.imgUrl +"</td>";
+                caseContent = "<td id=y class=weapon4" + y + ">" + weapon4.imgUrl +"</td>";
                 }
                 if (myBoard[x][y].weapon == weapon5) {
-                caseContent = "<td id= y" + y + ">" + weapon5.imgUrl +"</td>";
+                caseContent = "<td id=y class=weapon5" + y + ">" + weapon5.imgUrl +"</td>";
                 }
                 if (myBoard[x][y].player == player1) {
-                caseContent = "<td id= y" + y + ">" + player1.imgUrl +"</td>";
+                caseContent = "<td id=y class=player1" + y + ">" + player1.imgUrl +"</td>";
                 }
                 if (myBoard[x][y].player == player2) {
-                caseContent = "<td id= y" + y + ">" + player2.imgUrl +"</td>";
+                caseContent = "<td id=y class=player2" + y + ">" + player2.imgUrl +"</td>";
                 }
         
                 return caseContent;
