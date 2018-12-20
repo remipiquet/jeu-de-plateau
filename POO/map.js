@@ -54,8 +54,14 @@ class Map {
         let player1Json = accessibleCells[player1Position];
         this.board[player1Json.X][player1Json.Y].player = player1;
         player1.position = this.board[player1Json.X][player1Json.Y];
+
+
+
         player1.positionX = this.board[player1Json.X];
         player1.positionY = this.board[player1Json.Y];
+        //let player1PositionXr1 = this.board[player1Json.X+1][player1Json.Y];
+        //player1PositionXr1.highlight = true;
+        this.board[player1Json.X+1][player1Json.Y].highlight = true;
 
 
         let player2Position = Math.floor(Math.random() * (accessibleCells.length));
@@ -69,8 +75,8 @@ class Map {
             this.board[player2Json.X][player2Json.Y].player = player2;
             player2.position = this.board[player2Json.X][player2Json.Y];
         }
-        console.log(player1.position);
-        console.log(player2.position);
+        //console.log(player1.position);
+        //console.log(player2.position);
 
         //TODO : Les joueurs ne doivent pas pouvoir être côte à côte (et là c'est le cas !!!!)
     }
@@ -80,23 +86,19 @@ class Map {
          * Placement des armes sur le plateau
          */
         
-        // Placement de l'arme 2 (knife)
         let accessibleCells = this.getEmptyCells();
         let weapon2Position = Math.floor(Math.random() * (accessibleCells.length));
         let weapon2Json = accessibleCells[weapon2Position];
         this.board[weapon2Json.X][weapon2Json.Y].weapon = weapon2;
 
-        // Placement de l'arme 3 (sword)
         let weapon3Position = Math.floor(Math.random() * (accessibleCells.length));
         let weapon3Json = accessibleCells[weapon3Position];
         this.board[weapon3Json.X][weapon3Json.Y].weapon = weapon3;
 
-        // Placement de l'arme 4 (harpoon)
         let weapon4Position = Math.floor(Math.random() * (accessibleCells.length));
         let weapon4Json = accessibleCells[weapon4Position];
         this.board[weapon4Json.X][weapon4Json.Y].weapon = weapon4;
 
-        // Placement de l'arme 5 (gun)
         let weapon5Position = Math.floor(Math.random() * (accessibleCells.length));
         let weapon5Json = accessibleCells[weapon5Position];
         this.board[weapon5Json.X][weapon5Json.Y].weapon = weapon5;
@@ -110,7 +112,7 @@ class Map {
         let currentPlayerJson = currentPlayer.position;
         this.board[currentPlayerJson.X][currentPlayerJson.Y + value].player = currentPlayer;
         currentPlayer.position = this.board[currentPlayerJson.X][currentPlayerJson.Y + value];
-        //this.ResetPrint();
+        //$('#tableZone').wrap();
         this.printHtml();
         currentGame.setNextTurn();
     }
@@ -120,7 +122,7 @@ class Map {
         let currentPlayerJson = currentPlayer.position;
         this.board[currentPlayerJson.X][currentPlayerJson.Y - value].player = currentPlayer;
         currentPlayer.position = this.board[currentPlayerJson.X][currentPlayerJson.Y - value];
-        //this.ResetPrint();
+        //$('#tableZone').wrap();
         this.printHtml();
         currentGame.setNextTurn();
     }
@@ -130,7 +132,7 @@ class Map {
         let currentPlayerJson = currentPlayer.position;
         this.board[currentPlayerJson.X - value][currentPlayerJson.Y].player = currentPlayer;
         currentPlayer.position = this.board[currentPlayerJson.X - value][currentPlayerJson.Y];
-        //this.ResetPrint();
+        //$('#tableZone').wrap();
         this.printHtml();
         currentGame.setNextTurn();
     }
@@ -140,7 +142,7 @@ class Map {
         let currentPlayerJson = currentPlayer.position;
         this.board[currentPlayerJson.X + value][currentPlayerJson.Y].player = currentPlayer;
         currentPlayer.position = this.board[currentPlayerJson.X + value][currentPlayerJson.Y];
-        //this.ResetPrint();
+        //$('#tableZone').wrap();
         this.printHtml();
         currentGame.setNextTurn();
     }
@@ -154,53 +156,61 @@ class Map {
         this.currentPlayer.getWeapon();
     }*/
 
-    /*ResetPrint() {
+    ResetPrint() {
         for (let x = 0; x < this.board.length; x++) {
             let row = $("#x"+x);
             $(".row").empty();
             //$('#tableZone .class'+row).remove(row);
             console.log("delete row " +x); // Problème avec le visuel des joueurs qui reste en place
         }
-    }  */
+    }  
 
     printHtml() {
-        $(".row").remove();
-        //$('#tableZone').remove();
+        if (this.reDraw = true) {
+            if (this.reDraw = true) {
+                this.ResetPrint();
+            } else {
+                this.reDraw = true;
+            }
+        }    
+        //$(".row").remove();
         let myBoard = this.board;
         for (let x = 0; x < this.board.length; x++) {
             var row = $('<tr class="row"></tr>').attr('id', "x"+x);
             for (let y = 0; y < this.board.length; y++) {
-            row.append(function(){
-                //$("#y"+y).empty();
-                let caseContent = "<td id=y"+y +"> </td>";
-                let barrelImg = '<img src="img/barrel.png" alt="barrel"></img>';
-                if (myBoard[x][y].barrel == true) {
-                caseContent = "<td id=y class=barrel" + y + ">" + barrelImg +"</td>";
-                }  
-                if (myBoard[x][y].weapon == weapon1) {
-                caseContent = "<td id=y class=weapon1" + y + ">" + weapon1.imgUrl +"</td>";
-                }  
-                if (myBoard[x][y].weapon == weapon2) {
-                caseContent = "<td id=y class=weapon2" + y + ">" + weapon2.imgUrl +"</td>";
-                }
-                if (myBoard[x][y].weapon == weapon3) {
-                caseContent = "<td id=y class=weapon3" + y + ">" + weapon3.imgUrl +"</td>";
-                }
-                if (myBoard[x][y].weapon == weapon4) {
-                caseContent = "<td id=y class=weapon4" + y + ">" + weapon4.imgUrl +"</td>";
-                }
-                if (myBoard[x][y].weapon == weapon5) {
-                caseContent = "<td id=y class=weapon5" + y + ">" + weapon5.imgUrl +"</td>";
-                }
-                if (myBoard[x][y].player == player1) {
-                caseContent = "<td id=y class=player1" + y + ">" + player1.imgUrl +"</td>";
-                }
-                if (myBoard[x][y].player == player2) {
-                caseContent = "<td id=y class=player2" + y + ">" + player2.imgUrl +"</td>";
-                }
-        
-                return caseContent;
-            });
+                row.append(function(){
+                    //$("#y"+y).empty();
+                    let caseContent = "<td id=y"+y +"> </td>";
+                    let barrelImg = '<img src="img/barrel.png" alt="barrel"></img>';
+                    if (myBoard[x][y].barrel == true) {
+                    caseContent = "<td id=y class=barrel" + y + ">" + barrelImg +"</td>";
+                    }  
+                    if (myBoard[x][y].weapon == weapon1) {
+                    caseContent = "<td id=y class=weapon1" + y + ">" + weapon1.imgUrl +"</td>";
+                    }  
+                    if (myBoard[x][y].weapon == weapon2) {
+                    caseContent = "<td id=y class=weapon2" + y + ">" + weapon2.imgUrl +"</td>";
+                    }
+                    if (myBoard[x][y].weapon == weapon3) {
+                    caseContent = "<td id=y class=weapon3" + y + ">" + weapon3.imgUrl +"</td>";
+                    }
+                    if (myBoard[x][y].weapon == weapon4) {
+                    caseContent = "<td id=y class=weapon4" + y + ">" + weapon4.imgUrl +"</td>";
+                    }
+                    if (myBoard[x][y].weapon == weapon5) {
+                    caseContent = "<td id=y class=weapon5" + y + ">" + weapon5.imgUrl +"</td>";
+                    }
+                    if (myBoard[x][y].player == player1) {
+                    caseContent = "<td id=y class=player1" + y + ">" + player1.imgUrl +"</td>";
+                    }
+                    if (myBoard[x][y].player == player2) {
+                    caseContent = "<td id=y class=player2" + y + ">" + player2.imgUrl +"</td>";
+                    }
+                    if (myBoard[x][y].highlight == true) {
+                        caseContent = "<td id=y" + y + " class=highlight style='background-color:green;'></td>";
+                        }
+                    return caseContent;
+                });
             }
             $('#tableZone').append(row);
         }

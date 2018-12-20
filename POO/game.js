@@ -13,19 +13,25 @@ class Game{
             this.currentPlayer = player2;
             this.currentEnemy = player1;
         }
-        if(this.currentPlayer = player2){
+        else {
             this.currentPlayer = player1;
             this.currentEnemy = player2;
         }
     }
     
-    /*testHighlight() {
-        let thisPlayer = this.currentPlayer;
-        let playerPos = thisPlayer.position;
-        let posId = playerPos.id;
-        posId +1 == $(caseContent).css('color', 'orange');
-        
-        //if (posId)
+    /*highlight() {
+        let myBoard = gameMap.board;
+        let currentPlayer = this.currentPlayer;
+        let playerPos = currentPlayer.position;
+        let playerPosId = playerPos.id;
+        for (let x = 0; x < myBoard.length; x++) {
+            for (let y = 0; y < myBoard.length; y++) {
+                let playerPosIdXY = playerPos.id[x][y];
+                let playerPosIdX1Y = playerPos.id[x+1][y];
+                let playerPosIdR1 = playerPosId.id+1;
+                $('.id'+playerPosIdX1Y).css('background-color', 'green');
+            }
+        }        
     }*/
 
     getEmptyCells() {
@@ -92,6 +98,8 @@ class Game{
 };
 
 let currentGame = new Game();
+
+//currentGame.highlight();
 
 
 

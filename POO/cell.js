@@ -6,8 +6,8 @@ class Cell{
         this.barrel = barrel;
         this.player = player;
         this.highlight = false;
-        this.X = X;
-        this.Y = Y
+        this.positionX = X;
+        this.positionY = Y;
     }
 
     
