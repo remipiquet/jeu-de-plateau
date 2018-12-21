@@ -8,6 +8,8 @@ class Player{
         this.defense = false;
         this.imgUrl = imgUrl;
         this.index = 0;
+        this.positionX = null;
+        this.positionY = null;
     }
 
     getPlayerHealth() {
@@ -48,5 +50,6 @@ class Player{
 
 }; 
 
-var player1 = new Player ("player1", 100, weapon1, '<img src="img/player1.png" alt="player1"></img>');
-var player2 = new Player ("player2", 100, weapon1, '<img src="img/player2.png" alt="player2"></img>');
+//TODO: A passer dans pirates.js ?
+let player1 = new Player ("player1", 100, weapon1, '<img src="img/player1.png" alt="player1"></img>');
+let player2 = new Player ("player2", 100, weapon1, '<img src="img/player2.png" alt="player2"></img>');

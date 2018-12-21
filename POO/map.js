@@ -54,31 +54,25 @@ class Map {
         let player1Json = accessibleCells[player1Position];
         this.board[player1Json.X][player1Json.Y].player = player1;
         player1.position = this.board[player1Json.X][player1Json.Y];
+        
+        //this.board[player1Json.X+1][player1Json.Y].highlight = true;
 
-
-
-        player1.positionX = this.board[player1Json.X];
-        player1.positionY = this.board[player1Json.Y];
-        //let player1PositionXr1 = this.board[player1Json.X+1][player1Json.Y];
-        //player1PositionXr1.highlight = true;
-        this.board[player1Json.X+1][player1Json.Y].highlight = true;
-
-
+        //FIXME:    /!\ A revoir, ça ne fonctionne pas !!!!! /!\
+        //FIXME: Et en plus il faut un truc pour que ça ne dépasse pas le tableau sinon ça bugue quand par exemple player2Json.X+1 est en dehors du tableau
         let player2Position = Math.floor(Math.random() * (accessibleCells.length));
-        if (player1Position == player2Position+1 || player1Position == player2Position-1 || player1Position == player2Position+10 || player1Position == player2Position-10 ) {
-            let player2Json = accessibleCells[player2Position];
+        let player2Json = accessibleCells[player2Position];
+        if (this.board[player1Json.X][player1Json.Y] == this.board[player2Json.X+1][player2Json.Y] || this.board[player1Json.X][player1Json.Y] == this.board[player2Json.X-1][player2Json.Y] || this.board[player1Json.X][player1Json.Y] == this.board[player2Json.X][player2Json.Y+1] || this.board[player1Json.X][player1Json.Y] == this.board[player2Json.X][player2Json.Y-1]) {
+            player2Position = Math.floor(Math.random() * (accessibleCells.length));
             this.board[player2Json.X][player2Json.Y].player = player2;
             player2.position = this.board[player2Json.X][player2Json.Y];
         }
         else {
-            let player2Json = accessibleCells[player2Position];
             this.board[player2Json.X][player2Json.Y].player = player2;
             player2.position = this.board[player2Json.X][player2Json.Y];
         }
         //console.log(player1.position);
         //console.log(player2.position);
 
-        //TODO : Les joueurs ne doivent pas pouvoir être côte à côte (et là c'est le cas !!!!)
     }
 
     placeWeapons() {
@@ -147,16 +141,35 @@ class Map {
         currentGame.setNextTurn();
     }
 
-    //swapWeapon() {
-        /**
-         * Echange l'arme de current player contre celle qui est sur sa case
-         */
+    highlight() { // FIXME: marche pas
+        for (let x = 0; x < this.board; x++) { 
+            for (let y = 0; y < this.board; y++) { 
+                if (this.board[x][y].player == currentPlayer) { 
+                    this.board[x+1][y].highlight == true; 
+                    this.board[x+2][y].highlight == true; 
+                    this.board[x+3][y].highlight == true; 
 
-/*        this.currentPlayer.dropWeapon();
-        this.currentPlayer.getWeapon();
-    }*/
+                    this.board[x-1][y].highlight == true; 
+                    this.board[x-2][y].highlight == true; 
+                    this.board[x-3][y].highlight == true; 
 
-    ResetPrint() {
+                    this.board[x][y+1].highlight == true; 
+                    this.board[x][y+2].highlight == true; 
+                    this.board[x][y+3].highlight == true; 
+
+                    this.board[x][y-1].highlight == true; 
+                    this.board[x][y-2].highlight == true; 
+                    this.board[x][y-3].highlight == true; 
+                }
+                else {
+                    this.board[x][y].highlight == false; 
+                }
+            }
+        }
+        let accessibleCells = this.getEmptyCells();
+    }
+
+    ResetPrint() { //FIXME: marche pas (s'initialise au premier print / n'efface pas l'ancien print du joueur)
         for (let x = 0; x < this.board.length; x++) {
             let row = $("#x"+x);
             $(".row").empty();
@@ -165,7 +178,7 @@ class Map {
         }
     }  
 
-    printHtml() {
+    printHtml() { 
         if (this.reDraw = true) {
             if (this.reDraw = true) {
                 this.ResetPrint();
@@ -220,7 +233,7 @@ class Map {
 
 };
 
-
+//TODO: A passer dans pirates.js ?
 
 const gameMap = new Map(10, 10);
 
@@ -233,6 +246,8 @@ gameMap.getEmptyCells();
 gameMap.placePlayers();
 
 gameMap.placeWeapons();
+
+gameMap.highlight();
 
 gameMap.printHtml();
 

@@ -9,6 +9,7 @@ class Game{
         /**
          * Gestion du tour par tour
          */
+        //FIXME: marche pas
         if (this.currentplayer = player1){
             this.currentPlayer = player2;
             this.currentEnemy = player1;
@@ -17,55 +18,58 @@ class Game{
             this.currentPlayer = player1;
             this.currentEnemy = player2;
         }
+        return this.currentPlayer
     }
     
-    /*highlight() {
-        let myBoard = gameMap.board;
-        let currentPlayer = this.currentPlayer;
-        let playerPos = currentPlayer.position;
-        let playerPosId = playerPos.id;
-        for (let x = 0; x < myBoard.length; x++) {
-            for (let y = 0; y < myBoard.length; y++) {
-                let playerPosIdXY = playerPos.id[x][y];
-                let playerPosIdX1Y = playerPos.id[x+1][y];
-                let playerPosIdR1 = playerPosId.id+1;
-                $('.id'+playerPosIdX1Y).css('background-color', 'green');
-            }
-        }        
-    }*/
+    /*highlight() { //FIXME: marche pas
+        for (let x = 0; x < gameMap.board; x++) { 
+            for (let y = 0; y < gameMap.board; y++) { 
+                if (gameMap.board[x][y] == currentPlayer.position) { 
+                    gameMap.board[x+1][y].highlight == true; 
+                    gameMap.board[x+2][y].highlight == true; 
+                    gameMap.board[x+3][y].highlight == true; 
 
-    getEmptyCells() {
-        /**
-         * Récupération des cases vides
-         */
-        let emptyCells = new Array(); // on crée un tableau
-        for (let x = 0; x < gameMap.mapSize; x++) { // on parcours l'axe X
-            for (let y = 0; y < gameMap.mapSize; y++) { // on parcours l'axe Y
-                if (gameMap.board[x][y].barrel == false) { // si les cellules parcourues du tableau sont vides...
-                    emptyCells.push({
-                        X: x,
-                        Y: y
-                    }); // ...stockage en JSON des cellules vides
+                    gameMap.board[x-1][y].highlight == true; 
+                    gameMap.board[x-2][y].highlight == true; 
+                    gameMap.board[x-3][y].highlight == true; 
+
+                    gameMap.board[x][y+1].highlight == true; 
+                    gameMap.board[x][y+2].highlight == true; 
+                    gameMap.board[x][y+3].highlight == true; 
+
+                    gameMap.board[x][y-1].highlight == true; 
+                    gameMap.board[x][y-2].highlight == true; 
+                    gameMap.board[x][y-3].highlight == true; 
+                }
+                else {
+                    gameMap.board[x][y].highlight == false; 
                 }
             }
         }
-        //console.log(emptyCells);
-        return emptyCells;
-    };
+    }*/
+
+    swapWeapon() {
+        /**
+         * Echange l'arme de currentPlayer contre celle qui est sur sa case
+         */
+    }
+
     movePlayer() {
         /**
          * Gestion des mouvements des joueurs
          */
-        //TODO Appeler swapWeapon quand arme sur le passage
+        //TODO: Appeler swapWeapon quand arme sur le passage
 
     }
     
 
     defend() {
-    
+        /**
+         * Gestion de la défense des joueurs
+         */
     }
 
-    /*fight() {
+    fight() {
         /**
          * Gestion du combat des joueurs
          */
@@ -83,19 +87,21 @@ class Game{
             }  
         else {
             alert("Vous n'êtes pas à côté d'un ennemi !")
-            }
-    }*/
+            }*/
+    }
 
-    /*gameOver() {
+    gameOver() {
         /**
          * Fin de la partie lorsque les PV d'un joueurs <= 0
          */
         /*if (currentPlayer.health <= 0){
             this.endGame = true;
             alert("Bravo, " + currentEnemy.name + " gagne la partie !")
-        }
-    }*/
-};
+        }*/
+    }
+}
+
+//TODO: A passer dans pirates.js ?
 
 let currentGame = new Game();
 
