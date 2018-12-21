@@ -142,27 +142,40 @@ class Map {
     }
 
     highlight() { // FIXME: marche pas
-        for (let x = 0; x < this.board; x++) { 
-            for (let y = 0; y < this.board; y++) { 
-                if (this.board[x][y].player == currentPlayer) { 
-                    this.board[x+1][y].highlight == true; 
-                    this.board[x+2][y].highlight == true; 
-                    this.board[x+3][y].highlight == true; 
+        console.log(this.board);
+        for (var x = 0; x < this.board.length; x++) { 
+            for (var y = 0; y < this.board.length; y++) { 
+                if (this.board[x][y].player == player1) { 
+                    /* 
+                    X + 1, X + 2, X + 3 
+                    This.board.length = 10 
+                    X = 8 
+                    Limite: Soit this.board.length - X >= 3 => 3 
+                    Soit this.board.length - X < 3 => this.board.length - X 
+                    For(i = X; i <= limite; i++) this.board[i
+                    */
+                    console.log("vrai");
+                    console.log(x);
+                    console.log(y);
+                    this.board[x+1][y].highlight = true; 
+                    this.board[x+2][y].highlight = true; 
+                    this.board[x+3][y].highlight = true; 
 
-                    this.board[x-1][y].highlight == true; 
-                    this.board[x-2][y].highlight == true; 
-                    this.board[x-3][y].highlight == true; 
+                    this.board[x-1][y].highlight = true; 
+                    this.board[x-2][y].highlight = true; 
+                    this.board[x-3][y].highlight = true; 
 
-                    this.board[x][y+1].highlight == true; 
-                    this.board[x][y+2].highlight == true; 
-                    this.board[x][y+3].highlight == true; 
+                    this.board[x][y+1].highlight = true; 
+                    this.board[x][y+2].highlight = true; 
+                    this.board[x][y+3].highlight = true; 
 
-                    this.board[x][y-1].highlight == true; 
-                    this.board[x][y-2].highlight == true; 
-                    this.board[x][y-3].highlight == true; 
+                    this.board[x][y-1].highlight = true; 
+                    this.board[x][y-2].highlight = true; 
+                    this.board[x][y-3].highlight = true; 
                 }
                 else {
-                    this.board[x][y].highlight == false; 
+                    console.log("faux");
+                    this.board[x][y].highlight = false; 
                 }
             }
         }
@@ -179,13 +192,11 @@ class Map {
     }  
 
     printHtml() { 
-        if (this.reDraw = true) {
-            if (this.reDraw = true) {
+        if (this.reDraw == true) {
                 this.ResetPrint();
             } else {
                 this.reDraw = true;
-            }
-        }    
+            }    
         //$(".row").remove();
         let myBoard = this.board;
         for (let x = 0; x < this.board.length; x++) {
