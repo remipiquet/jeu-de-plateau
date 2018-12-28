@@ -154,25 +154,40 @@ class Map {
                     Soit this.board.length - X < 3 => this.board.length - X 
                     For(i = X; i <= limite; i++) this.board[i
                     */
-                    console.log("vrai");
-                    console.log(x);
-                    console.log(y);
-                    this.board[x+1][y].highlight = true; 
-                    this.board[x+2][y].highlight = true; 
-                    this.board[x+3][y].highlight = true; 
+                    if (this.board.length - x >= 3 && this.board.length - y >= 3) {
+                        console.log("x >= 3");
+                        console.log(x);
+                        console.log(y);
+                        this.board[x+1][y].highlight = true; 
+                        this.board[x+2][y].highlight = true; 
+                        this.board[x+3][y].highlight = true; 
 
-                    this.board[x-1][y].highlight = true; 
-                    this.board[x-2][y].highlight = true; 
-                    this.board[x-3][y].highlight = true; 
+                        this.board[x-1][y].highlight = true; 
+                        this.board[x-2][y].highlight = true; 
+                        this.board[x-3][y].highlight = true; 
 
-                    this.board[x][y+1].highlight = true; 
-                    this.board[x][y+2].highlight = true; 
-                    this.board[x][y+3].highlight = true; 
+                        this.board[x][y+1].highlight = true; 
+                        this.board[x][y+2].highlight = true; 
+                        this.board[x][y+3].highlight = true; 
 
-                    this.board[x][y-1].highlight = true; 
-                    this.board[x][y-2].highlight = true; 
-                    this.board[x][y-3].highlight = true; 
-                }
+                        this.board[x][y-1].highlight = true; 
+                        this.board[x][y-2].highlight = true; 
+                        this.board[x][y-3].highlight = true; 
+                    }
+                    if (this.board.length - x < 3) {
+                        let limiteX = this.board.length - x
+                        for (var i = x; i<=limiteX; i++) {
+                            this.board[i][y].highlight = true;
+                        }
+                    }
+                    if (this.board.length - y < 3) {
+                        let limiteY = this.board.length - Y
+                        for (var j = y; j<=limiteY; j++) {
+                            this.board[x][j].highlight = true;
+                        }
+                    }
+                }    
+
                 else {
                     console.log("faux");
                     this.board[x][y].highlight = false; 
