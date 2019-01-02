@@ -60,7 +60,7 @@ Board.prototype.afficheTout = function () {
 };
 
 // placement des joueurs sur le plateau
-/*
+
 var playersArray = [];
 var nbPlayers = 2; 
 for (var i = 0; i < nbPlayers; i++) {

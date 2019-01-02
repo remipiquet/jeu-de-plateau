@@ -45,6 +45,22 @@ class Map {
         return emptyCells;
     };
 
+    clearAdjacentsCells(accessibleCells) { //FIXME: marche pas
+        for (let x = 0; x < this.mapSize; x++) {
+            for (let y = 0; y < this.mapSize; y++) {
+                if (this.board[x][y].player == player1) {
+                    for (var j=0; j<this.board.length; j++){
+                        accessibleCells.push({X: x,Y: j});
+                    }
+                    for (var i = 0; i < this.board.length; i++) {
+                        accessibleCells.push({X: i,Y: y});
+                    }
+                    
+                }
+            }
+        }     
+    }
+
     placePlayers() {
         /**
          * Placement des joueurs sur le plateau
@@ -54,12 +70,19 @@ class Map {
         let player1Json = accessibleCells[player1Position];
         this.board[player1Json.X][player1Json.Y].player = player1;
         player1.position = this.board[player1Json.X][player1Json.Y];
+        this.clearAdjacentsCells(accessibleCells);
+        let player2Position = Math.floor(Math.random() * (accessibleCells.length));
+        let player2Json = accessibleCells[player2Position];
+        this.board[player2Json.X][player2Json.Y].player = player2;
+        player2.position = this.board[player2Json.X][player2Json.Y];
+
+
         
         //this.board[player1Json.X+1][player1Json.Y].highlight = true;
 
         //FIXME:    /!\ A revoir, ça ne fonctionne pas !!!!! /!\
         //FIXME: Et en plus il faut un truc pour que ça ne dépasse pas le tableau sinon ça bugue quand par exemple player2Json.X+1 est en dehors du tableau
-        let player2Position = Math.floor(Math.random() * (accessibleCells.length));
+        /*let player2Position = Math.floor(Math.random() * (accessibleCells.length));
         let player2Json = accessibleCells[player2Position];
         if (this.board[player1Json.X][player1Json.Y] == this.board[player2Json.X+1][player2Json.Y] || this.board[player1Json.X][player1Json.Y] == this.board[player2Json.X-1][player2Json.Y] || this.board[player1Json.X][player1Json.Y] == this.board[player2Json.X][player2Json.Y+1] || this.board[player1Json.X][player1Json.Y] == this.board[player2Json.X][player2Json.Y-1]) {
             player2Position = Math.floor(Math.random() * (accessibleCells.length));
@@ -71,7 +94,7 @@ class Map {
             player2.position = this.board[player2Json.X][player2Json.Y];
         }
         //console.log(player1.position);
-        //console.log(player2.position);
+        //console.log(player2.position);*/
 
     }
 
@@ -141,23 +164,12 @@ class Map {
         currentGame.setNextTurn();
     }
 
-    highlight() { // FIXME: marche pas
-        console.log(this.board);
+    highlight() { 
         for (var x = 0; x < this.board.length; x++) { 
             for (var y = 0; y < this.board.length; y++) { 
-                if (this.board[x][y].player == player1) { 
-                    /* 
-                    X + 1, X + 2, X + 3 
-                    This.board.length = 10 
-                    X = 8 
-                    Limite: Soit this.board.length - X >= 3 => 3 
-                    Soit this.board.length - X < 3 => this.board.length - X 
-                    For(i = X; i <= limite; i++) this.board[i
-                    */
-                    if (this.board.length - x >= 3 && this.board.length - y >= 3) {
-                        console.log("x >= 3");
-                        console.log(x);
-                        console.log(y);
+                if (this.board[x][y].player == currentPlayer) { 
+                    if (this.board.length -1 - x >= 3 && this.board.length -1 - y >= 3 && x >= 3 && y >=3) {
+                        console.log("milieu"); // fonctionne
                         this.board[x+1][y].highlight = true; 
                         this.board[x+2][y].highlight = true; 
                         this.board[x+3][y].highlight = true; 
@@ -174,27 +186,59 @@ class Map {
                         this.board[x][y-2].highlight = true; 
                         this.board[x][y-3].highlight = true; 
                     }
-                    if (this.board.length - x < 3) {
-                        let limiteX = this.board.length - x
-                        for (var i = x; i<=limiteX; i++) {
+                    if (this.board.length-x < 3) { // FIXME: marche pas
+                        console.log("bas");
+                        let limiteX = 10-x;
+                        for (var i = x+1; i <= this.board.length-x; i++) { // c'est le limiteX qui ne marche pas
                             this.board[i][y].highlight = true;
+                            this.board[x-1][y].highlight = true; 
+                            this.board[x-2][y].highlight = true; 
+                            this.board[x-3][y].highlight = true; 
+                            console.log(i);
                         }
                     }
-                    if (this.board.length - y < 3) {
-                        let limiteY = this.board.length - Y
-                        for (var j = y; j<=limiteY; j++) {
+                    if (x < 3 && x > 0){ // fonctionne
+                        console.log("haut");
+                        for (var m = x-1; m >= 0; m--) {
+                            this.board[m][y].highlight = true;
+                            this.board[x+1][y].highlight = true; 
+                            this.board[x+2][y].highlight = true; 
+                            this.board[x+3][y].highlight = true; 
+                            console.log(m);
+                        }
+                    }
+                    if (this.board.length-y < 3) { // FIXME: marche pas
+                        console.log("droite");
+                        let limiteY = 10-y;
+                        for (var j = y+1; j <= this.board.length-y; j++) {
+                            console.log(j);
                             this.board[x][j].highlight = true;
+                            this.board[x][y-1].highlight = true; 
+                            this.board[x][y-2].highlight = true; 
+                            this.board[x][y-3].highlight = true; 
                         }
                     }
-                }    
-
-                else {
-                    console.log("faux");
+                    if (y < 3 && y > 0) { // fonctionne
+                        console.log("gauche");
+                        for (var n = y-1; n >= 0; n--) {
+                            this.board[x][n].highlight = true;
+                            this.board[x][y+1].highlight = true; 
+                            this.board[x][y+2].highlight = true; 
+                            this.board[x][y+3].highlight = true; 
+                            console.log(n);
+                        }
+                    }
+                }
+                if (this.board[x][y].barrel == true){
+                    console.log("barrel");
+                    this.board[x][y].highlight = false; 
+                }
+                if (this.board[x][y].player == currentEnemy){
+                    console.log("enemy");
                     this.board[x][y].highlight = false; 
                 }
             }
         }
-        let accessibleCells = this.getEmptyCells();
     }
 
     ResetPrint() { //FIXME: marche pas (s'initialise au premier print / n'efface pas l'ancien print du joueur)
@@ -264,6 +308,7 @@ class Map {
 const gameMap = new Map(10, 10);
 
 let currentPlayer = player1;
+let currentEnemy = player2;
 
 gameMap.generate(); 
 
