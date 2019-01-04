@@ -1,7 +1,7 @@
 html { 
     margin:0;
     padding:0;
-    background: url(img/map.png) no-repeat center fixed; 
+    background: url(img/map.jpg) no-repeat center fixed; 
     -webkit-background-size: cover; /* pour anciens Chrome et Safari */
     background-size: cover; /* version standardisée */
   }
@@ -62,7 +62,7 @@ img {
 	height: 50px;
 }
 
-#highlight {
-    background-color: orange
+.highlight {
+    box-shadow: orange 0px 0px 10px 3px inset;
 }
 

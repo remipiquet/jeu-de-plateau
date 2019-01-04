@@ -7,6 +7,8 @@ class Map {
         this.statBarrels = statBarrels;
         this.board = [];
         this.reDraw = false;
+        this.currentPlayer = player1;
+        this.currentEnemy = player2;
     }    
     
     generate() {
@@ -36,66 +38,88 @@ class Map {
         let emptyCells = new Array(); // on crée un tableau
         for (let x = 0; x < this.mapSize; x++) { // on parcours l'axe X
             for (let y = 0; y < this.mapSize; y++) { // on parcours l'axe Y
-                if (this.board[x][y].barrel == false) { // si les cellules parcourues du tableau sont vides...
+                if (this.board[x][y].barrel == false) { // si les cellules parcourues du tableau sont innaccessibles...
                     emptyCells.push({ X: x, Y: y }); // ...stockage en JSON des cellules vides
                 }
-            }
-        }
+                if (this.board[x][y].player == player1) { //FIXME: marche pas
+                    console.log("joueur 1 est en " +x +" "+y)
+                    emptyCells.splice(-x,1);
+                    emptyCells.splice(-y,1);
+                    emptyCells.splice(-(x+1),1);
+                    emptyCells.splice(-(y+1),1);
+                    emptyCells.splice(-(x-1),1);
+                    emptyCells.splice(-(y-1),1);
+                }
+                /*if (this.board[x][y].player == player1) {
+                    emptyCells.remove({ X: x, Y: y });
+                }
+                if (this.board[x][y].player == player1) {
+                    emptyCells.push({ X: x+1, Y: y });
+                    emptyCells.push({ X: x-1, Y: y });
+                    emptyCells.push({ X: x, Y: y+1 });
+                    emptyCells.push({ X: x, Y: y-1 });
+                }  */     
+            }    
         //console.log(emptyCells);
-        return emptyCells;
-    };
+        }
+        return emptyCells;    
+    }
 
-    clearAdjacentsCells(accessibleCells) { //FIXME: marche pas
+    getInaccessibleCells() { //FIXME: marche pas
+        this.getEmptyCells();
+        let inaccessibleCells = [];
+
         for (let x = 0; x < this.mapSize; x++) {
             for (let y = 0; y < this.mapSize; y++) {
                 if (this.board[x][y].player == player1) {
-                    for (var j=0; j<this.board.length; j++){
-                        accessibleCells.push({X: x,Y: j});
-                    }
-                    for (var i = 0; i < this.board.length; i++) {
-                        accessibleCells.push({X: i,Y: y});
-                    }
-                    
+                    inaccessibleCells.push({ X: x, Y: y });
+                    inaccessibleCells.push({X:x-1,Y:y});
+                    inaccessibleCells.push({X:x+1,Y:y});
+                    inaccessibleCells.push({X:x,Y:y-1});
+                    inaccessibleCells.push({X:x,Y:y+1});
                 }
+                /*if (this.board[x-1][y] <= accessibleCells.length) {
+                    inaccessibleCells.push({X:x-1,Y:y});
+                }
+                if (this.board[x+1][y] <= accessibleCells.length) {
+                    inaccessibleCells.push({X:x+1,Y:y});
+                }
+                if (this.board[x][y-1] <= accessibleCells.length) {
+                    inaccessibleCells.push({X:x,Y:y-1});
+                }
+                if (this.board[x][y+1] <= accessibleCells.length) {
+                    inaccessibleCells.push({X:x,Y:y+1});
+                }*/
+                for (var j = 0; j < emptyCells.length; j++) {
+                    for (var k = 0; k < emptyCells.length; k++) {
+                        if (j >= 0 && emptyCells.length > j) {
+                            if (inaccessibleCells[k].X == emptyCells[j].X && inaccessibleCells[k].Y == emptyCells[j].Y) {
+                                emptyCells.splice(j, 1);
+                            }
+                        }
+                    }
+                } 
             }
-        }     
+        }             
     }
 
     placePlayers() {
         /**
          * Placement des joueurs sur le plateau
          */
+
         let accessibleCells = this.getEmptyCells();
         let player1Position = Math.floor(Math.random() * (accessibleCells.length));
         let player1Json = accessibleCells[player1Position];
         this.board[player1Json.X][player1Json.Y].player = player1;
         player1.position = this.board[player1Json.X][player1Json.Y];
-        this.clearAdjacentsCells(accessibleCells);
+
+        //this.getInaccessibleCells();
+        this.getEmptyCells();
         let player2Position = Math.floor(Math.random() * (accessibleCells.length));
         let player2Json = accessibleCells[player2Position];
         this.board[player2Json.X][player2Json.Y].player = player2;
         player2.position = this.board[player2Json.X][player2Json.Y];
-
-
-        
-        //this.board[player1Json.X+1][player1Json.Y].highlight = true;
-
-        //FIXME:    /!\ A revoir, ça ne fonctionne pas !!!!! /!\
-        //FIXME: Et en plus il faut un truc pour que ça ne dépasse pas le tableau sinon ça bugue quand par exemple player2Json.X+1 est en dehors du tableau
-        /*let player2Position = Math.floor(Math.random() * (accessibleCells.length));
-        let player2Json = accessibleCells[player2Position];
-        if (this.board[player1Json.X][player1Json.Y] == this.board[player2Json.X+1][player2Json.Y] || this.board[player1Json.X][player1Json.Y] == this.board[player2Json.X-1][player2Json.Y] || this.board[player1Json.X][player1Json.Y] == this.board[player2Json.X][player2Json.Y+1] || this.board[player1Json.X][player1Json.Y] == this.board[player2Json.X][player2Json.Y-1]) {
-            player2Position = Math.floor(Math.random() * (accessibleCells.length));
-            this.board[player2Json.X][player2Json.Y].player = player2;
-            player2.position = this.board[player2Json.X][player2Json.Y];
-        }
-        else {
-            this.board[player2Json.X][player2Json.Y].player = player2;
-            player2.position = this.board[player2Json.X][player2Json.Y];
-        }
-        //console.log(player1.position);
-        //console.log(player2.position);*/
-
     }
 
     placeWeapons() {
@@ -125,7 +149,7 @@ class Map {
      * Méthodes de mouvement des joueurs
      */
     moveRight(value) {
-        let currentPlayer = currentGame.currentPlayer;
+        let currentPlayer = this.currentPlayer;
         let currentPlayerJson = currentPlayer.position;
         this.board[currentPlayerJson.X][currentPlayerJson.Y + value].player = currentPlayer;
         currentPlayer.position = this.board[currentPlayerJson.X][currentPlayerJson.Y + value];
@@ -155,10 +179,9 @@ class Map {
     }
 
     moveDown(value) {
-        let currentPlayer = currentGame.currentPlayer;
-        let currentPlayerJson = currentPlayer.position;
-        this.board[currentPlayerJson.X + value][currentPlayerJson.Y].player = currentPlayer;
-        currentPlayer.position = this.board[currentPlayerJson.X + value][currentPlayerJson.Y];
+        let currentPlayer = this.currentPlayer;
+        this.board[currentPlayer.positionX + value][currentPlayer.positionY].player = currentPlayer;
+        currentPlayer.position = this.board[currentPlayer.positionX + value][currentPlayer.positionY];
         //$('#tableZone').wrap();
         this.printHtml();
         currentGame.setNextTurn();
@@ -168,7 +191,7 @@ class Map {
         for (var x = 0; x < this.board.length; x++) { 
             for (var y = 0; y < this.board.length; y++) { 
                 if (this.board[x][y].player == currentPlayer) { 
-                    if (this.board.length -1 - x >= 3 && this.board.length -1 - y >= 3 && x >= 3 && y >=3) {
+                    if (this.board.length -1 - x >= 3 && x >= 3) {
                         console.log("milieu"); // fonctionne
                         this.board[x+1][y].highlight = true; 
                         this.board[x+2][y].highlight = true; 
@@ -177,7 +200,8 @@ class Map {
                         this.board[x-1][y].highlight = true; 
                         this.board[x-2][y].highlight = true; 
                         this.board[x-3][y].highlight = true; 
-
+                    }    
+                    if (this.board.length -1 - y >= 3 && y >=3){
                         this.board[x][y+1].highlight = true; 
                         this.board[x][y+2].highlight = true; 
                         this.board[x][y+3].highlight = true; 
@@ -186,57 +210,62 @@ class Map {
                         this.board[x][y-2].highlight = true; 
                         this.board[x][y-3].highlight = true; 
                     }
-                    if (this.board.length-x < 3) { // FIXME: marche pas
+                    if (this.board.length-x <= 3) { 
                         console.log("bas");
-                        let limiteX = 10-x;
-                        for (var i = x+1; i <= this.board.length-x; i++) { // c'est le limiteX qui ne marche pas
+                        let limiteX = this.board.length-x;
+                        for (let i = x+1; i <= limiteX; i++) { // FIXME: marche pas
                             this.board[i][y].highlight = true;
-                            this.board[x-1][y].highlight = true; 
-                            this.board[x-2][y].highlight = true; 
-                            this.board[x-3][y].highlight = true; 
-                            console.log(i);
+                            console.log("highlight bas"+i+y);
                         }
+                        this.board[x-1][y].highlight = true; 
+                        this.board[x-2][y].highlight = true; 
+                        this.board[x-3][y].highlight = true; 
                     }
-                    if (x < 3 && x > 0){ // fonctionne
+                    if (x < 3){
                         console.log("haut");
-                        for (var m = x-1; m >= 0; m--) {
-                            this.board[m][y].highlight = true;
-                            this.board[x+1][y].highlight = true; 
-                            this.board[x+2][y].highlight = true; 
-                            this.board[x+3][y].highlight = true; 
-                            console.log(m);
+                        for (let i = x-1; i >= 0; i--) {
+                            this.board[i][y].highlight = true;
+                            console.log("highlight haut"+i+y);
                         }
+                        this.board[x+1][y].highlight = true; 
+                        this.board[x+2][y].highlight = true; 
+                        this.board[x+3][y].highlight = true; 
                     }
-                    if (this.board.length-y < 3) { // FIXME: marche pas
+                    if (this.board.length-y <= 3) {
                         console.log("droite");
-                        let limiteY = 10-y;
-                        for (var j = y+1; j <= this.board.length-y; j++) {
+                        let limiteY = this.board.length;
+                        let limiteYmoins = limiteY-y;
+                        for (let j = y+1; j < limiteYmoins; j++) {// FIXME: marche pas
                             console.log(j);
                             this.board[x][j].highlight = true;
-                            this.board[x][y-1].highlight = true; 
-                            this.board[x][y-2].highlight = true; 
-                            this.board[x][y-3].highlight = true; 
+                            console.log("highlight droite"+x+j);
                         }
+                        this.board[x][y-1].highlight = true; 
+                        this.board[x][y-2].highlight = true; 
+                        this.board[x][y-3].highlight = true; 
                     }
-                    if (y < 3 && y > 0) { // fonctionne
+                    if (y < 3) {
                         console.log("gauche");
-                        for (var n = y-1; n >= 0; n--) {
+                        for (let n = y-1; n >= 0; n--) {
                             this.board[x][n].highlight = true;
-                            this.board[x][y+1].highlight = true; 
-                            this.board[x][y+2].highlight = true; 
-                            this.board[x][y+3].highlight = true; 
-                            console.log(n);
+                            console.log("highlight gauche"+x+n);
                         }
+                        this.board[x][y+1].highlight = true; 
+                        console.log("highlight"+x+(y+1));
+                        this.board[x][y+2].highlight = true; 
+                        console.log("highlight"+x+(y+2));
+                        this.board[x][y+3].highlight = true; 
+                        console.log("highlight"+x+(y+3));
                     }
                 }
-                if (this.board[x][y].barrel == true){
+                /*if (this.board[x][y].barrel == true){
                     console.log("barrel");
                     this.board[x][y].highlight = false; 
                 }
                 if (this.board[x][y].player == currentEnemy){
                     console.log("enemy");
                     this.board[x][y].highlight = false; 
-                }
+                }*/
             }
         }
     }
@@ -289,8 +318,8 @@ class Map {
                     if (myBoard[x][y].player == player2) {
                     caseContent = "<td id=y class=player2" + y + ">" + player2.imgUrl +"</td>";
                     }
-                    if (myBoard[x][y].highlight == true) {
-                        caseContent = "<td id=y" + y + " class=highlight style='background-color:green;'></td>";
+                    if (myBoard[x][y].highlight == true && myBoard[x][y].barrel == false && myBoard[x][y].player == null) {
+                        caseContent = "<td id=y" + y + " class=highlight style='box-shadow: #F2C42C 0px 0px 10px 3px inset;'></td>";
                         }
                     return caseContent;
                 });

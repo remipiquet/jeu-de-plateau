@@ -21,32 +21,6 @@ class Game{
         return this.currentPlayer
     }
     
-    /*highlight() { //FIXME: marche pas
-        for (let x = 0; x < gameMap.board; x++) { 
-            for (let y = 0; y < gameMap.board; y++) { 
-                if (gameMap.board[x][y] == currentPlayer.position) { 
-                    gameMap.board[x+1][y].highlight == true; 
-                    gameMap.board[x+2][y].highlight == true; 
-                    gameMap.board[x+3][y].highlight == true; 
-
-                    gameMap.board[x-1][y].highlight == true; 
-                    gameMap.board[x-2][y].highlight == true; 
-                    gameMap.board[x-3][y].highlight == true; 
-
-                    gameMap.board[x][y+1].highlight == true; 
-                    gameMap.board[x][y+2].highlight == true; 
-                    gameMap.board[x][y+3].highlight == true; 
-
-                    gameMap.board[x][y-1].highlight == true; 
-                    gameMap.board[x][y-2].highlight == true; 
-                    gameMap.board[x][y-3].highlight == true; 
-                }
-                else {
-                    gameMap.board[x][y].highlight == false; 
-                }
-            }
-        }
-    }*/
 
     swapWeapon() {
         /**
