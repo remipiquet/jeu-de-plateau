@@ -63,5 +63,6 @@ img {
 }
 
 .light {
-    box-shadow: orange 0px 0px 10px 3px inset;
+    /*box-shadow: orange 0px 0px 10px 3px inset;*/
+    background-color: green;
 }
