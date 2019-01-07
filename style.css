@@ -4,7 +4,7 @@ html {
     background: url(img/map.jpg) no-repeat center fixed; 
     -webkit-background-size: cover; /* pour anciens Chrome et Safari */
     background-size: cover; /* version standardisée */
-  }
+}
 
 table
 {
@@ -62,7 +62,6 @@ img {
 	height: 50px;
 }
 
-.highlight {
+.light {
     box-shadow: orange 0px 0px 10px 3px inset;
 }
-

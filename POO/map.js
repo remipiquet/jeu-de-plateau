@@ -110,14 +110,14 @@ class Map {
 
         let accessibleCells = this.getEmptyCells();
         let player1Position = Math.floor(Math.random() * (accessibleCells.length));
-        let player1Json = accessibleCells[player1Position];
+        let player1Json = accessibleCells[player1Position]; // FIXME: nom à changer, c'est plus en Json
         this.board[player1Json.X][player1Json.Y].player = player1;
         player1.position = this.board[player1Json.X][player1Json.Y];
 
         //this.getInaccessibleCells();
         this.getEmptyCells();
         let player2Position = Math.floor(Math.random() * (accessibleCells.length));
-        let player2Json = accessibleCells[player2Position];
+        let player2Json = accessibleCells[player2Position]; // FIXME: nom à changer, c'est plus en Json
         this.board[player2Json.X][player2Json.Y].player = player2;
         player2.position = this.board[player2Json.X][player2Json.Y];
     }
@@ -193,7 +193,7 @@ class Map {
                 if (this.board[x][y].player == currentPlayer) { 
                     if (this.board.length -1 - x >= 3 && x >= 3) {
                         console.log("milieu"); // fonctionne
-                        this.board[x+1][y].highlight = true; 
+                        this.board[x+1][y].highlight = true; // FIXME: DRY
                         this.board[x+2][y].highlight = true; 
                         this.board[x+3][y].highlight = true; 
 
@@ -292,35 +292,35 @@ class Map {
             for (let y = 0; y < this.board.length; y++) {
                 row.append(function(){
                     //$("#y"+y).empty();
-                    let caseContent = "<td id=y"+y+"> </td>";
+                    let caseContent = "<td id=" + x + y + "> </td>";
                     let barrelImg = '<img src="img/barrel.png" alt="barrel"></img>';
                     if (myBoard[x][y].barrel == true) {
-                        caseContent = "<td id=y" + y + ">"  + barrelImg +"</td>";
+                        caseContent = "<td id=" + x + y + ">"  + barrelImg +"</td>";
                     }  
                     if (myBoard[x][y].weapon == weapon1) {
-                        caseContent = "<td id=y" + y + ">" + weapon1.imgUrl +"</td>";
+                        caseContent = "<td id=" + x + y + ">" + weapon1.imgUrl +"</td>";
                     }  
                     if (myBoard[x][y].weapon == weapon2) {
-                        caseContent = "<td id=y" + y + ">" + weapon2.imgUrl +"</td>";
+                        caseContent = "<td id=" + x + y + ">" + weapon2.imgUrl +"</td>";
                     }
                     if (myBoard[x][y].weapon == weapon3) {
-                        caseContent = "<td id=y" + y + ">" + weapon3.imgUrl +"</td>";
+                        caseContent = "<td id=" + x + y + ">" + weapon3.imgUrl +"</td>";
                     }
                     if (myBoard[x][y].weapon == weapon4) {
-                        caseContent = "<td id=y" + y + ">" + weapon4.imgUrl +"</td>";
+                        caseContent = "<td id=" + x + y + ">" + weapon4.imgUrl +"</td>";
                     }
                     if (myBoard[x][y].weapon == weapon5) {
-                        caseContent = "<td id=y" + y + ">" + weapon5.imgUrl +"</td>";
+                        caseContent = "<td id=" + x + y + ">" + weapon5.imgUrl +"</td>";
                     }
                     if (myBoard[x][y].player == player1) {
-                        caseContent = "<td id=y" + y + " class='highlight'>" + player1.imgUrl +"</td>";
+                        caseContent = "<td id=" + x + y + " class='light'>" + player1.imgUrl +"</td>";
                     }
                     if (myBoard[x][y].player == player2) {
-                        caseContent = "<td id=y" + y + ">" + player2.imgUrl +"</td>";
+                        caseContent = "<td id=" + x + y + ">" + player2.imgUrl +"</td>";
                     }
-                    if (myBoard[x][y].highlight == true && myBoard[x][y].barrel == false && myBoard[x][y].player == null) {
+                    if (myBoard[x][y].highlight /*== true && myBoard[x][y].barrel == false && myBoard[x][y].player == null*/) {
                         //caseContent = "<td id=y" + y + " class=highlight style='box-shadow: #F2C42C 0px 0px 10px 3px inset;'></td>";
-                        $('caseContent').addClass("highlight");
+                        $('#'+x+y).addClass('light');
                         }
                     return caseContent;
                 });
