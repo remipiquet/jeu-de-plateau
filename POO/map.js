@@ -270,7 +270,7 @@ class Map {
         }
     }
 
-    ResetPrint() { //FIXME: marche pas (s'initialise au premier print / n'efface pas l'ancien print du joueur)
+    resetPrint() { //FIXME: marche pas (s'initialise au premier print / n'efface pas l'ancien print du joueur)
         for (let x = 0; x < this.board.length; x++) {
             let row = $("#x"+x);
             $(".row").empty();
@@ -281,7 +281,7 @@ class Map {
 
     printHtml() { 
         if (this.reDraw == true) {
-                this.ResetPrint();
+                this.resetPrint();
             } else {
                 this.reDraw = true;
             }    
@@ -327,6 +327,11 @@ class Map {
                         }
                     return caseContent;
                 });
+                /*Test de gestion du clic */
+                $('#tableZone').click(function(){
+                    alert("clic sur "+x +y);
+                });
+                /*Fin du test*/
             }
             $('#tableZone').append(row);
         }
