@@ -292,35 +292,37 @@ class Map {
             for (let y = 0; y < this.board.length; y++) {
                 row.append(function(){
                     //$("#y"+y).empty();
-                    let caseContent = "<td id=" + x + y + "> </td>";
+                    let caseContent = "<td id=x" + x + "-y" + y + "></td>";
                     let barrelImg = '<img src="img/barrel.png" alt="barrel"></img>';
                     if (myBoard[x][y].barrel == true) {
-                        caseContent = "<td id=" + x + y + ">"  + barrelImg +"</td>";
+                        caseContent = "<td id=x" + x + "-y" + y + ">" + barrelImg +"</td>";
                     }  
                     if (myBoard[x][y].weapon == weapon1) {
-                        caseContent = "<td id=" + x + y + ">" + weapon1.imgUrl +"</td>";
+                        caseContent = "<td id=x" + x + "-y" + y + ">" + weapon1.imgUrl +"</td>";
                     }  
                     if (myBoard[x][y].weapon == weapon2) {
-                        caseContent = "<td id=" + x + y + ">" + weapon2.imgUrl +"</td>";
+                        caseContent = "<td id=x" + x + "-y" + y + ">" + weapon2.imgUrl +"</td>";
                     }
                     if (myBoard[x][y].weapon == weapon3) {
-                        caseContent = "<td id=" + x + y + ">" + weapon3.imgUrl +"</td>";
+                        caseContent = "<td id=x" + x + "-y" + y + ">" + weapon3.imgUrl +"</td>";
                     }
                     if (myBoard[x][y].weapon == weapon4) {
-                        caseContent = "<td id=" + x + y + ">" + weapon4.imgUrl +"</td>";
+                        caseContent = "<td id=x" + x + "-y" + y + ">" + weapon4.imgUrl +"</td>";
                     }
                     if (myBoard[x][y].weapon == weapon5) {
-                        caseContent = "<td id=" + x + y + ">" + weapon5.imgUrl +"</td>";
+                        caseContent = "<td id=x" + x + "-y" + y + ">" + weapon5.imgUrl +"</td>";
                     }
                     if (myBoard[x][y].player == player1) {
-                        caseContent = "<td id=" + x + y + " class='light'>" + player1.imgUrl +"</td>";
+                        caseContent = "<td id=x" + x + "-y" + y + " class='light' style='box-shadow: #F2C42C 0px 0px 10px 3px inset;'>" + player1.imgUrl +"</td>";
                     }
                     if (myBoard[x][y].player == player2) {
-                        caseContent = "<td id=" + x + y + ">" + player2.imgUrl +"</td>";
+                        caseContent = "<td id=x" + x + "-y" + y + ">" + player2.imgUrl +"</td>";
                     }
-                    if (myBoard[x][y].highlight /*== true && myBoard[x][y].barrel == false && myBoard[x][y].player == null*/) {
+                    if (myBoard[x][y].highlight == true && myBoard[x][y].barrel == false && myBoard[x][y].player == null) {
                         //caseContent = "<td id=y" + y + " class=highlight style='box-shadow: #F2C42C 0px 0px 10px 3px inset;'></td>";
-                        $('#'+x+y).addClass('light');
+                        $('#x' + x + '\\-y' + y).addClass('light'); // FIXME: Pb de sélecteur jQuery ?
+                        $('#x' + x + '\\-y' + y).css("style='box-shadow: red 0px 0px 10px 3px inset;'");
+                        // FIXME: Pb avec le css qui ne s,affiche pas
                         }
                     return caseContent;
                 });
