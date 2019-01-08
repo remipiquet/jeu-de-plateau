@@ -320,10 +320,11 @@ class Map {
                     }
                     if (myBoard[x][y].highlight == true && myBoard[x][y].barrel == false && myBoard[x][y].player == null) {
                         //caseContent = "<td id=y" + y + " class=highlight style='box-shadow: #F2C42C 0px 0px 10px 3px inset;'></td>";
-                        let testContent = "#" + x + y;
-                        $(testContent).addClass("light"); // FIXME: Pb de sélecteur jQuery ?
-                        $('#x' + x + '-y' + y).css("color", "red");
-                        // FIXME: Pb avec le css qui ne s'affiche pas
+                        var test = x+y;
+                        var element = document.getElementById('00');
+                        element.classList.add("light"); // FIXME: Pb de sélecteur jQuery ?
+                        console.log(test);
+                        $(test).css("background-color", "red");
                         }
                     return caseContent;
                 });
