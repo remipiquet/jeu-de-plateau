@@ -149,48 +149,65 @@ class Map {
      * Méthodes de mouvement des joueurs
      */
     moveRight(value) {
-        let currentPlayer = this.currentPlayer;
-        let currentPlayerJson = currentPlayer.position;
-        this.board[currentPlayerJson.X][currentPlayerJson.Y + value].player = currentPlayer;
-        currentPlayer.position = this.board[currentPlayerJson.X][currentPlayerJson.Y + value];
-        //$('#tableZone').wrap();
-        this.printHtml();
-        currentGame.setNextTurn();
+        for (var x = 0; x < this.board.length; x++) { 
+            for (var y = 0; y < this.board.length; y++) { 
+                if (this.board[x][y].player == this.currentPlayer) { 
+                    this.board[x][y].player = null;
+                    this.board[x][y+value].player = this.currentPlayer; // FIXME: Problème de détection des bordures
+                    this.currentPlayer.position = this.board[x][y+value];
+                    this.printHtml();
+                    currentGame.setNextTurn();
+                }
+            }
+        }
     }
 
     moveLeft(value) {
-        let currentPlayer = currentGame.currentPlayer;
-        let currentPlayerJson = currentPlayer.position;
-        this.board[currentPlayerJson.X][currentPlayerJson.Y - value].player = currentPlayer;
-        currentPlayer.position = this.board[currentPlayerJson.X][currentPlayerJson.Y - value];
-        //$('#tableZone').wrap();
-        this.printHtml();
-        currentGame.setNextTurn();
+        for (var x = 0; x < this.board.length; x++) { 
+            for (var y = 0; y < this.board.length; y++) { 
+                if (this.board[x][y].player == this.currentPlayer) { 
+                    this.board[x][y].player = null;
+                    this.board[x][y-value].player = this.currentPlayer;
+                    this.currentPlayer.position = this.board[x][y-value];
+                    this.printHtml();
+                    currentGame.setNextTurn();
+                }
+            }
+        }
     }
 
     moveUp(value) {
-        let currentPlayer = currentGame.currentPlayer;
-        let currentPlayerJson = currentPlayer.position;
-        this.board[currentPlayerJson.X - value][currentPlayerJson.Y].player = currentPlayer;
-        currentPlayer.position = this.board[currentPlayerJson.X - value][currentPlayerJson.Y];
-        //$('#tableZone').wrap();
-        this.printHtml();
-        currentGame.setNextTurn();
+        for (var x = 0; x < this.board.length; x++) { 
+            for (var y = 0; y < this.board.length; y++) { 
+                if (this.board[x][y].player == this.currentPlayer) { 
+                    this.board[x][y].player = null;
+                    this.board[x-value][y].player = this.currentPlayer;
+                    this.currentPlayer.position = this.board[x-value][y];
+                    this.printHtml();
+                    currentGame.setNextTurn();
+                }
+            }
+        }
     }
 
     moveDown(value) {
-        let currentPlayer = this.currentPlayer;
-        this.board[currentPlayer.positionX + value][currentPlayer.positionY].player = currentPlayer;
-        currentPlayer.position = this.board[currentPlayer.positionX + value][currentPlayer.positionY];
-        //$('#tableZone').wrap();
-        this.printHtml();
-        currentGame.setNextTurn();
+        for (var x = 0; x < this.board.length; x++) { 
+            for (var y = 0; y < this.board.length; y++) { 
+                if (this.board[x][y].player == this.currentPlayer) { 
+                    this.board[x][y].player = null;
+                    this.board[x+value][y].player = this.currentPlayer; // FIXME: Problème de détection des bordures
+                    this.currentPlayer.position = this.board[x+value][y];
+                    this.printHtml();
+                    currentGame.setNextTurn();
+                }
+            }
+        }
     }
 
     highlight() { 
         for (var x = 0; x < this.board.length; x++) { 
             for (var y = 0; y < this.board.length; y++) { 
-                if (this.board[x][y].player == currentPlayer) { 
+                if (this.board[x][y].player == this.currentPlayer) { 
                     if (this.board.length -1 - x >= 3 && x >= 3) {
                         console.log("milieu"); // fonctionne
                         this.board[x+1][y].highlight = true; // FIXME: DRY
@@ -321,10 +338,10 @@ class Map {
                     if (myBoard[x][y].highlight == true && myBoard[x][y].barrel == false && myBoard[x][y].player == null) {
                         //caseContent = "<td id=y" + y + " class=highlight style='box-shadow: #F2C42C 0px 0px 10px 3px inset;'></td>";
                         var test = x+y;
-                        var element = document.getElementById('00');
-                        element.classList.add("light"); // FIXME: Pb de sélecteur jQuery ?
+                        //var element = document.getElementById('00');
+                        //element.classList.add("light"); // FIXME: Pb de sélecteur jQuery ?
                         console.log(test);
-                        $(test).css("background-color", "red");
+                        $('#'+test).addClass("light");
                         }
                     return caseContent;
                 });
@@ -345,9 +362,6 @@ class Map {
 //TODO: A passer dans pirates.js ?
 
 const gameMap = new Map(10, 10);
-
-let currentPlayer = player1;
-let currentEnemy = player2;
 
 gameMap.generate(); 
 

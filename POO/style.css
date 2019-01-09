@@ -63,6 +63,32 @@ img {
 }
 
 .light {
-    /*box-shadow: orange 0px 0px 10px 3px inset;*/
-    background-color: green;
+    box-shadow: orange 0px 0px 10px 3px inset;
+}
+
+
+#affichageScoreJoueur1, #affichageScoreJoueur2, #affichageDegatsJoueur1, #affichageDegatsJoueur2{
+    height: 100px;
+    width: 100px;
+    border: 2px solid black;
+    background-color: #F2C42C;
+    margin-left: auto;
+	margin-right: auto;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+	font-size: xx-large;
+}
+
+#affichageJoueur1, #affichageJoueur2, #affichageArmeJoueur1, #affichageArmeJoueur2{
+    height: 100px;
+    width: 100px;
+    border: 2px solid black;
+    background-color: #F2C42C;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+	align-items: center;
 }

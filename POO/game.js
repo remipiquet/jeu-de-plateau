@@ -1,8 +1,8 @@
 class Game{
     constructor(){
-        this.currentPlayer = player1;
-        this.currentEnemy = player2;
         this.endGame = false;
+        this.currentPlayer = gameMap.currentPlayer;
+        this.currentEnemy = gameMap.currentEnemy;
     }
 
     setNextTurn() {
@@ -10,15 +10,16 @@ class Game{
          * Gestion du tour par tour
          */
         //FIXME: marche pas
-        if (this.currentplayer = player1){
-            this.currentPlayer = player2;
-            this.currentEnemy = player1;
+        if (gameMap.currentplayer = player1){
+            gameMap.currentPlayer = player2;
+            gameMap.currentEnemy = player1;
+            return currentPlayer;
         }
-        else {
-            this.currentPlayer = player1;
-            this.currentEnemy = player2;
+        if (gameMap.currentplayer = player2){
+            gameMap.currentPlayer = player1;
+            gameMap.currentEnemy = player2;
+            return currentPlayer;
         }
-        return this.currentPlayer
     }
     
 
