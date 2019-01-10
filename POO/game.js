@@ -26,10 +26,10 @@ class Game{
         /**
          * Echange l'arme de currentPlayer contre celle qui est sur sa case
          */
-        for (var x = 0; x < gameMap.board.length; x++) { 
-            for (var y = 0; y < gameMap.board.length; y++) { 
-                if (gameMap.board[x][y].weapon != null){
-                    let weaponBuffer = gameMap.board[x][y].weapon;
+        for (let x = 0; x < gameMap.board.length; x++) { 
+            for (let y = 0; y < gameMap.board.length; y++) { 
+                if (gameMap.board[x][y] == gameMap.currentPlayer.position && gameMap.board[x][y].weapon != null){
+                    var weaponBuffer = gameMap.board[x][y].weapon;
                     gameMap.board[x][y].weapon = gameMap.currentPlayer.weapon; // FIXME: la nouvelle arme ne s'affiche pas sur le plateau
                     gameMap.currentPlayer.weapon = weaponBuffer;
                 }
@@ -70,7 +70,7 @@ class Game{
             }  
         else {
             alert("Vous n'êtes pas à côté d'un ennemi !")
-            }*/
+            }*/   
     }
 
     gameOver() {
@@ -82,11 +82,23 @@ class Game{
             alert("Bravo, " + currentPlayer.name + " gagne la partie !")
         }
     }
+
+    testClick() {
+        for (let x = 0; x < gameMap.board.length; x++) { 
+            for (let y = 0; y < gameMap.board.length; y++) { 
+                $( "#"+x+y ).click(function() {
+                    alert("click en "+x+y);
+                });
+            }
+        }
+    }
 }
 
 //TODO: A passer dans pirates.js ?
 
 let currentGame = new Game();
+
+currentGame.testClick();
 
 //currentGame.highlight();
 

@@ -32,7 +32,10 @@ class Map {
     }
 
     mapLimit() {
-
+        /**
+         * Définition des limites du plateau
+         */
+        // TODO: à faire
     }
 
     getEmptyCells() {

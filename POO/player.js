@@ -2,7 +2,7 @@ class Player{
     constructor(name, health, weapon, imgUrl){
         this.name = name;
         this.health = health;
-        this.weapon = weapon.name;
+        this.weapon = weapon;
         this.force = weapon.damage;
         this.position = null;
         this.defense = false;
