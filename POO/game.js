@@ -1,25 +1,24 @@
 class Game{
     constructor(){
         this.endGame = false;
-        this.currentPlayer = gameMap.currentPlayer;
-        this.currentEnemy = gameMap.currentEnemy;
     }
 
     setNextTurn() {
         /**
          * Gestion du tour par tour
          */
-        //FIXME: marche pas
-        if (gameMap.currentplayer = player1){
+        //FIXME: marche au premier tour mais tourne en boucle après
+        if (gameMap.currentPlayer == player1){
             gameMap.currentPlayer = player2;
             gameMap.currentEnemy = player1;
-            return currentPlayer;
+            console.log("Joueur 2, à toi de jouer !");
         }
-        if (gameMap.currentplayer = player2){
+        else {
             gameMap.currentPlayer = player1;
             gameMap.currentEnemy = player2;
-            return currentPlayer;
+            console.log("Joueur 1, à toi de jouer !");
         }
+        return gameMap.currentPlayer;
     }
     
 
@@ -27,6 +26,15 @@ class Game{
         /**
          * Echange l'arme de currentPlayer contre celle qui est sur sa case
          */
+        for (var x = 0; x < gameMap.board.length; x++) { 
+            for (var y = 0; y < gameMap.board.length; y++) { 
+                if (gameMap.board[x][y].weapon != null){
+                    let weaponBuffer = gameMap.board[x][y].weapon;
+                    gameMap.board[x][y].weapon = gameMap.currentPlayer.weapon; // FIXME: la nouvelle arme ne s'affiche pas sur le plateau
+                    gameMap.currentPlayer.weapon = weaponBuffer;
+                }
+            }
+        }
     }
 
     movePlayer() {
@@ -69,10 +77,10 @@ class Game{
         /**
          * Fin de la partie lorsque les PV d'un joueurs <= 0
          */
-        /*if (currentPlayer.health <= 0){
+        if (gameMap.currentEnemy.health <= 0){
             this.endGame = true;
-            alert("Bravo, " + currentEnemy.name + " gagne la partie !")
-        }*/
+            alert("Bravo, " + currentPlayer.name + " gagne la partie !")
+        }
     }
 }
 

@@ -31,6 +31,10 @@ class Map {
         return this.board;
     }
 
+    mapLimit() {
+
+    }
+
     getEmptyCells() {
         /**
          * Récupération des cases vides
@@ -129,19 +133,19 @@ class Map {
         
         let accessibleCells = this.getEmptyCells();
         let weapon2Position = Math.floor(Math.random() * (accessibleCells.length));
-        let weapon2Json = accessibleCells[weapon2Position];
+        let weapon2Json = accessibleCells[weapon2Position];// FIXME: nom à changer, c'est plus en Json
         this.board[weapon2Json.X][weapon2Json.Y].weapon = weapon2;
 
         let weapon3Position = Math.floor(Math.random() * (accessibleCells.length));
-        let weapon3Json = accessibleCells[weapon3Position];
+        let weapon3Json = accessibleCells[weapon3Position];// FIXME: nom à changer, c'est plus en Json
         this.board[weapon3Json.X][weapon3Json.Y].weapon = weapon3;
 
         let weapon4Position = Math.floor(Math.random() * (accessibleCells.length));
-        let weapon4Json = accessibleCells[weapon4Position];
+        let weapon4Json = accessibleCells[weapon4Position];// FIXME: nom à changer, c'est plus en Json
         this.board[weapon4Json.X][weapon4Json.Y].weapon = weapon4;
 
         let weapon5Position = Math.floor(Math.random() * (accessibleCells.length));
-        let weapon5Json = accessibleCells[weapon5Position];
+        let weapon5Json = accessibleCells[weapon5Position];// FIXME: nom à changer, c'est plus en Json
         this.board[weapon5Json.X][weapon5Json.Y].weapon = weapon5;
     }
 
@@ -169,8 +173,8 @@ class Map {
                     this.board[x][y].player = null;
                     this.board[x][y-value].player = this.currentPlayer;
                     this.currentPlayer.position = this.board[x][y-value];
-                    this.printHtml();
                     currentGame.setNextTurn();
+                    this.printHtml();
                 }
             }
         }
