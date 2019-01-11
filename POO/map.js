@@ -155,6 +155,7 @@ class Map {
     /**
      * Méthodes de mouvement des joueurs
      */
+    /*  //TODO: A virer, c'est le click qui gère le move
     moveRight(value) {
         for (var x = 0; x < this.board.length; x++) { 
             for (var y = 0; y < this.board.length; y++) { 
@@ -210,7 +211,7 @@ class Map {
             }
         }
     }
-
+*/
     highlight() { 
         for (var x = 0; x < this.board.length; x++) { 
             for (var y = 0; y < this.board.length; y++) { 
@@ -235,9 +236,9 @@ class Map {
                         this.board[x][y-3].highlight = true; 
                     }
                     if (this.board.length-x <= 3) { 
-                        console.log("bas");
+                        console.log("bas, x="+x);
                         let limiteX = this.board.length-x;
-                        for (let i = x+1; i <= limiteX; i++) { // FIXME: marche pas
+                        for (let i = x+1; i < limiteX; i++) { // FIXME: marche pas
                             this.board[i][y].highlight = true;
                             console.log("highlight bas"+i+y);
                         }
@@ -256,10 +257,12 @@ class Map {
                         this.board[x+3][y].highlight = true; 
                     }
                     if (this.board.length-y <= 3) {
-                        console.log("droite");
-                        let limiteY = this.board.length;
+                        console.log("droite, y="+y);
+                        let limiteY = this.board.length-1;
+                        console.log(limiteY);
                         let limiteYmoins = limiteY-y;
-                        for (let j = y+1; j < limiteYmoins; j++) {// FIXME: marche pas
+                        console.log(limiteYmoins);
+                        for (let j = y; j < limiteYmoins; j++) {// FIXME: marche pas
                             console.log(j);
                             this.board[x][j].highlight = true;
                             console.log("highlight droite"+x+j);
@@ -281,6 +284,9 @@ class Map {
                         this.board[x][y+3].highlight = true; 
                         console.log("highlight"+x+(y+3));
                     }
+                }
+                else {
+                    this.board[x][y].highlight = false;
                 }
                 /*if (this.board[x][y].barrel == true){
                     console.log("barrel");
@@ -337,26 +343,21 @@ class Map {
                         caseContent = "<td id=" + x + y + ">" + weapon5.imgUrl +"</td>";
                     }
                     if (myBoard[x][y].player == player1) {
-                        caseContent = "<td id=" + x  + y + " class='light' style='box-shadow: #F2C42C 0px 0px 10px 3px inset;'>" + player1.imgUrl +"</td>";
+                        caseContent = "<td id=" + x + y + ">" + player1.imgUrl +"</td>";
                     }
                     if (myBoard[x][y].player == player2) {
                         caseContent = "<td id=" + x + y + ">" + player2.imgUrl +"</td>";
                     }
-                    if (myBoard[x][y].highlight == true && myBoard[x][y].barrel == false && myBoard[x][y].player == null) {
+                    /*if (myBoard[x][y].highlight == true && myBoard[x][y].barrel == false && myBoard[x][y].player == null) {
                         //caseContent = "<td id=y" + y + " class=highlight style='box-shadow: #F2C42C 0px 0px 10px 3px inset;'></td>";
                         var test = x+y;
                         //var element = document.getElementById('00');
                         //element.classList.add("light"); // FIXME: Pb de sélecteur jQuery ?
                         console.log(test);
                         $('#'+test).addClass("light");
-                        }
+                        }*/
                     return caseContent;
                 });
-                /*Test de gestion du clic */
-                $('#tableZone').click(function(){
-                    alert("clic sur "+x +y);
-                });
-                /*Fin du test*/
             }
             $('#tableZone').append(row);
         }
