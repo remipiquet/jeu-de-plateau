@@ -10,6 +10,7 @@ class Player{
         this.index = 0;
         this.positionX = null;
         this.positionY = null;
+        this.dead = false;
     }
 
     getPlayerHealth() {

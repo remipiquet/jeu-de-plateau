@@ -7,8 +7,6 @@ class Map {
         this.statBarrels = statBarrels;
         this.board = [];
         this.reDraw = false;
-        this.currentPlayer = player1;
-        this.currentEnemy = player2;
     }    
     
     generate() {
@@ -212,10 +210,10 @@ class Map {
         }
     }
 */
-    highlight() { 
+    /*highlight(gameCurrentPlayer) { // TODO: A basculer dans game
         for (var x = 0; x < this.board.length; x++) { 
             for (var y = 0; y < this.board.length; y++) { 
-                if (this.board[x][y].player == this.currentPlayer) { 
+                if (this.board[x][y].player == gameCurrentPlayer) {
                     if (this.board.length -1 - x >= 3 && x >= 3) {
                         console.log("milieu"); // fonctionne
                         this.board[x+1][y].highlight = true; // FIXME: DRY
@@ -237,7 +235,7 @@ class Map {
                     }
                     if (this.board.length-x <= 3) { 
                         console.log("bas, x="+x);
-                        let limiteX = this.board.length-x;
+                        let limiteX = this.board.length;
                         for (let i = x+1; i < limiteX; i++) { // FIXME: marche pas
                             this.board[i][y].highlight = true;
                             console.log("highlight bas"+i+y);
@@ -258,13 +256,12 @@ class Map {
                     }
                     if (this.board.length-y <= 3) {
                         console.log("droite, y="+y);
-                        let limiteY = this.board.length-1;
+                        let limiteY = this.board.length;
                         console.log(limiteY);
-                        let limiteYmoins = limiteY-y;
-                        console.log(limiteYmoins);
-                        for (let j = y; j < limiteYmoins; j++) {// FIXME: marche pas
+                        for (let j = y; j < limiteY; j++) {// FIXME: marche pas
                             console.log(j);
                             this.board[x][j].highlight = true;
+                            console.log(this.board[x][j]);
                             console.log("highlight droite"+x+j);
                         }
                         this.board[x][y-1].highlight = true; 
@@ -284,18 +281,21 @@ class Map {
                         this.board[x][y+3].highlight = true; 
                         console.log("highlight"+x+(y+3));
                     }
+                    else {
+                        this.board[x][y].highlight = false;
+                    }
                 }
-                else {
-                    this.board[x][y].highlight = false;
+            }
+        }
+    }*/
+
+    lightAccessibleCells() { // TODO: A passer dans map
+        let myBoard = gameMap.board;
+        for (let x = 0; x < gameMap.board.length; x++) {
+            for (let y = 0; y < gameMap.board.length; y++) {
+                if (myBoard[x][y].highlight == true && myBoard[x][y].barrel == false && myBoard[x][y].player == null) {
+                    $('#' + x + y).addClass("light");
                 }
-                /*if (this.board[x][y].barrel == true){
-                    console.log("barrel");
-                    this.board[x][y].highlight = false; 
-                }
-                if (this.board[x][y].player == currentEnemy){
-                    console.log("enemy");
-                    this.board[x][y].highlight = false; 
-                }*/
             }
         }
     }
@@ -379,7 +379,7 @@ gameMap.placePlayers();
 
 gameMap.placeWeapons();
 
-gameMap.highlight();
+//gameMap.highlight();
 
 gameMap.printHtml();
 
