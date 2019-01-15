@@ -7,6 +7,8 @@ class Map {
         this.statBarrels = statBarrels;
         this.board = [];
         this.reDraw = false;
+        this.currentPlayer = player1;
+        this.currentEnemy = player2;
     }    
     
     generate() {
@@ -18,14 +20,11 @@ class Map {
             for (let y = 0; y < this.mapSize; y++) {
                 if (Math.floor((Math.random() * this.statBarrels)) == 0) {
                     this.board[x][y] = new Cell(""+x+y, null, true, null, x, y);
-                    //console.log(Cell);
                 } else {
                     this.board[x][y] = new Cell(""+x+y, null, false, null, x, y);
-                    //console.log(Cell);
                 }
             }
         }
-        //console.log(this.board);
         return this.board;
     }
 
@@ -54,58 +53,10 @@ class Map {
                     emptyCells.splice(-(y+1),1);
                     emptyCells.splice(-(x-1),1);
                     emptyCells.splice(-(y-1),1);
-                }
-                /*if (this.board[x][y].player == player1) {
-                    emptyCells.remove({ X: x, Y: y });
-                }
-                if (this.board[x][y].player == player1) {
-                    emptyCells.push({ X: x+1, Y: y });
-                    emptyCells.push({ X: x-1, Y: y });
-                    emptyCells.push({ X: x, Y: y+1 });
-                    emptyCells.push({ X: x, Y: y-1 });
-                }  */     
+                }  
             }    
-        //console.log(emptyCells);
         }
         return emptyCells;    
-    }
-
-    getInaccessibleCells() { //FIXME: marche pas
-        this.getEmptyCells();
-        let inaccessibleCells = [];
-
-        for (let x = 0; x < this.mapSize; x++) {
-            for (let y = 0; y < this.mapSize; y++) {
-                if (this.board[x][y].player == player1) {
-                    inaccessibleCells.push({ X: x, Y: y });
-                    inaccessibleCells.push({X:x-1,Y:y});
-                    inaccessibleCells.push({X:x+1,Y:y});
-                    inaccessibleCells.push({X:x,Y:y-1});
-                    inaccessibleCells.push({X:x,Y:y+1});
-                }
-                /*if (this.board[x-1][y] <= accessibleCells.length) {
-                    inaccessibleCells.push({X:x-1,Y:y});
-                }
-                if (this.board[x+1][y] <= accessibleCells.length) {
-                    inaccessibleCells.push({X:x+1,Y:y});
-                }
-                if (this.board[x][y-1] <= accessibleCells.length) {
-                    inaccessibleCells.push({X:x,Y:y-1});
-                }
-                if (this.board[x][y+1] <= accessibleCells.length) {
-                    inaccessibleCells.push({X:x,Y:y+1});
-                }*/
-                for (var j = 0; j < emptyCells.length; j++) {
-                    for (var k = 0; k < emptyCells.length; k++) {
-                        if (j >= 0 && emptyCells.length > j) {
-                            if (inaccessibleCells[k].X == emptyCells[j].X && inaccessibleCells[k].Y == emptyCells[j].Y) {
-                                emptyCells.splice(j, 1);
-                            }
-                        }
-                    }
-                } 
-            }
-        }             
     }
 
     placePlayers() {
@@ -115,16 +66,16 @@ class Map {
 
         let accessibleCells = this.getEmptyCells();
         let player1Position = Math.floor(Math.random() * (accessibleCells.length));
-        let player1Json = accessibleCells[player1Position]; // FIXME: nom à changer, c'est plus en Json
-        this.board[player1Json.X][player1Json.Y].player = player1;
-        player1.position = this.board[player1Json.X][player1Json.Y];
+        let player1Pos = accessibleCells[player1Position];
+        this.board[player1Pos.X][player1Pos.Y].player = player1;
+        player1.position = this.board[player1Pos.X][player1Pos.Y];
 
         //this.getInaccessibleCells();
-        this.getEmptyCells();
+        this.getEmptyCells(); // FIXME: le joueur 2 peut apparaitre à côté du joueur 1
         let player2Position = Math.floor(Math.random() * (accessibleCells.length));
-        let player2Json = accessibleCells[player2Position]; // FIXME: nom à changer, c'est plus en Json
-        this.board[player2Json.X][player2Json.Y].player = player2;
-        player2.position = this.board[player2Json.X][player2Json.Y];
+        let player2Pos = accessibleCells[player2Position];
+        this.board[player2Pos.X][player2Pos.Y].player = player2;
+        player2.position = this.board[player2Pos.X][player2Pos.Y];
     }
 
     placeWeapons() {
@@ -134,178 +85,41 @@ class Map {
         
         let accessibleCells = this.getEmptyCells();
         let weapon2Position = Math.floor(Math.random() * (accessibleCells.length));
-        let weapon2Json = accessibleCells[weapon2Position];// FIXME: nom à changer, c'est plus en Json
-        this.board[weapon2Json.X][weapon2Json.Y].weapon = weapon2;
+        let weapon2Pos = accessibleCells[weapon2Position];
+        this.board[weapon2Pos.X][weapon2Pos.Y].weapon = weapon2;
 
         let weapon3Position = Math.floor(Math.random() * (accessibleCells.length));
-        let weapon3Json = accessibleCells[weapon3Position];// FIXME: nom à changer, c'est plus en Json
-        this.board[weapon3Json.X][weapon3Json.Y].weapon = weapon3;
+        let weapon3Pos = accessibleCells[weapon3Position];
+        this.board[weapon3Pos.X][weapon3Pos.Y].weapon = weapon3;
 
         let weapon4Position = Math.floor(Math.random() * (accessibleCells.length));
-        let weapon4Json = accessibleCells[weapon4Position];// FIXME: nom à changer, c'est plus en Json
-        this.board[weapon4Json.X][weapon4Json.Y].weapon = weapon4;
+        let weapon4Pos = accessibleCells[weapon4Position];
+        this.board[weapon4Pos.X][weapon4Pos.Y].weapon = weapon4;
 
         let weapon5Position = Math.floor(Math.random() * (accessibleCells.length));
-        let weapon5Json = accessibleCells[weapon5Position];// FIXME: nom à changer, c'est plus en Json
-        this.board[weapon5Json.X][weapon5Json.Y].weapon = weapon5;
+        let weapon5Pos = accessibleCells[weapon5Position];
+        this.board[weapon5Pos.X][weapon5Pos.Y].weapon = weapon5;
     }
 
-    /**
-     * Méthodes de mouvement des joueurs
-     */
-    /*  //TODO: A virer, c'est le click qui gère le move
-    moveRight(value) {
-        for (var x = 0; x < this.board.length; x++) { 
-            for (var y = 0; y < this.board.length; y++) { 
-                if (this.board[x][y].player == this.currentPlayer) { 
-                    this.board[x][y].player = null;
-                    this.board[x][y+value].player = this.currentPlayer; // FIXME: Problème de détection des bordures
-                    this.currentPlayer.position = this.board[x][y+value];
-                    this.printHtml();
-                    currentGame.setNextTurn();
-                }
-            }
-        }
-    }
-
-    moveLeft(value) {
-        for (var x = 0; x < this.board.length; x++) { 
-            for (var y = 0; y < this.board.length; y++) { 
-                if (this.board[x][y].player == this.currentPlayer) { 
-                    this.board[x][y].player = null;
-                    this.board[x][y-value].player = this.currentPlayer;
-                    this.currentPlayer.position = this.board[x][y-value];
-                    currentGame.setNextTurn();
-                    this.printHtml();
-                }
-            }
-        }
-    }
-
-    moveUp(value) {
-        for (var x = 0; x < this.board.length; x++) { 
-            for (var y = 0; y < this.board.length; y++) { 
-                if (this.board[x][y].player == this.currentPlayer) { 
-                    this.board[x][y].player = null;
-                    this.board[x-value][y].player = this.currentPlayer;
-                    this.currentPlayer.position = this.board[x-value][y];
-                    this.printHtml();
-                    currentGame.setNextTurn();
-                }
-            }
-        }
-    }
-
-    moveDown(value) {
-        for (var x = 0; x < this.board.length; x++) { 
-            for (var y = 0; y < this.board.length; y++) { 
-                if (this.board[x][y].player == this.currentPlayer) { 
-                    this.board[x][y].player = null;
-                    this.board[x+value][y].player = this.currentPlayer; // FIXME: Problème de détection des bordures
-                    this.currentPlayer.position = this.board[x+value][y];
-                    this.printHtml();
-                    currentGame.setNextTurn();
-                }
-            }
-        }
-    }
-*/
-    /*highlight(gameCurrentPlayer) { // TODO: A basculer dans game
-        for (var x = 0; x < this.board.length; x++) { 
-            for (var y = 0; y < this.board.length; y++) { 
-                if (this.board[x][y].player == gameCurrentPlayer) {
-                    if (this.board.length -1 - x >= 3 && x >= 3) {
-                        console.log("milieu"); // fonctionne
-                        this.board[x+1][y].highlight = true; // FIXME: DRY
-                        this.board[x+2][y].highlight = true; 
-                        this.board[x+3][y].highlight = true; 
-
-                        this.board[x-1][y].highlight = true; 
-                        this.board[x-2][y].highlight = true; 
-                        this.board[x-3][y].highlight = true; 
-                    }    
-                    if (this.board.length -1 - y >= 3 && y >=3){
-                        this.board[x][y+1].highlight = true; 
-                        this.board[x][y+2].highlight = true; 
-                        this.board[x][y+3].highlight = true; 
-
-                        this.board[x][y-1].highlight = true; 
-                        this.board[x][y-2].highlight = true; 
-                        this.board[x][y-3].highlight = true; 
-                    }
-                    if (this.board.length-x <= 3) { 
-                        console.log("bas, x="+x);
-                        let limiteX = this.board.length;
-                        for (let i = x+1; i < limiteX; i++) { // FIXME: marche pas
-                            this.board[i][y].highlight = true;
-                            console.log("highlight bas"+i+y);
-                        }
-                        this.board[x-1][y].highlight = true; 
-                        this.board[x-2][y].highlight = true; 
-                        this.board[x-3][y].highlight = true; 
-                    }
-                    if (x < 3){
-                        console.log("haut");
-                        for (let i = x-1; i >= 0; i--) {
-                            this.board[i][y].highlight = true;
-                            console.log("highlight haut"+i+y);
-                        }
-                        this.board[x+1][y].highlight = true; 
-                        this.board[x+2][y].highlight = true; 
-                        this.board[x+3][y].highlight = true; 
-                    }
-                    if (this.board.length-y <= 3) {
-                        console.log("droite, y="+y);
-                        let limiteY = this.board.length;
-                        console.log(limiteY);
-                        for (let j = y; j < limiteY; j++) {// FIXME: marche pas
-                            console.log(j);
-                            this.board[x][j].highlight = true;
-                            console.log(this.board[x][j]);
-                            console.log("highlight droite"+x+j);
-                        }
-                        this.board[x][y-1].highlight = true; 
-                        this.board[x][y-2].highlight = true; 
-                        this.board[x][y-3].highlight = true; 
-                    }
-                    if (y < 3) {
-                        console.log("gauche");
-                        for (let n = y-1; n >= 0; n--) {
-                            this.board[x][n].highlight = true;
-                            console.log("highlight gauche"+x+n);
-                        }
-                        this.board[x][y+1].highlight = true; 
-                        console.log("highlight"+x+(y+1));
-                        this.board[x][y+2].highlight = true; 
-                        console.log("highlight"+x+(y+2));
-                        this.board[x][y+3].highlight = true; 
-                        console.log("highlight"+x+(y+3));
-                    }
-                    else {
-                        this.board[x][y].highlight = false;
-                    }
-                }
-            }
-        }
-    }*/
-
-    lightAccessibleCells() { // TODO: A passer dans map
+    lightAccessibleCells() {
         let myBoard = gameMap.board;
         for (let x = 0; x < gameMap.board.length; x++) {
             for (let y = 0; y < gameMap.board.length; y++) {
                 if (myBoard[x][y].highlight == true && myBoard[x][y].barrel == false && myBoard[x][y].player == null) {
                     $('#' + x + y).addClass("light");
                 }
+                else {
+                    this.board[x][y].highlight = false;
+                }
             }
         }
     }
 
-    resetPrint() { //FIXME: marche pas (s'initialise au premier print / n'efface pas l'ancien print du joueur)
+    resetPrint() {
         for (let x = 0; x < this.board.length; x++) {
             let row = $("#x"+x);
             $(".row").empty();
-            //$('#tableZone .class'+row).remove(row);
-            console.log("delete row " +x); // Problème avec le visuel des joueurs qui reste en place
+            console.log("delete row " +x);
         }
     }  
 
@@ -348,14 +162,6 @@ class Map {
                     if (myBoard[x][y].player == player2) {
                         caseContent = "<td id=" + x + y + ">" + player2.imgUrl +"</td>";
                     }
-                    /*if (myBoard[x][y].highlight == true && myBoard[x][y].barrel == false && myBoard[x][y].player == null) {
-                        //caseContent = "<td id=y" + y + " class=highlight style='box-shadow: #F2C42C 0px 0px 10px 3px inset;'></td>";
-                        var test = x+y;
-                        //var element = document.getElementById('00');
-                        //element.classList.add("light"); // FIXME: Pb de sélecteur jQuery ?
-                        console.log(test);
-                        $('#'+test).addClass("light");
-                        }*/
                     return caseContent;
                 });
             }
@@ -368,7 +174,7 @@ class Map {
 };
 
 //TODO: A passer dans pirates.js ?
-
+/*
 const gameMap = new Map(10, 10);
 
 gameMap.generate(); 
@@ -382,7 +188,7 @@ gameMap.placeWeapons();
 //gameMap.highlight();
 
 gameMap.printHtml();
-
+*/
 
 
 /* TODO

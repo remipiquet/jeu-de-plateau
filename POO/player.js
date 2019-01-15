@@ -3,14 +3,31 @@ class Player{
         this.name = name;
         this.health = health;
         this.weapon = weapon;
-        this.force = weapon.damage;
+        this.strength = weapon.damage;
         this.position = null;
         this.defense = false;
         this.imgUrl = imgUrl;
         this.index = 0;
         this.positionX = null;
         this.positionY = null;
-        this.dead = false;
+    }
+
+    /*attack() {
+
+    }*/
+
+    isTouched() {
+        if (this.defense == true){
+            this.health = this.health - (currentGame.currentEnemy.strength/2);
+            this.defense = false;
+            console.log(this.name+" est touché mais il se défend ! Il perd quand même "+(currentGame.currentEnemy.strength/2)+" points de vie")
+            currentGame.playGame();
+        }
+        else {
+            this.health = this.health - currentGame.currentEnemy.strength;
+            console.log(this.name+" est touché, il perd "+currentGame.currentEnemy.strength+" points de vie")
+            currentGame.playGame();
+        }
     }
 
     getPlayerHealth() {

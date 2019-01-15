@@ -92,3 +92,9 @@ img {
     justify-content: center;
 	align-items: center;
 }
+
+#buttons {
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+}

@@ -13,13 +13,11 @@ class Game{
             currentGame.currentPlayer = player2;
             currentGame.currentEnemy = player1;
             console.log("Joueur 2, à toi de jouer !");
-            //currentGame.movePlayer();
         }
         else {
             currentGame.currentPlayer = player1;
             currentGame.currentEnemy = player2;
             console.log("Joueur 1, à toi de jouer !");
-            //currentGame.movePlayer();
         }
     }
     
@@ -45,7 +43,7 @@ class Game{
                 if (gameMap.board[x][y].player == this.currentPlayer) {
                     if (gameMap.board.length - 1 - x >= 3 && x >= 3) {
                         console.log("milieu"); // fonctionne
-                        gameMap.board[x + 1][y].highlight = true; // FIXME: DRY
+                        gameMap.board[x + 1][y].highlight = true;
                         gameMap.board[x + 2][y].highlight = true;
                         gameMap.board[x + 3][y].highlight = true;
 
@@ -65,7 +63,7 @@ class Game{
                     if (gameMap.board.length - x <= 3) {
                         console.log("bas, x=" + x);
                         let limiteX = gameMap.board.length;
-                        for (let i = x + 1; i < limiteX; i++) { // FIXME: marche pas
+                        for (let i = x + 1; i < limiteX; i++) {
                             gameMap.board[i][y].highlight = true;
                             console.log("highlight bas" + i + y);
                         }
@@ -87,7 +85,7 @@ class Game{
                         console.log("droite, y=" + y);
                         let limiteY = gameMap.board.length;
                         console.log(limiteY);
-                        for (let j = y; j < limiteY; j++) { // FIXME: marche pas
+                        for (let j = y; j < limiteY; j++) {
                             console.log(j);
                             gameMap.board[x][j].highlight = true;
                             console.log(gameMap.board[x][j]);
@@ -145,6 +143,7 @@ class Game{
                         gameMap.lightAccessibleCells();
                     }
                     e.stopPropagation();
+                    currentGame.playGame();
                 });
             }
         }
@@ -160,85 +159,37 @@ class Game{
         /**
          * Gestion du combat des joueurs
          */
-        /*if (playersArray[currentPlayer].position.X == playersArray[currentEnemy].position.X+1 &&
-            playersArray[currentPlayer].position.Y == playersArray[currentEnemy].position.Y ||
-            playersArray[currentPlayer].position.X == playersArray[currentEnemy].position.X-1 &&
-            playersArray[currentPlayer].position.Y == playersArray[currentEnemy].position.Y ||
-            playersArray[currentPlayer].position.Y == playersArray[currentEnemy].position.Y+1 &&
-            playersArray[currentPlayer].position.X == playersArray[currentEnemy].position.X ||
-            playersArray[currentPlayer].position.Y == playersArray[currentEnemy].position.Y-1 &&
-            playersArray[currentPlayer].position.X == playersArray[currentEnemy].position.X){
-                playersArray[currentPlayer].attack(playersArray[currentEnemy]);
-                console.log(playersArray[currentPlayer].name + " inflige " + playersArray[currentPlayer].force + " points de dégats");
-                console.log("Il reste " + playersArray[currentEnemy].health + " points de vie à " + playersArray[currentEnemy].name);
-            }  
-        else {
-            alert("Vous n'êtes pas à côté d'un ennemi !")
-            }*/   
-    }
-
-    IsDead() {
-        if (currentGame.currentEnemy.health <= 0){
-            currentGame.currentEnemy.dead == true;
-        }
+        for (let x = 0; x < gameMap.board.length; x++) { // FIXME: problème de détection des bordures
+            for (let y = 0; y < gameMap.board.length; y++) { 
+                if (gameMap.board[x][y].player == this.currentPlayer) {
+                    if (gameMap.board[x+1][y].player == this.currentEnemy || gameMap.board[x-1][y].player == this.currentEnemy 
+                    || gameMap.board[x][y+1].player == this.currentEnemy || gameMap.board[x][y-1].player == this.currentEnemy) {
+                        this.currentEnemy.isTouched();
+                    }
+                }
+            }
+        }  
     }
 
     endGame() {
-        /**
-         * Fin de la partie lorsque les PV d'un joueurs <= 0
-         */
-        if (currentGame.currentEnemy.health > 0) {
-            currentGame.movePlayer();
-        }
-        else {
-            this.endGame == true
-            alert("Bravo, " + currentPlayer.name + " gagne la partie !")
+        if (currentGame.currentEnemy.health <= 0){
+            this.endGame = true;
         }
     }
 
-    /*playGame() {
-        while (this.endGame == false) {
+    playGame() {
+        /**
+         * Fin de la partie lorsque les PV d'un joueurs <= 0
+         */
+        if (this.endGame == false) {
             currentGame.movePlayer();
         }
-    }*/
-
-    /*testClick() {
-        for (let x = 0; x < gameMap.board.length; x++) { 
-            for (let y = 0; y < gameMap.board.length; y++) { 
-                $( "#"+x+y ).click(function(e) {
-                    if (gameMap.board[x][y].highlight == true) {
-                        gameMap.currentPlayer.position.player = null;
-                        gameMap.board[x][y].player = gameMap.currentPlayer;
-                        gameMap.currentPlayer.position = gameMap.board[x][y];
-                        currentGame.setNextTurn();
-                        gameMap.printHtml();
-                    }
-                    e.stopPropagation();
-                });
-            }
+        else {
+            this.endGame();
+            alert("Bravo, " + currentPlayer.name + " gagne la partie !")
         }
-
-    }*/
+    }
 }
-
-//TODO: A passer dans pirates.js ?
-
-let currentGame = new Game();
-
-//currentGame.gameOver();
-
-currentGame.movePlayer();
-
-//currentGame.playGame();
-
-currentGame.highlight();
-
-gameMap.lightAccessibleCells();
-
-//currentGame.endGame();
-
-//currentGame.highlight();
-
 
 
 
