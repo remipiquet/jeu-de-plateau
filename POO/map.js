@@ -119,7 +119,12 @@ class Map {
         for (let x = 0; x < this.board.length; x++) {
             let row = $("#x"+x);
             $(".row").empty();
-            console.log("delete row " +x);
+            $('#player1Health').empty();
+            $('#player2Health').empty();
+            $('#player1Weapon').empty();
+            $('#player2Weapon').empty();
+            $('#player1Strength').empty();
+            $('#player2Strength').empty();
         }
     }  
 
@@ -129,7 +134,6 @@ class Map {
             } else {
                 this.reDraw = true;
             }    
-        //$(".row").remove();
         let myBoard = this.board;
         for (let x = 0; x < this.board.length; x++) {
             var row = $('<tr class="row"></tr>').attr('id', "x"+x);
@@ -167,32 +171,13 @@ class Map {
             }
             $('#tableZone').append(row);
         }
-        
+        $('#player1Health').append(player1.health);
+        $('#player2Health').append(player2.health);
+        $('#player1Weapon').append(player1.weapon.imgUrl);
+        $('#player2Weapon').append(player2.weapon.imgUrl);
+        $('#player1Strength').append(player1.weapon.damage);
+        $('#player2Strength').append(player2.weapon.damage);
     } 
 
 
 };
-
-//TODO: A passer dans pirates.js ?
-/*
-const gameMap = new Map(10, 10);
-
-gameMap.generate(); 
-
-gameMap.getEmptyCells();
-
-gameMap.placePlayers();
-
-gameMap.placeWeapons();
-
-//gameMap.highlight();
-
-gameMap.printHtml();
-*/
-
-
-/* TODO
-*
-* 
-*
-*/

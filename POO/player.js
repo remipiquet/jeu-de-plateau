@@ -18,17 +18,19 @@ class Player{
 
     isTouched() {
         if (this.defense == true){
-            this.health = this.health - (currentGame.currentEnemy.weapon.damage/2);
+            this.health = this.health - (currentGame.currentPlayer.weapon.damage/2);
             this.defense = false;
             console.log(this.name+" est touché mais il se défend ! Il perd quand même "+(currentGame.currentEnemy.weapon.damage/2)+" points de vie");
             console.log("Il reste "+currentGame.currentEnemy.health+" points de vie à "+currentGame.currentEnemy.name);
-            currentGame.movePlayer();
+            currentGame.setNextTurn();
+            currentGame.updateGame();
         }
         else {
-            this.health = this.health - currentGame.currentEnemy.weapon.damage;
+            this.health = this.health - currentGame.currentPlayer.weapon.damage;
             console.log(this.name+" est touché, il perd "+currentGame.currentEnemy.weapon.damage+" points de vie");
             console.log("Il reste "+currentGame.currentEnemy.health+" points de vie à "+currentGame.currentEnemy.name);
-            currentGame.movePlayer();
+            currentGame.setNextTurn();
+            currentGame.updateGame();
         }
     }
 
