@@ -67,7 +67,7 @@ img {
 }
 
 
-#affichageScoreJoueur1, #affichageScoreJoueur2, #affichageDegatsJoueur1, #affichageDegatsJoueur2{
+#player1Health, #player2Health, #player1Strength, #player2Strength{
     height: 100px;
     width: 100px;
     border: 2px solid black;
@@ -81,7 +81,7 @@ img {
 	font-size: xx-large;
 }
 
-#affichageJoueur1, #affichageJoueur2, #affichageArmeJoueur1, #affichageArmeJoueur2{
+#player1Display, #player2Display, #player1Weapon, #player2Weapon{
     height: 100px;
     width: 100px;
     border: 2px solid black;

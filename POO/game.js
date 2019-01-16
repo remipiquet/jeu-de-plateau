@@ -26,18 +26,19 @@ class Game{
         /**
          * Echange l'arme de currentPlayer contre celle qui est sur sa case
          */
-        for (let x = 0; x < gameMap.board.length; x++) { 
+        for (let x = 0; x < gameMap.board.length; x++) {
             for (let y = 0; y < gameMap.board.length; y++) { 
                 if (gameMap.board[x][y] == currentGame.currentPlayer.position && gameMap.board[x][y].weapon != null){
                     var weaponBuffer = gameMap.board[x][y].weapon;
-                    gameMap.board[x][y].weapon = gameMap.currentPlayer.weapon;
-                    gameMap.currentPlayer.weapon = weaponBuffer;
+                    gameMap.board[x][y].weapon = currentGame.currentPlayer.weapon;
+                    currentGame.currentPlayer.weapon = weaponBuffer;
+                    console.log("new weapon "+currentGame.currentPlayer.weapon);
                 }
             }
         }
     }
 
-    highlight() { // TODO: A basculer dans game
+    highlight() {
         for (var x = 0; x < gameMap.board.length; x++) {
             for (var y = 0; y < gameMap.board.length; y++) {
                 if (gameMap.board[x][y].player == this.currentPlayer) {
@@ -153,6 +154,21 @@ class Game{
         /**
          * Gestion de la défense des joueurs
          */
+        for (let x = 0; x < gameMap.board.length; x++) { // FIXME: problème de détection des bordures
+            for (let y = 0; y < gameMap.board.length; y++) { 
+                if (gameMap.board[x][y].player == this.currentPlayer) {
+                    if (gameMap.board[x+1][y].player == this.currentEnemy || gameMap.board[x-1][y].player == this.currentEnemy 
+                    || gameMap.board[x][y+1].player == this.currentEnemy || gameMap.board[x][y-1].player == this.currentEnemy) {
+                        this.currentPlayer.defense = true;
+                        console.log(this.currentPlayer.name+" se défend");
+                        currentGame.movePlayer();
+                    }
+                    else {
+                        alert("Vous n'êtes pas à côté d'un ennemi");
+                    }
+                }
+            }
+        }
     }
 
     fight() {
@@ -160,11 +176,14 @@ class Game{
          * Gestion du combat des joueurs
          */
         for (let x = 0; x < gameMap.board.length; x++) { // FIXME: problème de détection des bordures
-            for (let y = 0; y < gameMap.board.length; y++) { 
+            for (let y = 0; y < gameMap.board.length; y++) { // FIXME: ne passe pas au tour suivant quand Joueur2
                 if (gameMap.board[x][y].player == this.currentPlayer) {
                     if (gameMap.board[x+1][y].player == this.currentEnemy || gameMap.board[x-1][y].player == this.currentEnemy 
                     || gameMap.board[x][y+1].player == this.currentEnemy || gameMap.board[x][y-1].player == this.currentEnemy) {
                         this.currentEnemy.isTouched();
+                    }
+                    else {
+                        alert("Vous n'êtes pas à côté d'un ennemi");
                     }
                 }
             }
