@@ -28,13 +28,6 @@ class Map {
         return this.board;
     }
 
-    mapLimit() {
-        /**
-         * Définition des limites du plateau
-         */
-        // TODO: à faire
-    }
-
     getEmptyCells() {
         /**
          * Récupération des cases vides

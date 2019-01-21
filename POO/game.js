@@ -48,71 +48,105 @@ class Game{
         }
     }
 
-    highlight() {
+
+
+    /*barrelUnlight() {
+        let mapLimite = gameMap.board.length;
         for (var x = 0; x < gameMap.board.length; x++) {
             for (var y = 0; y < gameMap.board.length; y++) {
-                if (gameMap.board[x][y].player == this.currentPlayer) {
-                    if (gameMap.board.length - 1 - x >= 3 && x >= 3) {
-                        gameMap.board[x + 1][y].highlight = true;
-                        gameMap.board[x + 2][y].highlight = true;
-                        gameMap.board[x + 3][y].highlight = true;
-                        gameMap.board[x - 1][y].highlight = true;
-                        gameMap.board[x - 2][y].highlight = true;
-                        gameMap.board[x - 3][y].highlight = true;
+                if (gameMap.board[x][y].player == this.currentPlayer && gameMap.board[x+1][y].barrel == true) {
+                    
+
+    }*/
+
+    mapLimit(xPlayer,yPlayer,direction) {
+        /**
+         * Définition des limites du plateau
+         */
+        let limit;
+        switch (direction){
+            case "left" :
+                var y = yPlayer;
+                var stop = false;
+                while (y >= 0 && !stop) {
+                    if (gameMap.board[xPlayer][y].barrel == true || gameMap.board[xPlayer][y].player == gameMap.currentEnemy) {
+                        stop = true;
                     }
-                    if (gameMap.board.length - 1 - y >= 3 && y >= 3) {
-                        gameMap.board[x][y + 1].highlight = true;
-                        gameMap.board[x][y + 2].highlight = true;
-                        gameMap.board[x][y + 3].highlight = true;
-                        gameMap.board[x][y - 1].highlight = true;
-                        gameMap.board[x][y - 2].highlight = true;
-                        gameMap.board[x][y - 3].highlight = true;
+                    y--;
+                }
+                limit = y + 1;
+                break;
+            case "right" :
+                var y = yPlayer;
+                var stop = false;
+                while (y < gameMap.board.length && !stop) {
+                    if (gameMap.board[xPlayer][y].barrel == true || gameMap.board[xPlayer][y].player == gameMap.currentEnemy) {
+                        stop = true;
                     }
-                    if (gameMap.board.length - x <= 3) {
-                        let limiteX = gameMap.board.length;
-                        for (let i = x + 1; i < limiteX; i++) {
-                            gameMap.board[i][y].highlight = true;
+                    y++;
+                }
+                limit = y - 1;
+                break;
+            case "up" :
+                var x = xPlayer;
+                var stop = false;
+                while (x >= 0 && !stop) {
+                    if (gameMap.board[x][yPlayer].barrel == true || gameMap.board[x][yPlayer].player == gameMap.currentEnemy) {
+                        stop = true;
+                        console.log("obstacle détecté en "+x)
+                    }
+                    x--;
+                }
+                limit = x + 1;
+                break;
+            case "down" :
+                var x = xPlayer;
+                var stop = false;
+                while (x < gameMap.board.length && !stop) {
+                    if (gameMap.board[x][yPlayer].barrel == true || gameMap.board[x][yPlayer].player == gameMap.currentEnemy) {
+                        stop = true;
+                    }
+                    x++;
+                }
+                limit = x - 1;
+                break;
+            default :
+                limit = -1;
+                console.log(direction);
+        }
+        return limit;
+    }
+
+        highlight() {
+            for (var x = 0; x < gameMap.board.length; x++) {
+                for (var y = 0; y < gameMap.board.length; y++) {
+                    if (gameMap.board[x][y].player == this.currentPlayer) {
+                        let limitUp = this.mapLimit(x,y,"up");
+                        for (var upX = x; upX > limitUp; upX--) {
+                            gameMap.board[upX][y].highlight = true;
+                            console.log("light up " + upX)
                         }
-                        gameMap.board[x - 1][y].highlight = true;
-                        gameMap.board[x - 2][y].highlight = true;
-                        gameMap.board[x - 3][y].highlight = true;
-                    }
-                    if (x < 3) {
-                        for (let i = x - 1; i >= 0; i--) {
-                            gameMap.board[i][y].highlight = true;
+                        let limitDown = this.mapLimit(x, y, "down");
+                        for (var downX = x; downX > limitDown; downX--) {
+                            gameMap.board[downX][y].highlight = true;
+                            console.log("light down " + downX)
                         }
-                        gameMap.board[x + 1][y].highlight = true;
-                        gameMap.board[x + 2][y].highlight = true;
-                        gameMap.board[x + 3][y].highlight = true;
-                    }
-                    if (gameMap.board.length - y <= 3) {
-                        let limiteY = gameMap.board.length;
-                        for (let j = y; j < limiteY; j++) {
-                            gameMap.board[x][j].highlight = true;
+                        let limitLeft = this.mapLimit(x, y, "left");
+                        for (var leftY = y; leftY > limitLeft; leftY--) {
+                            gameMap.board[x][leftY].highlight = true;
+                            console.log("light left " + leftY)
                         }
-                        gameMap.board[x][y - 1].highlight = true;
-                        gameMap.board[x][y - 2].highlight = true;
-                        gameMap.board[x][y - 3].highlight = true;
-                    }
-                    if (y < 3) {
-                        for (let n = y - 1; n >= 0; n--) {
-                            gameMap.board[x][n].highlight = true;
+                        let limitRight = this.mapLimit(x, y, "right");
+                        for (var rightY = y; rightY > limitRight; rightY--) {
+                            gameMap.board[x][leftY].highlight = true;
+                            console.log("light right " + rightY)
                         }
-                        gameMap.board[x][y + 1].highlight = true;
-                        gameMap.board[x][y + 2].highlight = true;
-                        gameMap.board[x][y + 3].highlight = true;
-                    } else {
-                        gameMap.board[x][y].highlight = false;
                     }
+                    // A finir
                 }
             }
         }
-    }
 
-    playTurn() {
-
-
-    }
 
     movePlayer() {
         /**
