@@ -48,17 +48,6 @@ class Game{
         }
     }
 
-
-
-    /*barrelUnlight() {
-        let mapLimite = gameMap.board.length;
-        for (var x = 0; x < gameMap.board.length; x++) {
-            for (var y = 0; y < gameMap.board.length; y++) {
-                if (gameMap.board[x][y].player == this.currentPlayer && gameMap.board[x+1][y].barrel == true) {
-                    
-
-    }*/
-
     mapLimit(xPlayer,yPlayer,direction) {
         /**
          * Définition des limites du plateau
@@ -128,28 +117,15 @@ class Game{
             for (var x = 0; x < gameMap.board.length; x++) { 
                 for (var y = 0; y < gameMap.board.length; y++) { 
                     if (gameMap.board[x][y].player == currentGame.currentPlayer) { 
-                        let limitUp = this.mapLimit(x,y,"up"); 
-                        for (var upX = x; upX >= limitUp; upX--) {
-                            gameMap.board[upX][y].highlight = true;
-                            console.log("light up " + upX);
-                        }
+                        let limitUp = this.mapLimit(x, y, "up"); 
+                        for (var upX = x; upX >= limitUp; upX--) {gameMap.board[upX][y].highlight = true;}
                         let limitDown = this.mapLimit(x, y, "down");
-                        for (var downX = x; downX <= limitDown; downX++) {
-                            gameMap.board[downX][y].highlight = true;
-                            console.log("light down " + downX);
-                        }
+                        for (var downX = x; downX <= limitDown; downX++) {gameMap.board[downX][y].highlight = true;}
                         let limitLeft = this.mapLimit(x, y, "left");
-                        for (var leftY = y; leftY >= limitLeft; leftY--) {
-                            gameMap.board[x][leftY].highlight = true;
-                            console.log("light left " + leftY);
-                        }
+                        for (var leftY = y; leftY >= limitLeft; leftY--) {gameMap.board[x][leftY].highlight = true;}
                         let limitRight = this.mapLimit(x, y, "right");
-                        for (var rightY = y; rightY <= limitRight; rightY++) {
-                            gameMap.board[x][rightY].highlight = true;
-                            console.log("light right " + rightY);
-                        }
+                        for (var rightY = y; rightY <= limitRight; rightY++) {gameMap.board[x][rightY].highlight = true;}
                     }
-                    // A finir
                 }
             }
         }
@@ -166,14 +142,14 @@ class Game{
                         gameMap.board[x][y].player = currentGame.currentPlayer;
                         currentGame.currentPlayer.position = gameMap.board[x][y];
                         currentGame.swapWeapon();
-                        currentGame.setNextTurn();
+                        //currentGame.setNextTurn();
                         currentGame.updateGame();
                     }
                     e.stopPropagation();
                     currentGame.playGame();
                 });
             }
-        }
+        }   
     }    
 
     defend() {
@@ -187,8 +163,6 @@ class Game{
                     || gameMap.board[x][y+1].player == this.currentEnemy || gameMap.board[x][y-1].player == this.currentEnemy) {
                         this.currentPlayer.defense = true;
                         console.log(this.currentPlayer.name+" se défend");
-                        currentGame.setNextTurn();
-                        currentGame.updateGame();
                     }
                     else {
                         alert("Vous n'êtes pas à côté d'un ennemi");
@@ -196,6 +170,8 @@ class Game{
                 }
             }
         }
+        currentGame.updateGame();
+        currentGame.playGame(); 
     }
 
     fight() {
@@ -208,28 +184,34 @@ class Game{
                     if (gameMap.board[x+1][y].player == this.currentEnemy || gameMap.board[x-1][y].player == this.currentEnemy 
                     || gameMap.board[x][y+1].player == this.currentEnemy || gameMap.board[x][y-1].player == this.currentEnemy) {
                         this.currentEnemy.isTouched();
-                        currentGame.setNextTurn();
-                        currentGame.updateGame();
                     }
                     else {
                         alert("Vous n'êtes pas à côté d'un ennemi");
                     }
                 }
             }
-        }  
+        } 
+        currentGame.updateGame();
+        currentGame.playGame(); 
     }
     
     updateGame(){
+        currentGame.setNextTurn();
         currentGame.resetHighlight();
+        console.log("reset highlight");
         gameMap.printHtml();
+        console.log("print html");
         currentGame.highlight();
+        console.log("highlight");
         gameMap.lightAccessibleCells();
+        console.log("light cells");
 
     }
 
     gameOver() {
         if (currentGame.currentEnemy.health <= 0){
             this.endGame = true;
+            alert("Bravo, " + currentPlayer.name + " gagne la partie !")
         }
     }
 
@@ -237,12 +219,14 @@ class Game{
         /**
          * Fin de la partie lorsque les PV d'un joueurs <= 0
          */
-        if (this.endGame == false) {
+        if (this.endGame == false) { // FIXME: marche pas
             currentGame.movePlayer();
+            console.log("play game");
         }
-        else {
-            this.gameOver();
-            alert("Bravo, " + currentPlayer.name + " gagne la partie !")
+        if (currentGame.currentEnemy.health <= 0) {
+            this.endGame = true;
+            alert("Bravo, " + currentGame.currentPlayer.name + " gagne la partie !")
+            window.location.reload();
         }
     }
 }
