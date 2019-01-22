@@ -13,13 +13,13 @@ class Game{
             currentGame.currentPlayer = player2;
             currentGame.currentEnemy = player1;
             console.log("Joueur 2, à toi de jouer !");
-            return currentGame.currentPlayer;
+            return currentGame.currentPlayer && currentGame.currentEnemy;
         }
         if (currentGame.currentPlayer == player2) {
             currentGame.currentPlayer = player1;
             currentGame.currentEnemy = player2;
             console.log("Joueur 1, à toi de jouer !");
-            return currentGame.currentEnemy
+            return currentGame.currentPlayer && currentGame.currentEnemy;
         }
     }
     
@@ -68,9 +68,11 @@ class Game{
             case "left" :
                 var y = yPlayer;
                 var stop = false;
-                while (y >= 0 && !stop) {
-                    if (gameMap.board[xPlayer][y].barrel == true || gameMap.board[xPlayer][y].player == gameMap.currentEnemy) {
+                var leftScope = yPlayer-3;
+                while (y >= 0 && y >= leftScope && !stop) {
+                    if (gameMap.board[xPlayer][y].barrel == true || gameMap.board[xPlayer][y].player == currentGame.currentEnemy) {
                         stop = true;
+                        console.log("obstacle détecté en " + y)
                     }
                     y--;
                 }
@@ -79,9 +81,11 @@ class Game{
             case "right" :
                 var y = yPlayer;
                 var stop = false;
-                while (y < gameMap.board.length && !stop) {
-                    if (gameMap.board[xPlayer][y].barrel == true || gameMap.board[xPlayer][y].player == gameMap.currentEnemy) {
+                var rightScope = yPlayer+3;
+                while (y < gameMap.board.length && y <= rightScope && !stop) {
+                    if (gameMap.board[xPlayer][y].barrel == true || gameMap.board[xPlayer][y].player == currentGame.currentEnemy) {
                         stop = true;
+                        console.log("obstacle détecté en " + y)
                     }
                     y++;
                 }
@@ -90,8 +94,9 @@ class Game{
             case "up" :
                 var x = xPlayer;
                 var stop = false;
-                while (x >= 0 && !stop) {
-                    if (gameMap.board[x][yPlayer].barrel == true || gameMap.board[x][yPlayer].player == gameMap.currentEnemy) {
+                var upScope = xPlayer-3;
+                while (x >= 0 && x >= upScope && !stop) {
+                    if (gameMap.board[x][yPlayer].barrel == true || gameMap.board[x][yPlayer].player == currentGame.currentEnemy) {
                         stop = true;
                         console.log("obstacle détecté en "+x)
                     }
@@ -102,10 +107,12 @@ class Game{
             case "down" :
                 var x = xPlayer;
                 var stop = false;
-                while (x < gameMap.board.length && !stop) {
-                    if (gameMap.board[x][yPlayer].barrel == true || gameMap.board[x][yPlayer].player == gameMap.currentEnemy) {
+                var downScope = xPlayer+3;
+                while (x < gameMap.board.length && x <= downScope && !stop) {
+                    if (gameMap.board[x][yPlayer].barrel == true || gameMap.board[x][yPlayer].player == currentGame.currentEnemy) {
                         stop = true;
-                    }
+                        console.log("obstacle détecté en " + x)
+                    } 
                     x++;
                 }
                 limit = x - 1;
@@ -118,35 +125,34 @@ class Game{
     }
 
         highlight() {
-            for (var x = 0; x < gameMap.board.length; x++) {
-                for (var y = 0; y < gameMap.board.length; y++) {
-                    if (gameMap.board[x][y].player == this.currentPlayer) {
-                        let limitUp = this.mapLimit(x,y,"up");
-                        for (var upX = x; upX > limitUp; upX--) {
+            for (var x = 0; x < gameMap.board.length; x++) { 
+                for (var y = 0; y < gameMap.board.length; y++) { 
+                    if (gameMap.board[x][y].player == currentGame.currentPlayer) { 
+                        let limitUp = this.mapLimit(x,y,"up"); 
+                        for (var upX = x; upX >= limitUp; upX--) {
                             gameMap.board[upX][y].highlight = true;
-                            console.log("light up " + upX)
+                            console.log("light up " + upX);
                         }
                         let limitDown = this.mapLimit(x, y, "down");
-                        for (var downX = x; downX > limitDown; downX--) {
+                        for (var downX = x; downX <= limitDown; downX++) {
                             gameMap.board[downX][y].highlight = true;
-                            console.log("light down " + downX)
+                            console.log("light down " + downX);
                         }
                         let limitLeft = this.mapLimit(x, y, "left");
-                        for (var leftY = y; leftY > limitLeft; leftY--) {
+                        for (var leftY = y; leftY >= limitLeft; leftY--) {
                             gameMap.board[x][leftY].highlight = true;
-                            console.log("light left " + leftY)
+                            console.log("light left " + leftY);
                         }
                         let limitRight = this.mapLimit(x, y, "right");
-                        for (var rightY = y; rightY > limitRight; rightY--) {
-                            gameMap.board[x][leftY].highlight = true;
-                            console.log("light right " + rightY)
+                        for (var rightY = y; rightY <= limitRight; rightY++) {
+                            gameMap.board[x][rightY].highlight = true;
+                            console.log("light right " + rightY);
                         }
                     }
                     // A finir
                 }
             }
         }
-
 
     movePlayer() {
         /**
