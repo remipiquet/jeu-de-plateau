@@ -61,7 +61,6 @@ class Game{
                 while (y >= 0 && y >= leftScope && !stop) {
                     if (gameMap.board[xPlayer][y].barrel == true || gameMap.board[xPlayer][y].player == currentGame.currentEnemy) {
                         stop = true;
-                        console.log("obstacle détecté en " + y)
                     }
                     y--;
                 }
@@ -74,7 +73,6 @@ class Game{
                 while (y < gameMap.board.length && y <= rightScope && !stop) {
                     if (gameMap.board[xPlayer][y].barrel == true || gameMap.board[xPlayer][y].player == currentGame.currentEnemy) {
                         stop = true;
-                        console.log("obstacle détecté en " + y)
                     }
                     y++;
                 }
@@ -87,7 +85,6 @@ class Game{
                 while (x >= 0 && x >= upScope && !stop) {
                     if (gameMap.board[x][yPlayer].barrel == true || gameMap.board[x][yPlayer].player == currentGame.currentEnemy) {
                         stop = true;
-                        console.log("obstacle détecté en "+x)
                     }
                     x--;
                 }
@@ -100,7 +97,6 @@ class Game{
                 while (x < gameMap.board.length && x <= downScope && !stop) {
                     if (gameMap.board[x][yPlayer].barrel == true || gameMap.board[x][yPlayer].player == currentGame.currentEnemy) {
                         stop = true;
-                        console.log("obstacle détecté en " + x)
                     } 
                     x++;
                 }
@@ -142,10 +138,10 @@ class Game{
                         gameMap.board[x][y].player = currentGame.currentPlayer;
                         currentGame.currentPlayer.position = gameMap.board[x][y];
                         currentGame.swapWeapon();
-                        //currentGame.setNextTurn();
-                        currentGame.updateGame();
+                        //currentGame.updateGame(); test
                     }
                     e.stopPropagation();
+                    //currentGame.updateGame();
                     currentGame.playGame();
                 });
             }
@@ -159,18 +155,41 @@ class Game{
         for (let x = 0; x < gameMap.board.length; x++) { // FIXME: problème de détection des bordures
             for (let y = 0; y < gameMap.board.length; y++) { 
                 if (gameMap.board[x][y].player == this.currentPlayer) {
-                    if (gameMap.board[x+1][y].player == this.currentEnemy || gameMap.board[x-1][y].player == this.currentEnemy 
+                    if (x + 1 <= gameMap.board.length){
+                        if (gameMap.board[x + 1][y].player == this.currentEnemy) {
+                            this.currentPlayer.defense = true;
+                            console.log(this.currentPlayer.name + " se défend");
+                        }
+                    }
+                    if (x - 1 > 0) {
+                        if (gameMap.board[x - 1][y].player == this.currentEnemy) {
+                            this.currentPlayer.defense = true;
+                            console.log(this.currentPlayer.name + " se défend");
+                        }
+                    }
+                    if (y + 1 <= gameMap.board.length) {
+                        if (gameMap.board[x][y + 1].player == this.currentEnemy) {
+                            this.currentPlayer.defense = true;
+                            console.log(this.currentPlayer.name + " se défend");
+                        }
+                    }
+                    if (x + 1 >0) {
+                        if (gameMap.board[x][y - 1].player == this.currentEnemy) {
+                            this.currentPlayer.defense = true;
+                            console.log(this.currentPlayer.name + " se défend");
+                        }
+                    }
+                    /*if (gameMap.board[x+1][y].player == this.currentEnemy || gameMap.board[x-1][y].player == this.currentEnemy 
                     || gameMap.board[x][y+1].player == this.currentEnemy || gameMap.board[x][y-1].player == this.currentEnemy) {
                         this.currentPlayer.defense = true;
                         console.log(this.currentPlayer.name+" se défend");
-                    }
+                    }*/
                     else {
                         alert("Vous n'êtes pas à côté d'un ennemi");
                     }
                 }
             }
         }
-        currentGame.updateGame();
         currentGame.playGame(); 
     }
 
@@ -191,27 +210,14 @@ class Game{
                 }
             }
         } 
-        currentGame.updateGame();
         currentGame.playGame(); 
-    }
-    
-    updateGame(){
-        currentGame.setNextTurn();
-        currentGame.resetHighlight();
-        console.log("reset highlight");
-        gameMap.printHtml();
-        console.log("print html");
-        currentGame.highlight();
-        console.log("highlight");
-        gameMap.lightAccessibleCells();
-        console.log("light cells");
-
     }
 
     gameOver() {
         if (currentGame.currentEnemy.health <= 0){
             this.endGame = true;
-            alert("Bravo, " + currentPlayer.name + " gagne la partie !")
+            alert("Bravo, " + currentGame.currentPlayer.name + " gagne la partie ! Cliquez sur OK pour relancer le jeu.");
+            window.location.reload();
         }
     }
 
@@ -219,15 +225,13 @@ class Game{
         /**
          * Fin de la partie lorsque les PV d'un joueurs <= 0
          */
-        if (this.endGame == false) { // FIXME: marche pas
-            currentGame.movePlayer();
-            console.log("play game");
-        }
-        if (currentGame.currentEnemy.health <= 0) {
-            this.endGame = true;
-            alert("Bravo, " + currentGame.currentPlayer.name + " gagne la partie !")
-            window.location.reload();
-        }
+        currentGame.gameOver();
+        currentGame.setNextTurn();
+        currentGame.resetHighlight();
+        gameMap.printHtml();
+        currentGame.highlight();
+        gameMap.lightAccessibleCells();
+        currentGame.movePlayer();
     }
 }
 

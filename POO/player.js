@@ -22,15 +22,11 @@ class Player{
             this.defense = false;
             console.log(this.name+" est touché mais il se défend ! Il perd quand même "+(currentGame.currentEnemy.weapon.damage/2)+" points de vie");
             console.log("Il reste "+currentGame.currentEnemy.health+" points de vie à "+currentGame.currentEnemy.name);
-            currentGame.setNextTurn();
-            currentGame.updateGame();
         }
         else {
             this.health = this.health - currentGame.currentPlayer.weapon.damage;
             console.log(this.name+" est touché, il perd "+currentGame.currentEnemy.weapon.damage+" points de vie");
             console.log("Il reste "+currentGame.currentEnemy.health+" points de vie à "+currentGame.currentEnemy.name);
-            currentGame.setNextTurn();
-            currentGame.updateGame();
         }
     }
 

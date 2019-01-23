@@ -39,10 +39,11 @@ class Map {
                     emptyCells.push({ X: x, Y: y }); // ...stockage en JSON des cellules vides
                 }
                 if (this.board[x][y].player == player1) { //FIXME: marche pas
-                    console.log("joueur 1 est en " +x +" "+y)
+                    console.log("joueur 1 est en " + x + y);
                     emptyCells.splice(-x,1);
                     emptyCells.splice(-y,1);
                     emptyCells.splice(-(x+1),1);
+                    console.log("splice" + (x + 1));
                     emptyCells.splice(-(y+1),1);
                     emptyCells.splice(-(x-1),1);
                     emptyCells.splice(-(y-1),1);
@@ -51,6 +52,28 @@ class Map {
         }
         return emptyCells;    
     }
+
+    /*playerProximity(){
+        for (let x = 0; x < this.mapSize; x++) { // on parcours l'axe X
+            for (let y = 0; y < this.mapSize; y++) {
+                if (x < this.mapSize - 1 && x > 0 && y < this.mapSize - 1 && y > 0) {
+                    console.log("le joueur n'est pas sur un bord")
+                }
+                if (y == this.mapSize - 1) {
+                    console.log("le joueur est tout à droite")
+                }
+                if (y == 0) {
+                    console.log("le joueur est tout à gauche")
+                }
+                if (x == this.mapSize - 1) {
+                    console.log("le joueur est tout en bas")
+                }
+                if (x == 0) {
+                    console.log("le joueur est tout en haut")
+                }
+            }
+        }
+    }*/
 
     placePlayers() {
         /**
@@ -66,9 +89,9 @@ class Map {
         //this.getInaccessibleCells();
         this.getEmptyCells(); // FIXME: le joueur 2 peut apparaitre à côté du joueur 1
         let player2Position = Math.floor(Math.random() * (accessibleCells.length));
-        let player2Pos = accessibleCells[player2Position];
-        this.board[player2Pos.X][player2Pos.Y].player = player2;
-        player2.position = this.board[player2Pos.X][player2Pos.Y];
+            let player2Pos = accessibleCells[player2Position];
+            this.board[player2Pos.X][player2Pos.Y].player = player2;
+            player2.position = this.board[player2Pos.X][player2Pos.Y];
     }
 
     placeWeapons() {
