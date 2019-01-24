@@ -137,12 +137,10 @@ class Game{
                         currentGame.currentPlayer.position.player = null;
                         gameMap.board[x][y].player = currentGame.currentPlayer;
                         currentGame.currentPlayer.position = gameMap.board[x][y];
-                        currentGame.swapWeapon();
-                        //currentGame.updateGame(); test
+                        currentGame.playGame();
                     }
                     e.stopPropagation();
-                    //currentGame.updateGame();
-                    currentGame.playGame();
+                    //currentGame.playGame();
                 });
             }
         }   
@@ -152,38 +150,33 @@ class Game{
         /**
          * Gestion de la défense des joueurs
          */
-        for (let x = 0; x < gameMap.board.length; x++) { // FIXME: problème de détection des bordures
+        for (let x = 0; x < gameMap.board.length; x++) {
             for (let y = 0; y < gameMap.board.length; y++) { 
                 if (gameMap.board[x][y].player == this.currentPlayer) {
-                    if (x + 1 <= gameMap.board.length){
-                        if (gameMap.board[x + 1][y].player == this.currentEnemy) {
+                    if (x < 9){
+                        if (gameMap.board[x+1][y].player == this.currentEnemy){
                             this.currentPlayer.defense = true;
-                            console.log(this.currentPlayer.name + " se défend");
+                            console.log(this.currentPlayer.name+" se défend");
                         }
                     }
-                    if (x - 1 > 0) {
-                        if (gameMap.board[x - 1][y].player == this.currentEnemy) {
+                    if (x > 0){
+                        if (gameMap.board[x-1][y].player == this.currentEnemy){
                             this.currentPlayer.defense = true;
-                            console.log(this.currentPlayer.name + " se défend");
+                            console.log(this.currentPlayer.name+" se défend");
                         }
                     }
-                    if (y + 1 <= gameMap.board.length) {
-                        if (gameMap.board[x][y + 1].player == this.currentEnemy) {
+                    if (y < 9){
+                        if (gameMap.board[x][y+1].player == this.currentEnemy){
                             this.currentPlayer.defense = true;
-                            console.log(this.currentPlayer.name + " se défend");
+                            console.log(this.currentPlayer.name+" se défend");
                         }
                     }
-                    if (x + 1 >0) {
-                        if (gameMap.board[x][y - 1].player == this.currentEnemy) {
+                    if (y > 0){
+                        if (gameMap.board[x][y-1].player == this.currentEnemy){
                             this.currentPlayer.defense = true;
-                            console.log(this.currentPlayer.name + " se défend");
+                            console.log(this.currentPlayer.name+" se défend");
                         }
                     }
-                    /*if (gameMap.board[x+1][y].player == this.currentEnemy || gameMap.board[x-1][y].player == this.currentEnemy 
-                    || gameMap.board[x][y+1].player == this.currentEnemy || gameMap.board[x][y-1].player == this.currentEnemy) {
-                        this.currentPlayer.defense = true;
-                        console.log(this.currentPlayer.name+" se défend");
-                    }*/
                     else {
                         alert("Vous n'êtes pas à côté d'un ennemi");
                     }
@@ -197,12 +190,28 @@ class Game{
         /**
          * Gestion du combat des joueurs
          */
-        for (let x = 0; x < gameMap.board.length; x++) { // FIXME: problème de détection des bordures
+        for (let x = 0; x < gameMap.board.length; x++) {
             for (let y = 0; y < gameMap.board.length; y++) {
                 if (gameMap.board[x][y].player == this.currentPlayer) {
-                    if (gameMap.board[x+1][y].player == this.currentEnemy || gameMap.board[x-1][y].player == this.currentEnemy 
-                    || gameMap.board[x][y+1].player == this.currentEnemy || gameMap.board[x][y-1].player == this.currentEnemy) {
-                        this.currentEnemy.isTouched();
+                    if (x < 9){
+                        if (gameMap.board[x+1][y].player == this.currentEnemy){
+                            this.currentEnemy.isTouched();
+                        }
+                    }
+                    if (x > 0){
+                        if (gameMap.board[x-1][y].player == this.currentEnemy){
+                            this.currentEnemy.isTouched();
+                        }
+                    }
+                    if (y < 9){
+                        if (gameMap.board[x][y+1].player == this.currentEnemy){
+                            this.currentEnemy.isTouched();
+                        }
+                    }
+                    if (y > 0){
+                        if (gameMap.board[x][y-1].player == this.currentEnemy){
+                            this.currentEnemy.isTouched();
+                        }
                     }
                     else {
                         alert("Vous n'êtes pas à côté d'un ennemi");
@@ -214,6 +223,9 @@ class Game{
     }
 
     gameOver() {
+        /**
+         * Fin de la partie lorsque les PV d'un joueurs <= 0
+         */
         if (currentGame.currentEnemy.health <= 0){
             this.endGame = true;
             alert("Bravo, " + currentGame.currentPlayer.name + " gagne la partie ! Cliquez sur OK pour relancer le jeu.");
@@ -223,9 +235,10 @@ class Game{
 
     playGame() {
         /**
-         * Fin de la partie lorsque les PV d'un joueurs <= 0
+         * Gestion du tour de chaque joueur
          */
         currentGame.gameOver();
+        currentGame.swapWeapon();
         currentGame.setNextTurn();
         currentGame.resetHighlight();
         gameMap.printHtml();

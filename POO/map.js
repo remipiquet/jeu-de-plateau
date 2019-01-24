@@ -43,10 +43,13 @@ class Map {
                     emptyCells.splice(-x,1);
                     emptyCells.splice(-y,1);
                     emptyCells.splice(-(x+1),1);
-                    console.log("splice" + (x + 1));
+                    //console.log("splice " + (x + 1));
                     emptyCells.splice(-(y+1),1);
+                    //console.log("splice " + (y + 1));
                     emptyCells.splice(-(x-1),1);
+                    //console.log("splice " + (x - 1));
                     emptyCells.splice(-(y-1),1);
+                    //console.log("splice " + (y - 1));
                 }  
             }    
         }
@@ -86,13 +89,25 @@ class Map {
         this.board[player1Pos.X][player1Pos.Y].player = player1;
         player1.position = this.board[player1Pos.X][player1Pos.Y];
 
-        //this.getInaccessibleCells();
         this.getEmptyCells(); // FIXME: le joueur 2 peut apparaitre à côté du joueur 1
         let player2Position = Math.floor(Math.random() * (accessibleCells.length));
+        let player2Pos = accessibleCells[player2Position];
+        this.board[player2Pos.X][player2Pos.Y].player = player2;
+        player2.position = this.board[player2Pos.X][player2Pos.Y];
+        if (this.board[player1Pos.X] === this.board[player2Pos.X] || this.board[player1Pos.Y] === this.board[player2Pos.Y]) {
+            console.log("reroll "+this.board[player1Pos.X]);
+            player1.position.player = null;
+            player2.position.player = null;
+            this.placePlayers();
+            /*this.getEmptyCells();
+            let player2Position = Math.floor(Math.random() * (accessibleCells.length));
             let player2Pos = accessibleCells[player2Position];
             this.board[player2Pos.X][player2Pos.Y].player = player2;
-            player2.position = this.board[player2Pos.X][player2Pos.Y];
+            player2.position = this.board[player2Pos.X][player2Pos.Y];*/
+        }
     }
+        
+    
 
     placeWeapons() {
         /**
