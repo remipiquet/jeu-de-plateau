@@ -5,7 +5,6 @@ class Weapon {
         this.damage = damage;
         this.imgUrl = imgUrl;
     }
-
-};
+}
 
 

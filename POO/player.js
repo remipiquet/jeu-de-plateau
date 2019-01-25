@@ -8,11 +8,12 @@ class Player{
         this.defense = false;
         this.imgUrl = imgUrl;
         this.index = 0;
-        this.positionX = null;
-        this.positionY = null;
     }
 
     isTouched() {
+        /**
+         * Gestion d'un joueur touché
+         */
         if (this.defense == true){
             this.health = this.health - (currentGame.currentPlayer.weapon.damage/2);
             this.defense = false;
@@ -25,5 +26,4 @@ class Player{
             console.log("Il reste "+currentGame.currentEnemy.health+" points de vie à "+currentGame.currentEnemy.name);
         }
     }
-
-}; 
+} 

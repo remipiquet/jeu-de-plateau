@@ -1,14 +1,9 @@
 class Map {
-    /**
-     * 
-     */
     constructor (mapSize, statBarrels){
         this.mapSize = mapSize;
         this.statBarrels = statBarrels;
         this.board = [];
         this.reDraw = false;
-        this.currentPlayer = player1;
-        this.currentEnemy = player2;
     }    
     
     generate() {
@@ -32,64 +27,25 @@ class Map {
         /**
          * Récupération des cases vides
          */
-        let emptyCells = new Array(); // on crée un tableau
-        for (let x = 0; x < this.mapSize; x++) { // on parcours l'axe X
-            for (let y = 0; y < this.mapSize; y++) { // on parcours l'axe Y
-                if (this.board[x][y].barrel == false) { // si les cellules parcourues du tableau sont innaccessibles...
-                    emptyCells.push({ X: x, Y: y }); // ...stockage en JSON des cellules vides
-                }
-                if (this.board[x][y].player == player1) { //FIXME: marche pas
-                    console.log("joueur 1 est en " + x + y);
-                    emptyCells.splice(-x,1);
-                    emptyCells.splice(-y,1);
-                    emptyCells.splice(-(x+1),1);
-                    //console.log("splice " + (x + 1));
-                    emptyCells.splice(-(y+1),1);
-                    //console.log("splice " + (y + 1));
-                    emptyCells.splice(-(x-1),1);
-                    //console.log("splice " + (x - 1));
-                    emptyCells.splice(-(y-1),1);
-                    //console.log("splice " + (y - 1));
-                }  
+        let emptyCells = new Array();
+        for (let x = 0; x < this.mapSize; x++) {
+            for (let y = 0; y < this.mapSize; y++) {
+                if (this.board[x][y].barrel == false) {emptyCells.push({ X: x, Y: y });}
             }    
         }
         return emptyCells;    
     }
 
-    /*playerProximity(){
-        for (let x = 0; x < this.mapSize; x++) { // on parcours l'axe X
-            for (let y = 0; y < this.mapSize; y++) {
-                if (x < this.mapSize - 1 && x > 0 && y < this.mapSize - 1 && y > 0) {
-                    console.log("le joueur n'est pas sur un bord")
-                }
-                if (y == this.mapSize - 1) {
-                    console.log("le joueur est tout à droite")
-                }
-                if (y == 0) {
-                    console.log("le joueur est tout à gauche")
-                }
-                if (x == this.mapSize - 1) {
-                    console.log("le joueur est tout en bas")
-                }
-                if (x == 0) {
-                    console.log("le joueur est tout en haut")
-                }
-            }
-        }
-    }*/
-
     placePlayers() {
         /**
          * Placement des joueurs sur le plateau
          */
-
         let accessibleCells = this.getEmptyCells();
         let player1Position = Math.floor(Math.random() * (accessibleCells.length));
         let player1Pos = accessibleCells[player1Position];
         this.board[player1Pos.X][player1Pos.Y].player = player1;
         player1.position = this.board[player1Pos.X][player1Pos.Y];
 
-        this.getEmptyCells(); // FIXME: le joueur 2 peut apparaitre à côté du joueur 1
         let player2Position = Math.floor(Math.random() * (accessibleCells.length));
         let player2Pos = accessibleCells[player2Position];
         this.board[player2Pos.X][player2Pos.Y].player = player2;
@@ -99,11 +55,6 @@ class Map {
             player1.position.player = null;
             player2.position.player = null;
             this.placePlayers();
-            /*this.getEmptyCells();
-            let player2Position = Math.floor(Math.random() * (accessibleCells.length));
-            let player2Pos = accessibleCells[player2Position];
-            this.board[player2Pos.X][player2Pos.Y].player = player2;
-            player2.position = this.board[player2Pos.X][player2Pos.Y];*/
         }
     }
         
@@ -133,6 +84,9 @@ class Map {
     }
 
     lightAccessibleCells() {
+        /**
+         * Surlignage des cases acccessibles au joueur
+         */
         let myBoard = gameMap.board;
         for (let x = 0; x < gameMap.board.length; x++) {
             for (let y = 0; y < gameMap.board.length; y++) {
@@ -147,6 +101,9 @@ class Map {
     }
 
     resetPrint() {
+        /**
+         * Remise à zéro de l'affichage du plateau de jeu
+         */
         for (let x = 0; x < this.board.length; x++) {
             let row = $("#x"+x);
             $(".row").empty();
@@ -160,6 +117,9 @@ class Map {
     }  
 
     printHtml() { 
+        /**
+         * Affichage du plateau de jeu
+         */
         if (this.reDraw == true) {
                 this.resetPrint();
             } else {

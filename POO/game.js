@@ -1,8 +1,8 @@
 class Game{
     constructor(){
-        this.endGame = false;
         this.currentPlayer = player1;
         this.currentEnemy = player2;
+        this.endGame = false;
     }
 
     setNextTurn() {
@@ -41,6 +41,9 @@ class Game{
     }
 
     resetHighlight() {
+        /**
+         * Remise à zéro du surlignage
+         */
         for (var x = 0; x < gameMap.board.length; x++) {
             for (var y = 0; y < gameMap.board.length; y++) {
                 gameMap.board[x][y].highlight = false;
@@ -110,6 +113,9 @@ class Game{
     }
 
         highlight() {
+            /**
+             * Définition des cases sur lesquelles le joueur en ccours peut se déplacer
+             */
             for (var x = 0; x < gameMap.board.length; x++) { 
                 for (var y = 0; y < gameMap.board.length; y++) { 
                     if (gameMap.board[x][y].player == currentGame.currentPlayer) { 
@@ -140,7 +146,6 @@ class Game{
                         currentGame.playGame();
                     }
                     e.stopPropagation();
-                    //currentGame.playGame();
                 });
             }
         }   

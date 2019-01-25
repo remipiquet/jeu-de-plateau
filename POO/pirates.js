@@ -1,7 +1,6 @@
 /**
  * Lancement des fonctions
  */
-
 const weapon1 = new Weapon (1, "hook", 10, '<img src="img/hook.png" alt="hook"></img>');
 const weapon2 = new Weapon (2, "knife", 20, '<img src="img/knife.png" alt="knife"></img>');
 const weapon3 = new Weapon (3, "sword", 30, '<img src="img/sword.png" alt="sword"></img>');
@@ -31,4 +30,5 @@ currentGame.highlight();
 gameMap.lightAccessibleCells();
 
 currentGame.movePlayer();
+
 

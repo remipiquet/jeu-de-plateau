@@ -9,14 +9,4 @@ class Cell{
         this.positionX = X;
         this.positionY = Y;
     }
-
-    
-    printHTML() {
-        /**
-         * Gestion de l'affichage sur la page HTML
-         */
-        
-
-    }
-
-};  
+}  
