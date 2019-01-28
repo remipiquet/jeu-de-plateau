@@ -1,6 +1,9 @@
 /**
  * Lancement des fonctions
  */
+
+//TODO: Tout balancer dans game.js sauf le currentGame avec une méthode start
+
 const weapon1 = new Weapon (1, "hook", 10, '<img src="img/hook.png" alt="hook"></img>');
 const weapon2 = new Weapon (2, "knife", 20, '<img src="img/knife.png" alt="knife"></img>');
 const weapon3 = new Weapon (3, "sword", 30, '<img src="img/sword.png" alt="sword"></img>');
@@ -12,7 +15,7 @@ var player2 = new Player ("Joueur 2", 100, weapon1, '<img src="img/player2.png" 
 
 const gameMap = new Map(10, 10);
 
-gameMap.generate(); 
+gameMap.generate();
 
 gameMap.getEmptyCells();
 
@@ -23,7 +26,7 @@ gameMap.placeWeapons();
 gameMap.printHtml();
 
 
-const currentGame = new Game();
+const currentGame = new Game(); // A garder dans pirates.js et ajouter une méthode start
 
 currentGame.highlight();
 
