@@ -13,25 +13,34 @@ const weapon5 = new Weapon (5, "gun", 50, '<img src="img/gun.png" alt="gun"></im
 var player1 = new Player ("Joueur 1", 100, weapon1, '<img src="img/player1.png" alt="player1"></img>');
 var player2 = new Player ("Joueur 2", 100, weapon1, '<img src="img/player2.png" alt="player2"></img>');
 
-const gameMap = new Map(10, 10);
-
-gameMap.generate();
-
-gameMap.getEmptyCells();
-
-gameMap.placePlayers();
-
-gameMap.placeWeapons();
-
-gameMap.printHtml();
-
+//const gameMap = new Map(10, 10);
 
 const currentGame = new Game(); // A garder dans pirates.js et ajouter une méthode start
 
-currentGame.highlight();
+start = function(){
+    currentGame.gameMap.generate();
 
-gameMap.lightAccessibleCells();
+    currentGame.gameMap.getEmptyCells();
 
-currentGame.movePlayer();
+    currentGame.gameMap.placePlayers();
+
+    currentGame.gameMap.placeWeapons();
+
+    currentGame.gameMap.printHtml();
+
+    currentGame.highlight();
+
+    currentGame.gameMap.lightAccessibleCells();
+
+    currentGame.movePlayer();
+}
+
+start();
+
+
+
+
+
+
 
 

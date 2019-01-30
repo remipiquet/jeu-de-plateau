@@ -1,6 +1,6 @@
 class Game{
     constructor(){
-        this.currentMap = new map (10, 10); // A remplacer
+        this.gameMap = new Map(10, 10);
         this.currentPlayer = player1;
         this.currentEnemy = player2;
         this.endGame = false;
@@ -30,11 +30,11 @@ class Game{
         /**
          * Echange l'arme de currentPlayer contre celle qui est sur sa case
          */
-        for (let x = 0; x < gameMap.board.length; x++) {
-            for (let y = 0; y < gameMap.board.length; y++) { 
-                if (gameMap.board[x][y] == currentGame.currentPlayer.position && gameMap.board[x][y].weapon != null) { //TODO: changer currentPlayer.position en getter
-                    var weaponBuffer = gameMap.board[x][y].weapon;
-                    gameMap.board[x][y].weapon = currentGame.currentPlayer.weapon; // changer en getter
+        for (let x = 0; x < this.gameMap.board.length; x++) {
+            for (let y = 0; y < this.gameMap.board.length; y++) {
+                if (this.gameMap.board[x][y] == currentGame.currentPlayer.position && this.gameMap.board[x][y].weapon != null) { //TODO: changer currentPlayer.position en getter
+                    var weaponBuffer = this.gameMap.board[x][y].weapon;
+                    this.gameMap.board[x][y].weapon = currentGame.currentPlayer.weapon; // changer en getter
                     currentGame.currentPlayer.weapon = weaponBuffer; // changer en getter
                 }
             }
@@ -45,9 +45,9 @@ class Game{
         /**
          * Remise à zéro du surlignage
          */
-        for (var x = 0; x < gameMap.board.length; x++) {
-            for (var y = 0; y < gameMap.board.length; y++) {
-                gameMap.board[x][y].highlight = false;
+        for (var x = 0; x < this.gameMap.board.length; x++) {
+            for (var y = 0; y < this.gameMap.board.length; y++) {
+                this.gameMap.board[x][y].highlight = false;
             }
         }
     }
@@ -63,7 +63,7 @@ class Game{
                 var stop = false;
                 var leftScope = yPlayer-3;
                 while (y >= 0 && y >= leftScope && !stop) {
-                    if (gameMap.board[xPlayer][y].barrel == true || gameMap.board[xPlayer][y].player == currentGame.currentEnemy) {
+                    if (this.gameMap.board[xPlayer][y].barrel == true || this.gameMap.board[xPlayer][y].player == currentGame.currentEnemy) {
                         stop = true;
                     }
                     y--;
@@ -74,8 +74,8 @@ class Game{
                 var y = yPlayer;
                 var stop = false;
                 var rightScope = yPlayer+3;
-                while (y < gameMap.board.length && y <= rightScope && !stop) {
-                    if (gameMap.board[xPlayer][y].barrel == true || gameMap.board[xPlayer][y].player == currentGame.currentEnemy) {
+                while (y < this.gameMap.board.length && y <= rightScope && !stop) {
+                    if (this.gameMap.board[xPlayer][y].barrel == true || this.gameMap.board[xPlayer][y].player == currentGame.currentEnemy) {
                         stop = true;
                     }
                     y++;
@@ -87,7 +87,7 @@ class Game{
                 var stop = false;
                 var upScope = xPlayer-3;
                 while (x >= 0 && x >= upScope && !stop) {
-                    if (gameMap.board[x][yPlayer].barrel == true || gameMap.board[x][yPlayer].player == currentGame.currentEnemy) {
+                    if (this.gameMap.board[x][yPlayer].barrel == true || this.gameMap.board[x][yPlayer].player == currentGame.currentEnemy) {
                         stop = true;
                     }
                     x--;
@@ -98,8 +98,8 @@ class Game{
                 var x = xPlayer;
                 var stop = false;
                 var downScope = xPlayer+3;
-                while (x < gameMap.board.length && x <= downScope && !stop) {
-                    if (gameMap.board[x][yPlayer].barrel == true || gameMap.board[x][yPlayer].player == currentGame.currentEnemy) {
+                while (x < this.gameMap.board.length && x <= downScope && !stop) {
+                    if (this.gameMap.board[x][yPlayer].barrel == true || this.gameMap.board[x][yPlayer].player == currentGame.currentEnemy) {
                         stop = true;
                     } 
                     x++;
@@ -115,19 +115,27 @@ class Game{
 
         highlight() {
             /**
-             * Définition des cases sur lesquelles le joueur en ccours peut se déplacer
+             * Définition des cases sur lesquelles le joueur en cours peut se déplacer
              */
-            for (var x = 0; x < gameMap.board.length; x++) { 
-                for (var y = 0; y < gameMap.board.length; y++) { 
-                    if (gameMap.board[x][y].player == currentGame.currentPlayer) { 
+            for (var x = 0; x < this.gameMap.board.length; x++) {
+                for (var y = 0; y < this.gameMap.board.length; y++) {
+                    if (this.gameMap.board[x][y].player == currentGame.currentPlayer) {
                         let limitUp = this.mapLimit(x, y, "up"); 
-                        for (var upX = x; upX >= limitUp; upX--) {gameMap.board[upX][y].highlight = true;} // A remplacer par set Highlight
+                        for (var upX = x; upX >= limitUp; upX--) {
+                            this.gameMap.board[upX][y].highlight = true;
+                        } // A remplacer par set Highlight
                         let limitDown = this.mapLimit(x, y, "down");
-                        for (var downX = x; downX <= limitDown; downX++) {gameMap.board[downX][y].highlight = true;}
+                        for (var downX = x; downX <= limitDown; downX++) {
+                            this.gameMap.board[downX][y].highlight = true;
+                        }
                         let limitLeft = this.mapLimit(x, y, "left");
-                        for (var leftY = y; leftY >= limitLeft; leftY--) {gameMap.board[x][leftY].highlight = true;}
+                        for (var leftY = y; leftY >= limitLeft; leftY--) {
+                            this.gameMap.board[x][leftY].highlight = true;
+                        }
                         let limitRight = this.mapLimit(x, y, "right");
-                        for (var rightY = y; rightY <= limitRight; rightY++) {gameMap.board[x][rightY].highlight = true;}
+                        for (var rightY = y; rightY <= limitRight; rightY++) {
+                            this.gameMap.board[x][rightY].highlight = true;
+                        }
                     }
                 }
             }
@@ -137,13 +145,14 @@ class Game{
         /**
          * Gestion des mouvements des joueurs
          */
-        for (let x = 0; x < gameMap.board.length; x++) { 
-            for (let y = 0; y < gameMap.board.length; y++) { 
+        for (let x = 0; x < this.gameMap.board.length; x++) {
+            for (let y = 0; y < this.gameMap.board.length; y++) {
                 $("#"+x+y ).click(function(e) {
-                    if (gameMap.board[x][y].highlight == true) {
+                    if (currentGame.gameMap.board[x][y].highlight == true) {
                         currentGame.currentPlayer.position.player = null;
-                        gameMap.board[x][y].player = currentGame.currentPlayer;
-                        currentGame.currentPlayer.position = gameMap.board[x][y];
+                        currentGame.gameMap.board[x][y].player = currentGame.currentPlayer;
+                        currentGame.currentPlayer.position = currentGame.gameMap.board[x][y];
+                        currentGame.swapWeapon();
                         currentGame.playGame();
                     }
                     e.stopPropagation();
@@ -156,76 +165,73 @@ class Game{
         /**
          * Gestion de la défense des joueurs
          */
-        for (let x = 0; x < gameMap.board.length; x++) {
-            for (let y = 0; y < gameMap.board.length; y++) { 
-                if (gameMap.board[x][y].player == this.currentPlayer) {
+        for (let x = 0; x < this.gameMap.board.length; x++) {
+            for (let y = 0; y < this.gameMap.board.length; y++) {
+                if (this.gameMap.board[x][y].player == this.currentPlayer) {
                     if (x < 9){
-                        if (gameMap.board[x+1][y].player == this.currentEnemy){
-                            this.currentPlayer.defense = true;
-                            console.log(this.currentPlayer.name+" se défend");
+                        if (this.gameMap.board[x + 1][y].player == this.currentEnemy) {
+                            this.currentPlayer.isInDefense();
+                            break;
                         }
                     }
                     if (x > 0){
-                        if (gameMap.board[x-1][y].player == this.currentEnemy){
-                            this.currentPlayer.defense = true;
-                            console.log(this.currentPlayer.name+" se défend");
+                        if (this.gameMap.board[x - 1][y].player == this.currentEnemy) {
+                            this.currentPlayer.isInDefense();
+                            break;
                         }
                     }
                     if (y < 9){
-                        if (gameMap.board[x][y+1].player == this.currentEnemy){
-                            this.currentPlayer.defense = true;
-                            console.log(this.currentPlayer.name+" se défend");
+                        if (this.gameMap.board[x][y + 1].player == this.currentEnemy) {
+                            this.currentPlayer.isInDefense();
+                            break;
                         }
                     }
                     if (y > 0){
-                        if (gameMap.board[x][y-1].player == this.currentEnemy){
-                            this.currentPlayer.defense = true;
-                            console.log(this.currentPlayer.name+" se défend");
+                        if (this.gameMap.board[x][y - 1].player == this.currentEnemy) {
+                            this.currentPlayer.isInDefense();
+                            break;
                         }
-                    }
-                    else {
-                        alert("Vous n'êtes pas à côté d'un ennemi");
                     }
                 }
             }
         }
-        currentGame.playGame(); 
     }
 
     fight() { // TODO: A passer dans player.js
         /**
          * Gestion du combat des joueurs
          */
-        for (let x = 0; x < gameMap.board.length; x++) {
-            for (let y = 0; y < gameMap.board.length; y++) {
-                if (gameMap.board[x][y].player == this.currentPlayer) {
+        for (let x = 0; x < this.gameMap.board.length; x++) {
+            for (let y = 0; y < this.gameMap.board.length; y++) {
+                if (this.gameMap.board[x][y].player == this.currentPlayer) {
                     if (x < 9){
-                        if (gameMap.board[x+1][y].player == this.currentEnemy){
+                        if (this.gameMap.board[x + 1][y].player == this.currentEnemy) {
                             this.currentEnemy.isTouched();
+                            break;
                         }
                     }
                     if (x > 0){
-                        if (gameMap.board[x-1][y].player == this.currentEnemy){
+                        if (this.gameMap.board[x - 1][y].player == this.currentEnemy) {
                             this.currentEnemy.isTouched();
+                            break;
                         }
                     }
                     if (y < 9){
-                        if (gameMap.board[x][y+1].player == this.currentEnemy){
+                        if (this.gameMap.board[x][y + 1].player == this.currentEnemy) {
                             this.currentEnemy.isTouched();
+                            break;
                         }
                     }
                     if (y > 0){
-                        if (gameMap.board[x][y-1].player == this.currentEnemy){
+                        if (this.gameMap.board[x][y - 1].player == this.currentEnemy) {
                             this.currentEnemy.isTouched();
+                            break;
                         }
-                    }
-                    else {
-                        alert("Vous n'êtes pas à côté d'un ennemi");
                     }
                 }
             }
         } 
-        currentGame.playGame(); 
+        
     }
 
     gameOver() {
@@ -244,12 +250,11 @@ class Game{
          * Gestion du tour de chaque joueur
          */
         currentGame.gameOver();
-        currentGame.swapWeapon();
         currentGame.setNextTurn();
         currentGame.resetHighlight();
-        gameMap.printHtml();
+        this.gameMap.printHtml();
         currentGame.highlight();
-        gameMap.lightAccessibleCells();
+        this.gameMap.lightAccessibleCells();
         currentGame.movePlayer();
     }
 }

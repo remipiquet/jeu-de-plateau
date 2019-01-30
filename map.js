@@ -87,9 +87,9 @@ class Map {
         /**
          * Surlignage des cases acccessibles au joueur
          */
-        let myBoard = gameMap.board;
-        for (let x = 0; x < gameMap.board.length; x++) {
-            for (let y = 0; y < gameMap.board.length; y++) {
+        let myBoard = currentGame.gameMap.board;
+        for (let x = 0; x < currentGame.gameMap.board.length; x++) {
+            for (let y = 0; y < currentGame.gameMap.board.length; y++) {
                 if (myBoard[x][y].highlight == true && myBoard[x][y].barrel == false && myBoard[x][y].player == null) {
                     $('#' + x + y).addClass("light");
                 }

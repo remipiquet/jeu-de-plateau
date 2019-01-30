@@ -25,5 +25,15 @@ class Player{
             console.log(this.name+" est touché, il perd "+currentGame.currentEnemy.weapon.damage+" points de vie");
             console.log("Il reste "+currentGame.currentEnemy.health+" points de vie à "+currentGame.currentEnemy.name);
         }
+        currentGame.playGame();
+    }
+
+    isInDefense(){
+        /**
+         * Gestion de la défense des joueurs
+         */
+        this.defense = true;
+        console.log(this.name + " se défend");
+        currentGame.playGame();
     }
 } 
