@@ -6,6 +6,10 @@ class Game{
         this.endGame = false;
     }
 
+    howTo() {
+        alert("Cliquez sur les cases surlignées en orange pour déplacer le joueur dont c'est le tour. Passez sur une case contenant une arme pour en changer. Lorsque les deux joueurs sont côte à côte, ils peuvent choisir de se battre, de se défendre, ou de fuir. Dès que l'un des joueurs a 0 points de vie, l'autre joueur gagne. Bon jeu !");
+    }
+
     setNextTurn() {
         /**
          * Gestion du tour par tour
@@ -108,7 +112,6 @@ class Game{
                 break;
             default :
                 limit = -1;
-                console.log(direction);
         }
         return limit;
     }
