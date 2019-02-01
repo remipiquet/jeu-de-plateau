@@ -14,17 +14,15 @@ class Game{
         /**
          * Gestion du tour par tour
          */
-        if (currentGame.currentPlayer == player1){ // TODO: Remplacer tous les currentGame par this
-            currentGame.currentPlayer = player2;
-            currentGame.currentEnemy = player1;
-            console.log("Joueur 2, à toi de jouer !");
-            return currentGame.currentPlayer && currentGame.currentEnemy;
+        if (this.currentPlayer == player1){
+            this.currentPlayer = player2;
+            this.currentEnemy = player1;
+            return this.currentPlayer && this.currentEnemy;
         }
-        if (currentGame.currentPlayer == player2) {
-            currentGame.currentPlayer = player1;
-            currentGame.currentEnemy = player2;
-            console.log("Joueur 1, à toi de jouer !");
-            return currentGame.currentPlayer && currentGame.currentEnemy;
+        if (this.currentPlayer == player2) {
+            this.currentPlayer = player1;
+            this.currentEnemy = player2;
+            return this.currentPlayer && this.currentEnemy;
         }
     }
     
@@ -36,10 +34,10 @@ class Game{
          */
         for (let x = 0; x < this.gameMap.board.length; x++) {
             for (let y = 0; y < this.gameMap.board.length; y++) {
-                if (this.gameMap.board[x][y] == currentGame.currentPlayer.position && this.gameMap.board[x][y].weapon != null) { //TODO: changer currentPlayer.position en getter
+                if (this.gameMap.board[x][y] == this.currentPlayer.position && this.gameMap.board[x][y].weapon != null) { //TODO: changer currentPlayer.position en getter
                     var weaponBuffer = this.gameMap.board[x][y].weapon;
-                    this.gameMap.board[x][y].weapon = currentGame.currentPlayer.weapon; // changer en getter
-                    currentGame.currentPlayer.weapon = weaponBuffer; // changer en getter
+                    this.gameMap.board[x][y].weapon = this.currentPlayer.weapon; // changer en getter
+                    this.currentPlayer.weapon = weaponBuffer; // changer en getter
                 }
             }
         }
@@ -67,7 +65,7 @@ class Game{
                 var stop = false;
                 var leftScope = yPlayer-3;
                 while (y >= 0 && y >= leftScope && !stop) {
-                    if (this.gameMap.board[xPlayer][y].barrel == true || this.gameMap.board[xPlayer][y].player == currentGame.currentEnemy) {
+                    if (this.gameMap.board[xPlayer][y].barrel == true || this.gameMap.board[xPlayer][y].player == this.currentEnemy) {
                         stop = true;
                     }
                     y--;
@@ -79,7 +77,7 @@ class Game{
                 var stop = false;
                 var rightScope = yPlayer+3;
                 while (y < this.gameMap.board.length && y <= rightScope && !stop) {
-                    if (this.gameMap.board[xPlayer][y].barrel == true || this.gameMap.board[xPlayer][y].player == currentGame.currentEnemy) {
+                    if (this.gameMap.board[xPlayer][y].barrel == true || this.gameMap.board[xPlayer][y].player == this.currentEnemy) {
                         stop = true;
                     }
                     y++;
@@ -91,7 +89,7 @@ class Game{
                 var stop = false;
                 var upScope = xPlayer-3;
                 while (x >= 0 && x >= upScope && !stop) {
-                    if (this.gameMap.board[x][yPlayer].barrel == true || this.gameMap.board[x][yPlayer].player == currentGame.currentEnemy) {
+                    if (this.gameMap.board[x][yPlayer].barrel == true || this.gameMap.board[x][yPlayer].player == this.currentEnemy) {
                         stop = true;
                     }
                     x--;
@@ -103,7 +101,7 @@ class Game{
                 var stop = false;
                 var downScope = xPlayer+3;
                 while (x < this.gameMap.board.length && x <= downScope && !stop) {
-                    if (this.gameMap.board[x][yPlayer].barrel == true || this.gameMap.board[x][yPlayer].player == currentGame.currentEnemy) {
+                    if (this.gameMap.board[x][yPlayer].barrel == true || this.gameMap.board[x][yPlayer].player == this.currentEnemy) {
                         stop = true;
                     } 
                     x++;
@@ -122,23 +120,15 @@ class Game{
              */
             for (var x = 0; x < this.gameMap.board.length; x++) {
                 for (var y = 0; y < this.gameMap.board.length; y++) {
-                    if (this.gameMap.board[x][y].player == currentGame.currentPlayer) {
+                    if (this.gameMap.board[x][y].player == this.currentPlayer) {
                         let limitUp = this.mapLimit(x, y, "up"); 
-                        for (var upX = x; upX >= limitUp; upX--) {
-                            this.gameMap.board[upX][y].highlight = true;
-                        } // A remplacer par set Highlight
+                        for (var upX = x; upX >= limitUp; upX--) {this.gameMap.board[upX][y].highlight = true;} //TODO: A remplacer par set Highlight
                         let limitDown = this.mapLimit(x, y, "down");
-                        for (var downX = x; downX <= limitDown; downX++) {
-                            this.gameMap.board[downX][y].highlight = true;
-                        }
+                        for (var downX = x; downX <= limitDown; downX++) {this.gameMap.board[downX][y].highlight = true;}
                         let limitLeft = this.mapLimit(x, y, "left");
-                        for (var leftY = y; leftY >= limitLeft; leftY--) {
-                            this.gameMap.board[x][leftY].highlight = true;
-                        }
+                        for (var leftY = y; leftY >= limitLeft; leftY--) {this.gameMap.board[x][leftY].highlight = true;}
                         let limitRight = this.mapLimit(x, y, "right");
-                        for (var rightY = y; rightY <= limitRight; rightY++) {
-                            this.gameMap.board[x][rightY].highlight = true;
-                        }
+                        for (var rightY = y; rightY <= limitRight; rightY++) {this.gameMap.board[x][rightY].highlight = true;}
                     }
                 }
             }
@@ -148,10 +138,10 @@ class Game{
         /**
          * Gestion des mouvements des joueurs
          */
-        for (let x = 0; x < this.gameMap.board.length; x++) {
+        for (let x = 0; x < this.gameMap.board.length; x++) { 
             for (let y = 0; y < this.gameMap.board.length; y++) {
                 $("#"+x+y ).click(function(e) {
-                    if (currentGame.gameMap.board[x][y].highlight == true) {
+                    if (currentGame.gameMap.board[x][y].highlight == true) { // FIXME: pourquoi currentGame ne peut pas être remplacé par this ?
                         currentGame.currentPlayer.position.player = null;
                         currentGame.gameMap.board[x][y].player = currentGame.currentPlayer;
                         currentGame.currentPlayer.position = currentGame.gameMap.board[x][y];
@@ -164,86 +154,14 @@ class Game{
         }   
     }    
 
-    defend() { // TODO: A passer dans player.js
-        /**
-         * Gestion de la défense des joueurs
-         */
-        for (let x = 0; x < this.gameMap.board.length; x++) {
-            for (let y = 0; y < this.gameMap.board.length; y++) {
-                if (this.gameMap.board[x][y].player == this.currentPlayer) {
-                    if (x < 9){
-                        if (this.gameMap.board[x + 1][y].player == this.currentEnemy) {
-                            this.currentPlayer.isInDefense();
-                            break;
-                        }
-                    }
-                    if (x > 0){
-                        if (this.gameMap.board[x - 1][y].player == this.currentEnemy) {
-                            this.currentPlayer.isInDefense();
-                            break;
-                        }
-                    }
-                    if (y < 9){
-                        if (this.gameMap.board[x][y + 1].player == this.currentEnemy) {
-                            this.currentPlayer.isInDefense();
-                            break;
-                        }
-                    }
-                    if (y > 0){
-                        if (this.gameMap.board[x][y - 1].player == this.currentEnemy) {
-                            this.currentPlayer.isInDefense();
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    fight() { // TODO: A passer dans player.js
-        /**
-         * Gestion du combat des joueurs
-         */
-        for (let x = 0; x < this.gameMap.board.length; x++) {
-            for (let y = 0; y < this.gameMap.board.length; y++) {
-                if (this.gameMap.board[x][y].player == this.currentPlayer) {
-                    if (x < 9){
-                        if (this.gameMap.board[x + 1][y].player == this.currentEnemy) {
-                            this.currentEnemy.isTouched();
-                            break;
-                        }
-                    }
-                    if (x > 0){
-                        if (this.gameMap.board[x - 1][y].player == this.currentEnemy) {
-                            this.currentEnemy.isTouched();
-                            break;
-                        }
-                    }
-                    if (y < 9){
-                        if (this.gameMap.board[x][y + 1].player == this.currentEnemy) {
-                            this.currentEnemy.isTouched();
-                            break;
-                        }
-                    }
-                    if (y > 0){
-                        if (this.gameMap.board[x][y - 1].player == this.currentEnemy) {
-                            this.currentEnemy.isTouched();
-                            break;
-                        }
-                    }
-                }
-            }
-        } 
-        
-    }
 
     gameOver() {
         /**
          * Fin de la partie lorsque les PV d'un joueurs <= 0
          */
-        if (currentGame.currentEnemy.health <= 0){
+        if (this.currentEnemy.health <= 0){
             this.endGame = true;
-            alert("Bravo, " + currentGame.currentPlayer.name + " gagne la partie ! Cliquez sur OK pour relancer le jeu.");
+            alert("Bravo, " + this.currentPlayer.name + " gagne la partie ! Cliquez sur OK pour relancer le jeu.");
             window.location.reload();
         }
     }
@@ -252,15 +170,42 @@ class Game{
         /**
          * Gestion du tour de chaque joueur
          */
-        currentGame.gameOver();
-        currentGame.setNextTurn();
-        currentGame.resetHighlight();
+        this.gameOver();
+        this.setNextTurn();
+        this.resetHighlight();
         this.gameMap.printHtml();
-        currentGame.highlight();
+        this.highlight();
         this.gameMap.lightAccessibleCells();
-        currentGame.movePlayer();
+        this.movePlayer();
+    }
+
+    start() {
+        this.gameMap.generate();
+    
+        this.gameMap.getEmptyCells();
+    
+        this.gameMap.placePlayers();
+    
+        this.gameMap.placeWeapons();
+    
+        this.gameMap.printHtml();
+    
+        this.highlight();
+    
+        this.gameMap.lightAccessibleCells();
+    
+        this.movePlayer();
     }
 }
+
+const weapon1 = new Weapon (1, "hook", 10, '<img src="img/hook.png" alt="hook"></img>');
+const weapon2 = new Weapon (2, "knife", 20, '<img src="img/knife.png" alt="knife"></img>');
+const weapon3 = new Weapon (3, "sword", 30, '<img src="img/sword.png" alt="sword"></img>');
+const weapon4 = new Weapon (4, "harpoon", 40, '<img src="img/harpoon.png" alt="harpoon"></img>');
+const weapon5 = new Weapon (5, "gun", 50, '<img src="img/gun.png" alt="gun"></img>');
+
+var player1 = new Player ("Joueur 1", 100, weapon1, '<img src="img/player1.png" alt="player1"></img>');
+var player2 = new Player ("Joueur 2", 100, weapon1, '<img src="img/player2.png" alt="player2"></img>');
 
 
 

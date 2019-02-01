@@ -51,7 +51,6 @@ class Map {
         this.board[player2Pos.X][player2Pos.Y].player = player2;
         player2.position = this.board[player2Pos.X][player2Pos.Y];
         if (this.board[player1Pos.X] === this.board[player2Pos.X] || this.board[player1Pos.Y] === this.board[player2Pos.Y]) {
-            console.log("reroll "+this.board[player1Pos.X]);
             player1.position.player = null;
             player2.position.player = null;
             this.placePlayers();
@@ -105,7 +104,7 @@ class Map {
          * Remise à zéro de l'affichage du plateau de jeu
          */
         for (let x = 0; x < this.board.length; x++) {
-            let row = $("#x"+x);
+            let row = $("#x"+x); //selecteur jQuery
             $(".row").empty();
             $('#player1Health').empty();
             $('#player2Health').empty();
@@ -130,7 +129,6 @@ class Map {
             var row = $('<tr class="row"></tr>').attr('id', "x"+x);
             for (let y = 0; y < this.board.length; y++) {
                 row.append(function(){
-                    //$("#y"+y).empty();
                     let caseContent = "<td id="+ x + y +"></td>";
                     let barrelImg = '<img src="img/barrel.png" alt="barrel"></img>';
                     if (myBoard[x][y].barrel == true) {

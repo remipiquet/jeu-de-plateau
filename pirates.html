@@ -5,13 +5,12 @@
         <link rel="stylesheet" href="style.css" />
         <title>Pirates!</title>
         <link rel="icon" type="image/png" href="img/pirateFlag.png" />
-        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-        crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     </head>
     <body>
         <div id="buttonsZone">
-            <button class="buttons" id="attack" onclick="currentGame.fight()">Attaquer</button>
-            <button class="buttons" id="defend" onclick="currentGame.defend()">Se défendre</button>
+            <button class="buttons" id="attack" onclick="currentGame.currentPlayer.fight()">Attaquer</button>
+            <button class="buttons" id="defend" onclick="currentGame.currentPlayer.defend()">Se défendre</button>
             <button class="buttons" id="howTo" onclick="currentGame.howTo()">Comment Jouer</button>
         </div>
         <div id="container">
