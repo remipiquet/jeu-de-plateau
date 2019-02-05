@@ -9,4 +9,8 @@ class Cell{
         this.positionX = X;
         this.positionY = Y;
     }
+
+    set highlight() {
+        this.highlight = true;
+    }
 }  

@@ -17,11 +17,13 @@ class Game{
         if (this.currentPlayer == player1){
             this.currentPlayer = player2;
             this.currentEnemy = player1;
+            console.log(this.currentPlayer.name + ", à toi de jouer");
             return this.currentPlayer && this.currentEnemy;
         }
         if (this.currentPlayer == player2) {
             this.currentPlayer = player1;
             this.currentEnemy = player2;
+            console.log(this.currentPlayer.name + ", à toi de jouer");
             return this.currentPlayer && this.currentEnemy;
         }
     }
@@ -34,7 +36,7 @@ class Game{
          */
         for (let x = 0; x < this.gameMap.board.length; x++) {
             for (let y = 0; y < this.gameMap.board.length; y++) {
-                if (this.gameMap.board[x][y] == this.currentPlayer.position && this.gameMap.board[x][y].weapon != null) { //TODO: changer currentPlayer.position en getter
+                if (this.gameMap.board[x][y] == this.currentPlayer.position && this.gameMap.board[x][y].weapon != null) {
                     var weaponBuffer = this.gameMap.board[x][y].weapon;
                     this.gameMap.board[x][y].weapon = this.currentPlayer.weapon; // changer en getter
                     this.currentPlayer.weapon = weaponBuffer; // changer en getter
@@ -122,7 +124,7 @@ class Game{
                 for (var y = 0; y < this.gameMap.board.length; y++) {
                     if (this.gameMap.board[x][y].player == this.currentPlayer) {
                         let limitUp = this.mapLimit(x, y, "up"); 
-                        for (var upX = x; upX >= limitUp; upX--) {this.gameMap.board[upX][y].highlight = true;} //TODO: A remplacer par set Highlight
+                        for (var upX = x; upX >= limitUp; upX--) {this.gameMap.board[upX][y].highlight = true;}
                         let limitDown = this.mapLimit(x, y, "down");
                         for (var downX = x; downX <= limitDown; downX++) {this.gameMap.board[downX][y].highlight = true;}
                         let limitLeft = this.mapLimit(x, y, "left");
@@ -141,11 +143,12 @@ class Game{
         for (let x = 0; x < this.gameMap.board.length; x++) { 
             for (let y = 0; y < this.gameMap.board.length; y++) {
                 $("#"+x+y ).click(function(e) {
-                    if (currentGame.gameMap.board[x][y].highlight == true) { // FIXME: pourquoi currentGame ne peut pas être remplacé par this ?
+                    if (currentGame.gameMap.board[x][y].highlight == true) {
                         currentGame.currentPlayer.position.player = null;
                         currentGame.gameMap.board[x][y].player = currentGame.currentPlayer;
                         currentGame.currentPlayer.position = currentGame.gameMap.board[x][y];
                         currentGame.swapWeapon();
+                        console.log(currentGame.currentPlayer.name + " se déplace");
                         currentGame.playGame();
                     }
                     e.stopPropagation();
@@ -198,13 +201,13 @@ class Game{
     }
 }
 
-const weapon1 = new Weapon (1, "hook", 10, '<img src="img/hook.png" alt="hook"></img>');
+const weapon1 = new Weapon (1, "hook", 10, '<img src="img/hook.png" alt="hook"></img>'); // A mettre en propriété (this)
 const weapon2 = new Weapon (2, "knife", 20, '<img src="img/knife.png" alt="knife"></img>');
 const weapon3 = new Weapon (3, "sword", 30, '<img src="img/sword.png" alt="sword"></img>');
 const weapon4 = new Weapon (4, "harpoon", 40, '<img src="img/harpoon.png" alt="harpoon"></img>');
 const weapon5 = new Weapon (5, "gun", 50, '<img src="img/gun.png" alt="gun"></img>');
 
-var player1 = new Player ("Joueur 1", 100, weapon1, '<img src="img/player1.png" alt="player1"></img>');
+var player1 = new Player("Joueur 1", 100, weapon1, '<img src="img/player1.png" alt="player1"></img>'); // A mettre en propriété (this)
 var player2 = new Player ("Joueur 2", 100, weapon1, '<img src="img/player2.png" alt="player2"></img>');
 
 

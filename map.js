@@ -54,6 +54,7 @@ class Map {
             player1.position.player = null;
             player2.position.player = null;
             this.placePlayers();
+            console.log("reroll");
         }
     }
         
@@ -104,7 +105,6 @@ class Map {
          * Remise à zéro de l'affichage du plateau de jeu
          */
         for (let x = 0; x < this.board.length; x++) {
-            let row = $("#x"+x); //selecteur jQuery
             $(".row").empty();
             $('#player1Health').empty();
             $('#player2Health').empty();
