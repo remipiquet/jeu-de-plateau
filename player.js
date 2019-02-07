@@ -17,12 +17,13 @@ class Player{
             this.health = this.health - (currentGame.currentPlayer.weapon.damage/2);
             this.defense = false;
             console.log(currentGame.currentPlayer.name + " attaque, " + currentGame.currentEnemy.name + " perd " + (currentGame.currentPlayer.weapon.damage / 2) + " points de vie");
+            currentGame.playGame();
         }
         else {
             this.health = this.health - currentGame.currentPlayer.weapon.damage;
             console.log(currentGame.currentPlayer.name + " attaque, " + currentGame.currentEnemy.name + " perd " + currentGame.currentPlayer.weapon.damage + " points de vie");
+            currentGame.playGame();
         }
-        currentGame.playGame();
     }
     
     defend() {
@@ -31,38 +32,30 @@ class Player{
          */
         for (let x = 0; x < currentGame.gameMap.board.length; x++) {
             for (let y = 0; y < currentGame.gameMap.board.length; y++) {
-                if (currentGame.gameMap.board[x][y].player == currentGame.currentPlayer) {
-                    if (x < 9){
-                        if (currentGame.gameMap.board[x + 1][y].player == currentGame.currentEnemy) {
-                            this.defense = true;
-                            console.log(currentGame.currentPlayer.name + " se défend");
-                            currentGame.playGame();
-                            break;
-                        }
+                if (currentGame.gameMap.board[x][y].player == currentGame.currentPlayer) { 
+                    if (x < 9 && currentGame.gameMap.board[x + 1][y].player == currentGame.currentEnemy){
+                        this.defense = true;
+                        console.log(currentGame.currentPlayer.name + " se défend");
+                        currentGame.playGame();
+                        return this.defense;
                     }
-                    if (x > 0){
-                        if (currentGame.gameMap.board[x - 1][y].player == currentGame.currentEnemy) {
-                            this.defense = true;
-                            console.log(currentGame.currentPlayer.name + " se défend");
-                            currentGame.playGame();
-                            break;
-                        }
+                    if (x > 0 && currentGame.gameMap.board[x - 1][y].player == currentGame.currentEnemy){
+                        this.defense = true;
+                        console.log(currentGame.currentPlayer.name + " se défend");
+                        currentGame.playGame();
+                        return this.defense;
                     }
-                    if (y < 9){
-                        if (currentGame.gameMap.board[x][y + 1].player == currentGame.currentEnemy) {
-                            this.defense = true;
-                            console.log(currentGame.currentPlayer.name + " se défend");
-                            currentGame.playGame();
-                            break;
-                        }
+                    if (y < 9 && currentGame.gameMap.board[x][y + 1].player == currentGame.currentEnemy){
+                        this.defense = true;
+                        console.log(currentGame.currentPlayer.name + " se défend");
+                        currentGame.playGame();
+                        return this.defense;
                     }
-                    if (y > 0){
-                        if (currentGame.gameMap.board[x][y - 1].player == currentGame.currentEnemy) {
-                            this.defense = true;
-                            console.log(currentGame.currentPlayer.name + " se défend");
-                            currentGame.playGame();
-                            break;
-                        }
+                    if (y > 0 && currentGame.gameMap.board[x][y - 1].player == currentGame.currentEnemy){
+                        this.defense = true;
+                        console.log(currentGame.currentPlayer.name + " se défend");
+                        currentGame.playGame();
+                        return this.defense;
                     }
                 }
             }
@@ -76,29 +69,21 @@ class Player{
         for (let x = 0; x < currentGame.gameMap.board.length; x++) {
             for (let y = 0; y < currentGame.gameMap.board.length; y++) {
                 if (currentGame.gameMap.board[x][y].player == currentGame.currentPlayer) {
-                    if (x < 9){
-                        if (currentGame.gameMap.board[x + 1][y].player == currentGame.currentEnemy) {
-                            currentGame.currentEnemy.isTouched();
-                            break;
-                        }
+                    if (x < 9 && currentGame.gameMap.board[x + 1][y].player == currentGame.currentEnemy){//TODO: à remplacer par un switch
+                        currentGame.currentEnemy.isTouched();
+                        return this.health;
                     }
-                    if (x > 0){
-                        if (currentGame.gameMap.board[x - 1][y].player == currentGame.currentEnemy) {
-                            currentGame.currentEnemy.isTouched();
-                            break;
-                        }
+                    if (x > 0 && currentGame.gameMap.board[x - 1][y].player == currentGame.currentEnemy){
+                        currentGame.currentEnemy.isTouched();
+                        return this.health;
                     }
-                    if (y < 9){
-                        if (currentGame.gameMap.board[x][y + 1].player == currentGame.currentEnemy) {
-                            currentGame.currentEnemy.isTouched();
-                            break;
-                        }
+                    if (y < 9 && currentGame.gameMap.board[x][y + 1].player == currentGame.currentEnemy){
+                        currentGame.currentEnemy.isTouched();
+                        return this.health;
                     }
-                    if (y > 0){
-                        if (currentGame.gameMap.board[x][y - 1].player == currentGame.currentEnemy) {
-                            currentGame.currentEnemy.isTouched();
-                            break;
-                        }
+                    if (y > 0 && currentGame.gameMap.board[x][y - 1].player == currentGame.currentEnemy){
+                        currentGame.currentEnemy.isTouched();
+                        return this.health;
                     }
                 }
             }
