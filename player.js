@@ -30,64 +30,17 @@ class Player{
         /**
          * Gestion de la défense des joueurs
          */
-        for (let x = 0; x < currentGame.gameMap.board.length; x++) {
-            for (let y = 0; y < currentGame.gameMap.board.length; y++) {
-                if (currentGame.gameMap.board[x][y].player == currentGame.currentPlayer) { 
-                    if (x < 9 && currentGame.gameMap.board[x + 1][y].player == currentGame.currentEnemy){
-                        this.defense = true;
-                        console.log(currentGame.currentPlayer.name + " se défend");
-                        currentGame.playGame();
-                        return this.defense;
-                    }
-                    if (x > 0 && currentGame.gameMap.board[x - 1][y].player == currentGame.currentEnemy){
-                        this.defense = true;
-                        console.log(currentGame.currentPlayer.name + " se défend");
-                        currentGame.playGame();
-                        return this.defense;
-                    }
-                    if (y < 9 && currentGame.gameMap.board[x][y + 1].player == currentGame.currentEnemy){
-                        this.defense = true;
-                        console.log(currentGame.currentPlayer.name + " se défend");
-                        currentGame.playGame();
-                        return this.defense;
-                    }
-                    if (y > 0 && currentGame.gameMap.board[x][y - 1].player == currentGame.currentEnemy){
-                        this.defense = true;
-                        console.log(currentGame.currentPlayer.name + " se défend");
-                        currentGame.playGame();
-                        return this.defense;
-                    }
-                }
-            }
-        }
+        this.defense = true;
+        console.log(currentGame.currentPlayer.name + " se défend");
+        return this.defense;
     }
 
-    fight() {
+    fight(victim) {
         /**
          * Gestion du combat des joueurs
          */
-        for (let x = 0; x < currentGame.gameMap.board.length; x++) {
-            for (let y = 0; y < currentGame.gameMap.board.length; y++) {
-                if (currentGame.gameMap.board[x][y].player == currentGame.currentPlayer) {
-                    if (x < 9 && currentGame.gameMap.board[x + 1][y].player == currentGame.currentEnemy){//TODO: à remplacer par un switch
-                        currentGame.currentEnemy.isTouched();
-                        return this.health;
-                    }
-                    if (x > 0 && currentGame.gameMap.board[x - 1][y].player == currentGame.currentEnemy){
-                        currentGame.currentEnemy.isTouched();
-                        return this.health;
-                    }
-                    if (y < 9 && currentGame.gameMap.board[x][y + 1].player == currentGame.currentEnemy){
-                        currentGame.currentEnemy.isTouched();
-                        return this.health;
-                    }
-                    if (y > 0 && currentGame.gameMap.board[x][y - 1].player == currentGame.currentEnemy){
-                        currentGame.currentEnemy.isTouched();
-                        return this.health;
-                    }
-                }
-            }
-        } 
-        
+
+        victim.isTouched();
+        return true;
     }
 } 

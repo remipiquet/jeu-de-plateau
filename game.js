@@ -4,6 +4,7 @@ class Game{
         this.currentPlayer = player1;
         this.currentEnemy = player2;
         this.endGame = false;
+        this.fighting = false;
     }
 
     howTo() {
@@ -18,13 +19,11 @@ class Game{
             this.currentPlayer = player2;
             this.currentEnemy = player1;
             console.log(this.currentPlayer.name + ", à toi de jouer");
-            return this.currentPlayer && this.currentEnemy;
         }
-        if (this.currentPlayer == player2) {
+        else if (this.currentPlayer == player2) {
             this.currentPlayer = player1;
             this.currentEnemy = player2;
             console.log(this.currentPlayer.name + ", à toi de jouer");
-            return this.currentPlayer && this.currentEnemy;
         }
     }
     
@@ -157,6 +156,29 @@ class Game{
         }   
     }    
 
+    playerProximity() {
+        var sideBySide = false;
+        for (let x = 0; x < this.gameMap.board.length; x++) {
+            for (let y = 0; y < this.gameMap.board.length; y++) {
+                if (this.gameMap.board[x][y].player == this.currentPlayer) { 
+                    if (x < 9 && this.gameMap.board[x + 1][y].player == this.currentEnemy){
+                        sideBySide = true;
+                    }
+                    else if (x > 0 && currentGame.gameMap.board[x - 1][y].player == currentGame.currentEnemy){
+                        sideBySide = true;
+                    }
+                    else if (y < 9 && currentGame.gameMap.board[x][y + 1].player == currentGame.currentEnemy){
+                        sideBySide = true;
+                    }
+                    else if (y > 0 && currentGame.gameMap.board[x][y - 1].player == currentGame.currentEnemy){
+                        sideBySide = true;
+                    }
+                }
+            }
+        }
+        return sideBySide;
+    }
+
 
     gameOver() {
         /**
@@ -179,7 +201,16 @@ class Game{
         this.gameMap.printHtml();
         this.highlight();
         this.gameMap.lightAccessibleCells();
-        this.movePlayer();
+        if (this.playerProximity()) {
+            $('#attack').removeAttr("disabled")
+            $('#defend').removeAttr("disabled")
+            if (!this.fighting) {
+                this.movePlayer();
+            }
+        }
+        else {
+            this.movePlayer();
+        }
     }
 
     start() {
