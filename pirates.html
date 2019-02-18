@@ -9,9 +9,9 @@
     </head>
     <body>
         <div id="buttonsZone">
-            <button class="buttons" id="attack" onclick="currentGame.fighting = currentGame.currentPlayer.fight(currentGame.currentEnemy)" disabled>Attaquer</button>
-            <button class="buttons" id="defend" onclick="currentGame.fighting = currentGame.currentPlayer.defend()" disabled>Se défendre</button>
-            <button class="buttons" id="howTo" onclick="currentGame.howTo()">Comment Jouer</button>
+            <button class="playButtons" id="attack" onclick="currentGame.fighting = currentGame.currentPlayer.fight(currentGame.currentEnemy);currentGame.playGame();" disabled>Attaquer</button>
+            <button class="playButtons" id="defend" onclick="currentGame.fighting = currentGame.currentPlayer.defend();currentGame.playGame();" disabled>Se défendre</button>
+            <button class="buttonHowTo" id="howTo" onclick="currentGame.howTo()">Comment Jouer</button>
         </div>
         <div id="container">
             <div id="p1Zone">

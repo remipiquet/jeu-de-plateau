@@ -8,13 +8,13 @@ class Game{
     }
 
     howTo() {
-        alert("Cliquez sur les cases surlignées en orange pour déplacer le joueur dont c'est le tour. Passez sur une case contenant une arme pour en changer. Lorsque les deux joueurs sont côte à côte, ils peuvent choisir de se battre, de se défendre, ou de fuir. Dès que l'un des joueurs a 0 points de vie, l'autre joueur gagne. Bon jeu !");
+        alert("Cliquez sur les cases surlignées en orange pour déplacer le joueur dont c'est le tour. Passez sur une case contenant une arme pour en changer. Lorsque les deux joueurs sont côte à côte, ils peuvent choisir de se battre ou de se défendre. Dès que l'un des joueurs a 0 points de vie, l'autre joueur gagne. Bon jeu !");
     }
 
     setNextTurn() {
-        /**
-         * Gestion du tour par tour
-         */
+    /**
+     * Gestion du tour par tour
+     */
         if (this.currentPlayer == player1){
             this.currentPlayer = player2;
             this.currentEnemy = player1;
@@ -30,9 +30,9 @@ class Game{
     
 
     swapWeapon() {
-        /**
-         * Echange l'arme de currentPlayer contre celle qui est sur sa case
-         */
+    /**
+     * Echange l'arme de currentPlayer contre celle qui est sur sa case
+     */
         for (let x = 0; x < this.gameMap.board.length; x++) {
             for (let y = 0; y < this.gameMap.board.length; y++) {
                 if (this.gameMap.board[x][y] == this.currentPlayer.position && this.gameMap.board[x][y].weapon != null) {
@@ -45,9 +45,9 @@ class Game{
     }
 
     resetHighlight() {
-        /**
-         * Remise à zéro du surlignage
-         */
+    /**
+     * Remise à zéro du surlignage
+     */
         for (var x = 0; x < this.gameMap.board.length; x++) {
             for (var y = 0; y < this.gameMap.board.length; y++) {
                 this.gameMap.board[x][y].highlight = false;
@@ -56,9 +56,9 @@ class Game{
     }
 
     mapLimit(xPlayer,yPlayer,direction) {
-        /**
-         * Définition des limites du plateau
-         */
+    /**
+     * Définition des limites du plateau
+     */
         let limit;
         switch (direction){
             case "left" :
@@ -115,33 +115,33 @@ class Game{
         return limit;
     }
 
-        highlight() {
-            /**
-             * Définition des cases sur lesquelles le joueur en cours peut se déplacer
-             */
-            for (var x = 0; x < this.gameMap.board.length; x++) {
-                for (var y = 0; y < this.gameMap.board.length; y++) {
-                    if (this.gameMap.board[x][y].player == this.currentPlayer) {
-                        let limitUp = this.mapLimit(x, y, "up"); 
-                        for (var upX = x; upX >= limitUp; upX--) {this.gameMap.board[upX][y].highlight = true;}
-                        let limitDown = this.mapLimit(x, y, "down");
-                        for (var downX = x; downX <= limitDown; downX++) {this.gameMap.board[downX][y].highlight = true;}
-                        let limitLeft = this.mapLimit(x, y, "left");
-                        for (var leftY = y; leftY >= limitLeft; leftY--) {this.gameMap.board[x][leftY].highlight = true;}
-                        let limitRight = this.mapLimit(x, y, "right");
-                        for (var rightY = y; rightY <= limitRight; rightY++) {this.gameMap.board[x][rightY].highlight = true;}
-                    }
+    highlight() {
+    /**
+     * Définition des cases sur lesquelles le joueur en cours peut se déplacer
+     */
+        for (var x = 0; x < this.gameMap.board.length; x++) {
+            for (var y = 0; y < this.gameMap.board.length; y++) {
+                if (this.gameMap.board[x][y].player == this.currentPlayer) {
+                    let limitUp = this.mapLimit(x, y, "up"); 
+                    for (var upX = x; upX >= limitUp; upX--) {this.gameMap.board[upX][y].highlight = true;}
+                    let limitDown = this.mapLimit(x, y, "down");
+                    for (var downX = x; downX <= limitDown; downX++) {this.gameMap.board[downX][y].highlight = true;}
+                    let limitLeft = this.mapLimit(x, y, "left");
+                    for (var leftY = y; leftY >= limitLeft; leftY--) {this.gameMap.board[x][leftY].highlight = true;}
+                    let limitRight = this.mapLimit(x, y, "right");
+                    for (var rightY = y; rightY <= limitRight; rightY++) {this.gameMap.board[x][rightY].highlight = true;}
                 }
             }
         }
+    }
 
     movePlayer() {
-        /**
-         * Gestion des mouvements des joueurs
-         */
+    /**
+     * Gestion des mouvements des joueurs
+     */
         for (let x = 0; x < this.gameMap.board.length; x++) { 
             for (let y = 0; y < this.gameMap.board.length; y++) {
-                $("#"+x+y ).click(function(e) {
+                $("#"+x+y ).click(function(e) { //closure
                     if (currentGame.gameMap.board[x][y].highlight == true) {
                         currentGame.currentPlayer.position.player = null;
                         currentGame.gameMap.board[x][y].player = currentGame.currentPlayer;
@@ -179,11 +179,19 @@ class Game{
         return sideBySide;
     }
 
+    proximitySetup () {
+        $('#attack').removeAttr("disabled")
+        $('#defend').removeAttr("disabled")
+        $('.playButtons').css("background", "#ffa500");
+        this.currentPlayer.position.highlight = true;
+        console.log(this.currentPlayer.position);
+        $('#' + this.currentPlayer.position.id).addClass("light");
+    }
 
     gameOver() {
-        /**
-         * Fin de la partie lorsque les PV d'un joueurs <= 0
-         */
+    /**
+     * Fin de la partie lorsque les PV d'un joueurs <= 0
+     */
         if (this.currentEnemy.health <= 0){
             this.endGame = true;
             alert("Bravo, " + this.currentPlayer.name + " gagne la partie ! Cliquez sur OK pour relancer le jeu.");
@@ -192,18 +200,19 @@ class Game{
     }
 
     playGame() {
-        /**
-         * Gestion du tour de chaque joueur
-         */
+    /**
+     * Gestion du tour de chaque joueur
+     */
         this.gameOver();
         this.setNextTurn();
         this.resetHighlight();
         this.gameMap.printHtml();
-        this.highlight();
+        if (!this.fighting) {
+            this.highlight();
+        }
         this.gameMap.lightAccessibleCells();
         if (this.playerProximity()) {
-            $('#attack').removeAttr("disabled")
-            $('#defend').removeAttr("disabled")
+            this.proximitySetup();
             if (!this.fighting) {
                 this.movePlayer();
             }
@@ -214,6 +223,9 @@ class Game{
     }
 
     start() {
+    /**
+     * Lancement du jeu
+     */
         this.gameMap.generate();
     
         this.gameMap.getEmptyCells();
@@ -232,13 +244,13 @@ class Game{
     }
 }
 
-const weapon1 = new Weapon (1, "hook", 10, '<img src="img/hook.png" alt="hook"></img>'); // A mettre en propriété (this)
+const weapon1 = new Weapon (1, "hook", 10, '<img src="img/hook.png" alt="hook"></img>');
 const weapon2 = new Weapon (2, "knife", 20, '<img src="img/knife.png" alt="knife"></img>');
 const weapon3 = new Weapon (3, "sword", 30, '<img src="img/sword.png" alt="sword"></img>');
 const weapon4 = new Weapon (4, "harpoon", 40, '<img src="img/harpoon.png" alt="harpoon"></img>');
 const weapon5 = new Weapon (5, "gun", 50, '<img src="img/gun.png" alt="gun"></img>');
 
-var player1 = new Player("Joueur 1", 100, weapon1, '<img src="img/player1.png" alt="player1"></img>'); // A mettre en propriété (this)
+var player1 = new Player("Joueur 1", 100, weapon1, '<img src="img/player1.png" alt="player1"></img>');
 var player2 = new Player ("Joueur 2", 100, weapon1, '<img src="img/player2.png" alt="player2"></img>');
 
 

@@ -7,9 +7,9 @@ class Map {
     }    
     
     generate() {
-        /**
-         * Génération du plateau de jeu en 10x10 avec à peu près 1/10ème de tonneaux
-         */
+    /**
+     * Génération du plateau de jeu en 10x10 avec à peu près 1/10ème de tonneaux
+     */
         for (let x = 0; x < this.mapSize; x++) {
             this.board[x] = [];
             for (let y = 0; y < this.mapSize; y++) {
@@ -24,9 +24,9 @@ class Map {
     }
 
     getEmptyCells() {
-        /**
-         * Récupération des cases vides
-         */
+    /**
+     * Récupération des cases vides
+     */
         let emptyCells = new Array();
         for (let x = 0; x < this.mapSize; x++) {
             for (let y = 0; y < this.mapSize; y++) {
@@ -37,9 +37,9 @@ class Map {
     }
 
     placePlayers() {
-        /**
-         * Placement des joueurs sur le plateau
-         */
+    /**
+     * Placement des joueurs sur le plateau
+     */
         let accessibleCells = this.getEmptyCells();
         let player1Position = Math.floor(Math.random() * (accessibleCells.length));
         let player1Pos = accessibleCells[player1Position];
@@ -61,9 +61,9 @@ class Map {
     
 
     placeWeapons() {
-        /**
-         * Placement des armes sur le plateau
-         */
+    /**
+     * Placement des armes sur le plateau
+     */
         
         let accessibleCells = this.getEmptyCells();
         let weapon2Position = Math.floor(Math.random() * (accessibleCells.length));
@@ -84,9 +84,9 @@ class Map {
     }
 
     lightAccessibleCells() {
-        /**
-         * Surlignage des cases acccessibles au joueur
-         */
+    /**
+     * Surlignage des cases acccessibles au joueur
+     */
         let myBoard = currentGame.gameMap.board;
         for (let x = 0; x < currentGame.gameMap.board.length; x++) {
             for (let y = 0; y < currentGame.gameMap.board.length; y++) {
@@ -101,9 +101,9 @@ class Map {
     }
 
     resetPrint() {
-        /**
-         * Remise à zéro de l'affichage du plateau de jeu
-         */
+    /**
+     * Remise à zéro de l'affichage du plateau de jeu
+     */
         for (let x = 0; x < this.board.length; x++) {
             $(".row").empty();
             $('#player1Health').empty();
@@ -116,9 +116,9 @@ class Map {
     }  
 
     printHtml() { 
-        /**
-         * Affichage du plateau de jeu
-         */
+    /**
+     * Affichage du plateau de jeu
+     */
         if (this.reDraw == true) {
                 this.resetPrint();
             } else {
