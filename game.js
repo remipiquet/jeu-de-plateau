@@ -18,12 +18,10 @@ class Game{
         if (this.currentPlayer == player1){
             this.currentPlayer = player2;
             this.currentEnemy = player1;
-            console.log(this.currentPlayer.name + ", à toi de jouer");
         }
         else if (this.currentPlayer == player2) {
             this.currentPlayer = player1;
             this.currentEnemy = player2;
-            console.log(this.currentPlayer.name + ", à toi de jouer");
         }
     }
     
@@ -147,7 +145,6 @@ class Game{
                         currentGame.gameMap.board[x][y].player = currentGame.currentPlayer;
                         currentGame.currentPlayer.position = currentGame.gameMap.board[x][y];
                         currentGame.swapWeapon();
-                        console.log(currentGame.currentPlayer.name + " se déplace");
                         currentGame.playGame();
                     }
                     e.stopPropagation();
@@ -157,6 +154,9 @@ class Game{
     }    
 
     playerProximity() {
+    /**
+     * Détection de la proximité des joueurs
+     */
         var sideBySide = false;
         for (let x = 0; x < this.gameMap.board.length; x++) {
             for (let y = 0; y < this.gameMap.board.length; y++) {
@@ -180,11 +180,13 @@ class Game{
     }
 
     proximitySetup () {
+    /**
+     * Règles appliquées lorsque les joueurs sont à proximité
+     */
         $('#attack').removeAttr("disabled")
         $('#defend').removeAttr("disabled")
         $('.playButtons').css("background", "#ffa500");
         this.currentPlayer.position.highlight = true;
-        console.log(this.currentPlayer.position);
         $('#' + this.currentPlayer.position.id).addClass("light");
     }
 

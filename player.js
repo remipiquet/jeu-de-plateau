@@ -3,7 +3,6 @@ class Player{
         this.name = name;
         this.health = health;
         this.weapon = weapon;
-        this.strength = weapon.damage;
         this.position = null;
         this.defense = false;
         this.imgUrl = imgUrl;
@@ -19,7 +18,6 @@ class Player{
         }
         else {
             this.health = this.health - damage;
-            console.log(damage);
         }
     }
     
