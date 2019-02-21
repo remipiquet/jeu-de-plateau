@@ -35,8 +35,8 @@ class Game{
             for (let y = 0; y < this.gameMap.board.length; y++) {
                 if (this.gameMap.board[x][y] == this.currentPlayer.position && this.gameMap.board[x][y].weapon != null) {
                     var weaponBuffer = this.gameMap.board[x][y].weapon;
-                    this.gameMap.board[x][y].weapon = this.currentPlayer.weapon; // changer en getter
-                    this.currentPlayer.weapon = weaponBuffer; // changer en getter
+                    this.gameMap.board[x][y].weapon = this.currentPlayer.weapon; 
+                    this.currentPlayer.weapon = weaponBuffer; 
                 }
             }
         }
